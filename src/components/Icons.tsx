@@ -47,6 +47,15 @@ export const DownIcon = ({ ...props }: HTMLAttributes<HTMLSpanElement>) => {
   );
 };
 
+export const RightIcon = ({ ...props }: HTMLAttributes<HTMLSpanElement>) => {
+  return (
+    <span
+      {...props}
+      className={"icon-[mingcute--right-line] " + (props.className ?? "")}
+    />
+  );
+};
+
 export const LeftIcon = ({ ...props }: HTMLAttributes<HTMLSpanElement>) => {
   return (
     <span
