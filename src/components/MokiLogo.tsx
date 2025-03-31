@@ -1,11 +1,8 @@
+import { HTMLAttributes } from "react";
 import MokiLogosvg from "../assets/image/MokiLogo.svg";
 
-const MokiLogo = () => {
-  return (
-    <div>
-      <img src={MokiLogosvg}></img>
-    </div>
-  );
+const MokiLogo = ({ ...props }: HTMLAttributes<HTMLImageElement>) => {
+  return <img {...props} src={MokiLogosvg}></img>;
 };
 
 export default MokiLogo;
