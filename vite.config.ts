@@ -11,10 +11,11 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@": getAliasPath("src"),
-      "@layout": getAliasPath("src/layout"),
       "@components": getAliasPath("src/components"),
+      "@pages": getAliasPath("src/pages"),
+      "@layout": getAliasPath("src/layout"),
       "@services": getAliasPath("src/services"),
+      "@": getAliasPath("src"),
     },
   },
 });

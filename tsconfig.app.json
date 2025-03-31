@@ -24,10 +24,11 @@
 
     "baseUrl": "src",
     "paths": {
-      "@/*": ["*"],
-      "@layout/*": ["layout/*"],
       "@components/*": ["components/*"],
-      "@services/*": ["services/*"]
+      "@pages/*": ["pages/*"],
+      "@layout/*": ["layout/*"],
+      "@services/*": ["services/*"],
+      "@/*": ["*"]
     }
   },
   "include": ["src"]
