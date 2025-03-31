@@ -4,7 +4,9 @@ export const MoveIcon = ({ ...props }: HTMLAttributes<HTMLSpanElement>) => {
   return (
     <span
       {...props}
-      className={"icon-[icon-park--to-right] " + (props.className ?? "")}
+      className={
+        "icon-[icon-park-outline--to-right] " + (props.className ?? "")
+      }
     />
   );
 };
