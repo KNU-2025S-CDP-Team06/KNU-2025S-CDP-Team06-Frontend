@@ -7,7 +7,7 @@ const SecondarySmallbutton = ({
     <button
       {...props}
       className={
-        "cursor-pointer flex px-4 py-1 text-sm font-median items-center justify-center bg-white border border-neutral-300 rounded-lg " +
+        "cursor-pointer flex px-4 py-1 text-sm font-medium items-center justify-center bg-white border border-neutral-300 rounded-lg " +
         (props.className ?? "")
       }
     >
