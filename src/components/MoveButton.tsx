@@ -1,16 +1,17 @@
 import { HTMLAttributes } from "react";
 import { MoveIcon } from "./Icons";
-const MoveButton = ({ ...props }: HTMLAttributes<HTMLDivElement>) => {
+const MoveButton = ({ ...props }: HTMLAttributes<HTMLButtonElement>) => {
   return (
-    <div
+    <button
+      {...props}
       className={
-        "flex px-3 py-2 gap-2 text-base font-median text items-center justify-center bg-white border border-neutral-200 rounded-lg " +
-        props.className
+        "cursor-pointer flex px-3 py-2 gap-2 text-base font-median text items-center justify-center bg-white border border-neutral-200 rounded-lg " +
+        (props.className ?? "")
       }
     >
       <MoveIcon className="w-4 h-4" />
       {props.children}
-    </div>
+    </button>
   );
 };
 
