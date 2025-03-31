@@ -1,12 +1,21 @@
 import LoginButton from "@/components/LoginButton";
 import MokiLogo from "@/components/MokiLogo";
+import { useNavigate } from "react-router-dom";
 
 const OnBoarding = () => {
+  const navigate = useNavigate();
   return (
-    <div className="flex flex-col items-center justify-between min-h-screen px-8 pt-32 pb-8">
+    <main className="flex flex-col items-center justify-between min-h-screen px-8 pt-32 pb-8">
       <MokiLogo className="w-40" />
-      <LoginButton className="w-full">사업자 번호로 로그인 하기</LoginButton>
-    </div>
+      <LoginButton
+        onClick={() => {
+          navigate("/login");
+        }}
+        className="w-full"
+      >
+        사업자 번호로 로그인 하기
+      </LoginButton>
+    </main>
   );
 };
 
