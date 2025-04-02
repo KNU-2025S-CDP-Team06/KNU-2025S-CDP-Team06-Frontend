@@ -1,4 +1,4 @@
-import LoginButton from "@/components/LoginButton";
+import LoginButton from "@components/ui/LoginButton";
 import MokiLogo from "@/components/MokiLogo";
 import { useNavigate } from "react-router-dom";
 

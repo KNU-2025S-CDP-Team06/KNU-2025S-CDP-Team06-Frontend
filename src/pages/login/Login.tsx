@@ -1,6 +1,6 @@
-import Button from "@components/Button";
+import Button from "@components/ui/Button";
 import MokiLogo from "@components/MokiLogo";
-import TextInput from "@components/TextInput";
+import TextInput from "@components/ui/TextInput";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 

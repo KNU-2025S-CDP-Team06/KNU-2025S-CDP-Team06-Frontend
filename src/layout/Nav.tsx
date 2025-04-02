@@ -1,4 +1,4 @@
-import { HomeIcon, ReportIcon, MyPageIcon } from "./Icons";
+import { HomeIcon, ReportIcon, MyPageIcon } from "../components/Icons";
 
 const Nav = () => {
   const isLogined = !!sessionStorage.getItem("token");

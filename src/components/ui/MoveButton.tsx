@@ -1,5 +1,5 @@
 import { HTMLAttributes } from "react";
-import { MoveIcon } from "./Icons";
+import { MoveIcon } from "@components/Icons";
 const MoveButton = ({ ...props }: HTMLAttributes<HTMLButtonElement>) => {
   return (
     <button

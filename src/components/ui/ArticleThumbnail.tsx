@@ -2,7 +2,7 @@ import { HTMLAttributes } from "react";
 interface ArticleThumbnailProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
 }
-import { RightIcon } from "./Icons";
+import { RightIcon } from "../Icons";
 
 const ArticleThumbnail = ({ ...props }: ArticleThumbnailProps) => {
   return (
