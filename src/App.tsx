@@ -6,7 +6,6 @@ import Login from "@pages/login/Login";
 import Mypage from "@pages/mypage/MyPage";
 import { useEffect, useState } from "react";
 import Main from "@pages/main/Main";
-import Nav from "@components/Nav";
 
 const App = () => {
   return (
@@ -17,7 +16,6 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/mypage" element={<Mypage />} />
         </Routes>
-        <Nav />
       </Layout>
     </BrowserRouter>
   );
@@ -30,7 +28,7 @@ const MainRoute = () => {
     setIsAuthenticated(!!token);
   }, []);
 
-  return isAuthenticated ? <Main></Main> : <OnBoarding />;
+  return isAuthenticated ? <Main /> : <OnBoarding />;
 };
 
 export default App;
