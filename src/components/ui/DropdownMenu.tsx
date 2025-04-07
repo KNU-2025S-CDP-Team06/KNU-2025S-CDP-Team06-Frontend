@@ -1,5 +1,5 @@
 import { HTMLAttributes } from "react";
-import { DownIcon } from "./Icons";
+import { DownIcon } from "@components/Icons";
 const DropdownMenu = ({ ...props }: HTMLAttributes<HTMLButtonElement>) => {
   return (
     <button
