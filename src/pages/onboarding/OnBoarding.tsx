@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const OnBoarding = () => {
   const navigate = useNavigate();
   return (
-    <main className="flex flex-col items-center justify-between min-h-screen px-8 pt-32 pb-8">
+    <main className="flex flex-col items-center justify-between flex-grow px-8 pt-32 pb-8">
       <MokiLogo className="w-40" />
       <LoginButton
         onClick={() => {
