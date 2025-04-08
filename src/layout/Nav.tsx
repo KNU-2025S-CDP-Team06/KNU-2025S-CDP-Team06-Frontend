@@ -1,8 +1,13 @@
+import { useEffect, useState } from "react";
 import { HomeIcon, ReportIcon, MyPageIcon } from "../components/Icons";
+import { useLocation } from "react-router-dom";
 
 const Nav = () => {
-  const isLogined = !!sessionStorage.getItem("token");
-
+  const { pathname } = useLocation();
+  const [isLogined, setIsLogined] = useState(false);
+  useEffect(() => {
+    setIsLogined(!!sessionStorage.getItem("token"));
+  }, [pathname]);
   return (
     isLogined && (
       <nav
