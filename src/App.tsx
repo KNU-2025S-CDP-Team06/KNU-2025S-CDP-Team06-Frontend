@@ -6,6 +6,7 @@ import Login from "@pages/login/Login";
 import Mypage from "@pages/mypage/MyPage";
 import { useEffect, useState } from "react";
 import Main from "@pages/main/Main";
+import Playground from "@pages/playground/Playground";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
           <Route path="/" element={<MainRoute />} />
           <Route path="/login" element={<Login />} />
           <Route path="/mypage" element={<Mypage />} />
+          <Route path="/playground" element={<Playground />} />
         </Routes>
       </Layout>
     </BrowserRouter>
