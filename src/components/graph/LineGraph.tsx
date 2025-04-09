@@ -1,8 +1,7 @@
 // install (please try to align the version of installed @nivo packages)
 // yarn add @nivo/line
 import { DailySales } from "@/models/dailySales.model";
-import PrimarySmallbutton from "@components/ui/PrimarySmallbutton";
-import SecondarySmallbutton from "@components/ui/SecondarySmallbutton";
+import SmallButton from "@components/ui/SmallButton";
 import { linearGradientDef } from "@nivo/core";
 import { ResponsiveLine, Serie } from "@nivo/line";
 import { useEffect, useState } from "react";
@@ -92,9 +91,9 @@ const LineGraph = ({
         />
       </div>
       <div className="flex gap-2 px-8">
-        <SecondarySmallbutton className="flex-grow">1일</SecondarySmallbutton>
-        <PrimarySmallbutton className="flex-grow">1주일</PrimarySmallbutton>
-        <SecondarySmallbutton className="flex-grow">1개월</SecondarySmallbutton>
+        <SmallButton className="flex-grow">1일</SmallButton>
+        <SmallButton className="flex-grow">1주일</SmallButton>
+        <SmallButton className="flex-grow">1개월</SmallButton>
       </div>
     </section>
   );
