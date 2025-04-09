@@ -54,7 +54,10 @@ const BarGraph = ({
       <div className="flex items-end justify-center gap-3 py-2 ">
         {data.map((data, index) => {
           return (
-            <div className="flex-grow flex flex-col gap-0.5 items-center">
+            <div
+              key={index}
+              className="flex-grow flex flex-col gap-0.5 items-center"
+            >
               {data.ispredict && (
                 <div className="py-0.5 px-2 mb-1 bg-white border rounded-full border-neutral-200 text-xs font-bold text-blue-500">
                   예상
