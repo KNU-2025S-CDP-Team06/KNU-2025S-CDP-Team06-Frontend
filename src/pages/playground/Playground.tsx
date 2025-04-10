@@ -1,7 +1,8 @@
 import { DailySales } from "@/models/dailySales.model";
 import BarGraph from "@components/graph/BarGraph";
 import LineGraph from "@components/graph/LineGraph";
-
+import MenuElement from "@components/ui/MenuElement";
+import ArticleThumbnail from "@components/ui/ArticleThumbnail";
 const Playground = () => {
   const dummy_data: DailySales[] = [
     {
@@ -60,6 +61,29 @@ const Playground = () => {
         ]}
       />
       <LineGraph data={dummy_data} />
+
+      <ArticleThumbnail title="메뉴별 판매리포트" className="bg-white w-full ">
+        <div className="flex-col w-full">
+          <MenuElement
+            number={1}
+            image="https://picsum.photos/seed/menu1/40"
+            title="아메리카노 (다크)"
+            paragraph="83개"
+          />
+          <MenuElement
+            number={2}
+            image="https://picsum.photos/seed/menu2/40"
+            title="아인슈페너 (ICE)"
+            paragraph="21개"
+          />
+          <MenuElement
+            number={3}
+            image="https://picsum.photos/seed/menu3/40"
+            title="카페라떼"
+            paragraph="16개"
+          />
+        </div>
+      </ArticleThumbnail>
     </div>
   );
 };
