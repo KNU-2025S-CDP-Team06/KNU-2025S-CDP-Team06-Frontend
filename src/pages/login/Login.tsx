@@ -44,6 +44,12 @@ const Login = () => {
           <TextInput
             placeholder="계정 비밀번호"
             type="password"
+            onKeyUp={(e) => {
+              if (e.key == "Enter") {
+                setToken();
+                navigate("/");
+              }
+            }}
             onChange={(e) => {
               setAuth({ ...auth, password: e.currentTarget.value });
             }}
