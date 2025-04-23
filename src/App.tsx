@@ -7,19 +7,23 @@ import Mypage from "@pages/mypage/MyPage";
 import { useEffect, useState } from "react";
 import Main from "@pages/main/Main";
 import Playground from "@pages/playground/Playground";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const App = () => {
+  const queryClient = new QueryClient();
   return (
-    <BrowserRouter>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<MainRoute />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/mypage" element={<Mypage />} />
-          <Route path="/playground" element={<Playground />} />
-        </Routes>
-      </Layout>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<MainRoute />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/mypage" element={<Mypage />} />
+            <Route path="/playground" element={<Playground />} />
+          </Routes>
+        </Layout>
+      </BrowserRouter>
+    </QueryClientProvider>
   );
 };
 
