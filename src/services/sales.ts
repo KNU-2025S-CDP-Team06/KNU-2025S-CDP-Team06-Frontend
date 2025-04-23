@@ -10,7 +10,7 @@ type getSalesParams = {
 
 export const getSales = async (params: getSalesParams) => {
   const response = await getRequest<DailySales[]>(
-    "/public/mocks/salesDailyData.json",
+    "/mocks/salesDailyData.json",
     params
   );
   return response;
@@ -22,7 +22,7 @@ type getDailySalesParams = {
 
 export const getDailySales = async (params: getDailySalesParams) => {
   const response = await getRequest<DailySales[]>(
-    "/public/mocks/salesDailyData.json",
+    "/mocks/salesDailyData.json",
     {
       startDate: params.date,
       endDate: params.date,
