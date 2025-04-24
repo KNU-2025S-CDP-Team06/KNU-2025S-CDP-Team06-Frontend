@@ -1,0 +1,1053 @@
+[
+  {
+    "date": "2025-03-01",
+    "total_revenue": 512300,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-02",
+    "total_revenue": 430100,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-03",
+    "total_revenue": 589600,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-04",
+    "total_revenue": 600200,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-05",
+    "total_revenue": 478300,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-06",
+    "total_revenue": 656700,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-07",
+    "total_revenue": 544400,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-08",
+    "total_revenue": 621000,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-09",
+    "total_revenue": 498200,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-10",
+    "total_revenue": 583900,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-11",
+    "total_revenue": 562300,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-12",
+    "total_revenue": 610500,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-13",
+    "total_revenue": 474000,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-14",
+    "total_revenue": 533600,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-15",
+    "total_revenue": 611800,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-16",
+    "total_revenue": 496900,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-17",
+    "total_revenue": 650300,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-18",
+    "total_revenue": 618400,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-19",
+    "total_revenue": 508200,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-20",
+    "total_revenue": 602300,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-21",
+    "total_revenue": 590400,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-22",
+    "total_revenue": 471000,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-23",
+    "total_revenue": 612900,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-24",
+    "total_revenue": 502300,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-25",
+    "total_revenue": 599800,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-26",
+    "total_revenue": 533300,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-27",
+    "total_revenue": 650000,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-28",
+    "total_revenue": 488800,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-29",
+    "total_revenue": 603300,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-30",
+    "total_revenue": 579200,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-03-31",
+    "total_revenue": 621700,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-04-01",
+    "total_revenue": 595000,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-04-02",
+    "total_revenue": 530000,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-04-03",
+    "total_revenue": 494700,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-04-04",
+    "total_revenue": 640800,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-04-05",
+    "total_revenue": 585900,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-04-06",
+    "total_revenue": 676700,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-04-07",
+    "total_revenue": 216300,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-04-08",
+    "total_revenue": 591800,
+    "total_count": 0,
+    "sales_data": []
+  },
+  {
+    "date": "2025-04-09",
+    "total_revenue": 625200,
+    "total_count": 0,
+    "sales_data": [
+      {
+        "count": 1,
+        "datetime": "2025-04-09T07",
+        "menu": {
+          "name": "라지 아메리카노",
+          "image": "https://picsum.photos/256/256",
+          "price": 2450
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T08",
+        "menu": {
+          "name": "밀크티",
+          "image": "https://picsum.photos/256/256",
+          "price": 3150
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T08",
+        "menu": {
+          "name": "바다소금라떼아이스",
+          "image": "https://picsum.photos/256/256",
+          "price": 3430
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T08",
+        "menu": {
+          "name": "라지 아메리카노",
+          "image": "https://picsum.photos/256/256",
+          "price": 2450
+        }
+      },
+      {
+        "count": 3,
+        "datetime": "2025-04-09T08",
+        "menu": {
+          "name": "산미 숏블랙",
+          "image": "https://picsum.photos/256/256",
+          "price": 2100
+        }
+      },
+      {
+        "count": 4,
+        "datetime": "2025-04-09T08",
+        "menu": {
+          "name": "다크 아메리카노",
+          "image": "https://picsum.photos/256/256",
+          "price": 1750
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T08",
+        "menu": {
+          "name": "라떼",
+          "image": "https://picsum.photos/256/256",
+          "price": 2450
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T09",
+        "menu": {
+          "name": "바닐라빈 샷 추가",
+          "image": "https://picsum.photos/256/256",
+          "price": 3360
+        }
+      },
+      {
+        "count": 3,
+        "datetime": "2025-04-09T09",
+        "menu": {
+          "name": "라지 아메리카노",
+          "image": "https://picsum.photos/256/256",
+          "price": 2450
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T09",
+        "menu": {
+          "name": "산미 숏블랙",
+          "image": "https://picsum.photos/256/256",
+          "price": 2100
+        }
+      },
+      {
+        "count": 10,
+        "datetime": "2025-04-09T09",
+        "menu": {
+          "name": "다크 아메리카노",
+          "image": "https://picsum.photos/256/256",
+          "price": 1750
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T10",
+        "menu": {
+          "name": "말렌카 꿀케이크",
+          "image": "https://picsum.photos/256/256",
+          "price": 3849
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T10",
+        "menu": {
+          "name": "핸드메이드자몽티",
+          "image": "https://picsum.photos/256/256",
+          "price": 3150
+        }
+      },
+      {
+        "count": 9,
+        "datetime": "2025-04-09T10",
+        "menu": {
+          "name": "다크 아메리카노",
+          "image": "https://picsum.photos/256/256",
+          "price": 1750
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T10",
+        "menu": {
+          "name": "비타믹스주스 (오렌지 토마토 당근...",
+          "image": "https://picsum.photos/256/256",
+          "price": 4059
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T11",
+        "menu": {
+          "name": "딸기요거트스무디",
+          "image": "https://picsum.photos/256/256",
+          "price": 3430
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T11",
+        "menu": {
+          "name": "토마토주스(토마토 꿀)",
+          "image": "https://picsum.photos/256/256",
+          "price": 3709
+        }
+      },
+      {
+        "count": 5,
+        "datetime": "2025-04-09T11",
+        "menu": {
+          "name": "라지 아메리카노",
+          "image": "https://picsum.photos/256/256",
+          "price": 2450
+        }
+      },
+      {
+        "count": 8,
+        "datetime": "2025-04-09T11",
+        "menu": {
+          "name": "다크 아메리카노",
+          "image": "https://picsum.photos/256/256",
+          "price": 1750
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T11",
+        "menu": {
+          "name": "라떼",
+          "image": "https://picsum.photos/256/256",
+          "price": 2450
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T11",
+        "menu": {
+          "name": "코코넛 스무디",
+          "image": "https://picsum.photos/256/256",
+          "price": 3709
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T12",
+        "menu": {
+          "name": "딸기요거트스무디",
+          "image": "https://picsum.photos/256/256",
+          "price": 3430
+        }
+      },
+      {
+        "count": 2,
+        "datetime": "2025-04-09T12",
+        "menu": {
+          "name": "레몬아메리카노아이스",
+          "image": "https://picsum.photos/256/256",
+          "price": 3010
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T12",
+        "menu": {
+          "name": "메도우 카모마일 허브차",
+          "image": "https://picsum.photos/256/256",
+          "price": 3150
+        }
+      },
+      {
+        "count": 3,
+        "datetime": "2025-04-09T12",
+        "menu": {
+          "name": "바닐라빈 샷 추가",
+          "image": "https://picsum.photos/256/256",
+          "price": 3360
+        }
+      },
+      {
+        "count": 2,
+        "datetime": "2025-04-09T12",
+        "menu": {
+          "name": "바다소금라떼아이스",
+          "image": "https://picsum.photos/256/256",
+          "price": 3430
+        }
+      },
+      {
+        "count": 4,
+        "datetime": "2025-04-09T12",
+        "menu": {
+          "name": "라지 아메리카노",
+          "image": "https://picsum.photos/256/256",
+          "price": 2450
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T12",
+        "menu": {
+          "name": "솔트크림라떼아이스",
+          "image": "https://picsum.photos/256/256",
+          "price": 3709
+        }
+      },
+      {
+        "count": 3,
+        "datetime": "2025-04-09T12",
+        "menu": {
+          "name": "산미 숏블랙",
+          "image": "https://picsum.photos/256/256",
+          "price": 2100
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T12",
+        "menu": {
+          "name": "핸드메이드레몬티",
+          "image": "https://picsum.photos/256/256",
+          "price": 3150
+        }
+      },
+      {
+        "count": 10,
+        "datetime": "2025-04-09T12",
+        "menu": {
+          "name": "스페인풍 라떼",
+          "image": "https://picsum.photos/256/256",
+          "price": 3430
+        }
+      },
+      {
+        "count": 21,
+        "datetime": "2025-04-09T12",
+        "menu": {
+          "name": "다크 아메리카노",
+          "image": "https://picsum.photos/256/256",
+          "price": 1750
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T12",
+        "menu": {
+          "name": "오렌지주스 샷 추가 아이스",
+          "image": "https://picsum.photos/256/256",
+          "price": 3709
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T12",
+        "menu": {
+          "name": "비타믹스주스 (오렌지 토마토 당근...",
+          "image": "https://picsum.photos/256/256",
+          "price": 4059
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T12",
+        "menu": {
+          "name": "초코라떼",
+          "image": "https://picsum.photos/256/256",
+          "price": 3360
+        }
+      },
+      {
+        "count": 2,
+        "datetime": "2025-04-09T12",
+        "menu": {
+          "name": "초코모카",
+          "image": "https://picsum.photos/256/256",
+          "price": 3709
+        }
+      },
+      {
+        "count": 2,
+        "datetime": "2025-04-09T12",
+        "menu": {
+          "name": "라떼",
+          "image": "https://picsum.photos/256/256",
+          "price": 2450
+        }
+      },
+      {
+        "count": 5,
+        "datetime": "2025-04-09T12",
+        "menu": {
+          "name": "코코넛밀크 샷 추가 아이스",
+          "image": "https://picsum.photos/256/256",
+          "price": 3360
+        }
+      },
+      {
+        "count": 3,
+        "datetime": "2025-04-09T12",
+        "menu": {
+          "name": "콜드브루 디카페인",
+          "image": "https://picsum.photos/256/256",
+          "price": 2660
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T12",
+        "menu": {
+          "name": "토피넛라떼",
+          "image": "https://picsum.photos/256/256",
+          "price": 3150
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T12",
+        "menu": {
+          "name": "페퍼민트 리브스 허브차",
+          "image": "https://picsum.photos/256/256",
+          "price": 3150
+        }
+      },
+      {
+        "count": 5,
+        "datetime": "2025-04-09T12",
+        "menu": {
+          "name": "피스타치오아몬드라떼",
+          "image": "https://picsum.photos/256/256",
+          "price": 3430
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T12",
+        "menu": {
+          "name": "헤이즐넛 라떼",
+          "image": "https://picsum.photos/256/256",
+          "price": 3360
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T12",
+        "menu": {
+          "name": "홍시주스",
+          "image": "https://picsum.photos/256/256",
+          "price": 3849
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T12",
+        "menu": {
+          "name": "홍초스파클링",
+          "image": "https://picsum.photos/256/256",
+          "price": 3360
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T13",
+        "menu": {
+          "name": "메도우 카모마일 허브차",
+          "image": "https://picsum.photos/256/256",
+          "price": 3150
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T13",
+        "menu": {
+          "name": "솔트크림라떼아이스",
+          "image": "https://picsum.photos/256/256",
+          "price": 3709
+        }
+      },
+      {
+        "count": 2,
+        "datetime": "2025-04-09T13",
+        "menu": {
+          "name": "산미 숏블랙",
+          "image": "https://picsum.photos/256/256",
+          "price": 2100
+        }
+      },
+      {
+        "count": 14,
+        "datetime": "2025-04-09T13",
+        "menu": {
+          "name": "다크 아메리카노",
+          "image": "https://picsum.photos/256/256",
+          "price": 1750
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T13",
+        "menu": {
+          "name": "아인슈페너 아이스",
+          "image": "https://picsum.photos/256/256",
+          "price": 3500
+        }
+      },
+      {
+        "count": 2,
+        "datetime": "2025-04-09T13",
+        "menu": {
+          "name": "애플레몬티",
+          "image": "https://picsum.photos/256/256",
+          "price": 3360
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T13",
+        "menu": {
+          "name": "피스타치오아몬드라떼",
+          "image": "https://picsum.photos/256/256",
+          "price": 3430
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T13",
+        "menu": {
+          "name": "넛츠 아메리카노",
+          "image": "https://picsum.photos/256/256",
+          "price": 2660
+        }
+      },
+      {
+        "count": 2,
+        "datetime": "2025-04-09T14",
+        "menu": {
+          "name": "다크 아메리카노",
+          "image": "https://picsum.photos/256/256",
+          "price": 1750
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T15",
+        "menu": {
+          "name": "산미 숏블랙",
+          "image": "https://picsum.photos/256/256",
+          "price": 2100
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T15",
+        "menu": {
+          "name": "스페인풍 라떼",
+          "image": "https://picsum.photos/256/256",
+          "price": 3430
+        }
+      },
+      {
+        "count": 4,
+        "datetime": "2025-04-09T15",
+        "menu": {
+          "name": "다크 아메리카노",
+          "image": "https://picsum.photos/256/256",
+          "price": 1750
+        }
+      },
+      {
+        "count": 3,
+        "datetime": "2025-04-09T16",
+        "menu": {
+          "name": "무화과크림치즈휘낭시에",
+          "image": "https://picsum.photos/256/256",
+          "price": 1400
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T16",
+        "menu": {
+          "name": "미숫가루라떼아이스",
+          "image": "https://picsum.photos/256/256",
+          "price": 3150
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T16",
+        "menu": {
+          "name": "바닐라빈 샷 추가",
+          "image": "https://picsum.photos/256/256",
+          "price": 3360
+        }
+      },
+      {
+        "count": 4,
+        "datetime": "2025-04-09T16",
+        "menu": {
+          "name": "라지 아메리카노",
+          "image": "https://picsum.photos/256/256",
+          "price": 2450
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T16",
+        "menu": {
+          "name": "솔트크림라떼아이스",
+          "image": "https://picsum.photos/256/256",
+          "price": 3709
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T16",
+        "menu": {
+          "name": "스페인풍 라떼",
+          "image": "https://picsum.photos/256/256",
+          "price": 3430
+        }
+      },
+      {
+        "count": 2,
+        "datetime": "2025-04-09T16",
+        "menu": {
+          "name": "다크 아메리카노",
+          "image": "https://picsum.photos/256/256",
+          "price": 1750
+        }
+      },
+      {
+        "count": 2,
+        "datetime": "2025-04-09T16",
+        "menu": {
+          "name": "비타믹스주스 (오렌지 토마토 당근...",
+          "image": "https://picsum.photos/256/256",
+          "price": 4059
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T16",
+        "menu": {
+          "name": "쿠키 셋트",
+          "image": "https://picsum.photos/256/256",
+          "price": 2310
+        }
+      },
+      {
+        "count": 3,
+        "datetime": "2025-04-09T16",
+        "menu": {
+          "name": "버터 마들렌",
+          "image": "https://picsum.photos/256/256",
+          "price": 1330
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T16",
+        "menu": {
+          "name": "홍시주스",
+          "image": "https://picsum.photos/256/256",
+          "price": 3849
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T17",
+        "menu": {
+          "name": "메도우 카모마일 허브차",
+          "image": "https://picsum.photos/256/256",
+          "price": 3150
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T17",
+        "menu": {
+          "name": "복숭아아이스티",
+          "image": "https://picsum.photos/256/256",
+          "price": 2590
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T17",
+        "menu": {
+          "name": "라지 아메리카노",
+          "image": "https://picsum.photos/256/256",
+          "price": 2450
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T17",
+        "menu": {
+          "name": "다크 아메리카노",
+          "image": "https://picsum.photos/256/256",
+          "price": 1750
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T17",
+        "menu": {
+          "name": "아샷추아이스",
+          "image": "https://picsum.photos/256/256",
+          "price": 2730
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T17",
+        "menu": {
+          "name": "애플레몬티",
+          "image": "https://picsum.photos/256/256",
+          "price": 3360
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T17",
+        "menu": {
+          "name": "오트라떼",
+          "image": "https://picsum.photos/256/256",
+          "price": 2800
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T17",
+        "menu": {
+          "name": "비타믹스주스 (오렌지 토마토 당근...",
+          "image": "https://picsum.photos/256/256",
+          "price": 4059
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T17",
+        "menu": {
+          "name": "라떼",
+          "image": "https://picsum.photos/256/256",
+          "price": 2450
+        }
+      },
+      {
+        "count": 2,
+        "datetime": "2025-04-09T17",
+        "menu": {
+          "name": "콜드브루 디카페인",
+          "image": "https://picsum.photos/256/256",
+          "price": 2660
+        }
+      },
+      {
+        "count": 2,
+        "datetime": "2025-04-09T18",
+        "menu": {
+          "name": "다크 아메리카노",
+          "image": "https://picsum.photos/256/256",
+          "price": 1750
+        }
+      },
+      {
+        "count": 3,
+        "datetime": "2025-04-09T19",
+        "menu": {
+          "name": "산미 숏블랙",
+          "image": "https://picsum.photos/256/256",
+          "price": 2100
+        }
+      },
+      {
+        "count": 2,
+        "datetime": "2025-04-09T19",
+        "menu": {
+          "name": "핸드메이드레몬티",
+          "image": "https://picsum.photos/256/256",
+          "price": 3150
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T19",
+        "menu": {
+          "name": "다크 아메리카노",
+          "image": "https://picsum.photos/256/256",
+          "price": 1750
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T19",
+        "menu": {
+          "name": "애플레몬티",
+          "image": "https://picsum.photos/256/256",
+          "price": 3360
+        }
+      },
+      {
+        "count": 2,
+        "datetime": "2025-04-09T19",
+        "menu": {
+          "name": "콜드브루 디카페인",
+          "image": "https://picsum.photos/256/256",
+          "price": 2660
+        }
+      },
+      {
+        "count": 2,
+        "datetime": "2025-04-09T20",
+        "menu": {
+          "name": "복숭아아이스티",
+          "image": "https://picsum.photos/256/256",
+          "price": 2590
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T20",
+        "menu": {
+          "name": "라지 아메리카노",
+          "image": "https://picsum.photos/256/256",
+          "price": 2450
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T20",
+        "menu": {
+          "name": "다크 아메리카노",
+          "image": "https://picsum.photos/256/256",
+          "price": 1750
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T20",
+        "menu": {
+          "name": "아샷추아이스",
+          "image": "https://picsum.photos/256/256",
+          "price": 2730
+        }
+      },
+      {
+        "count": 1,
+        "datetime": "2025-04-09T20",
+        "menu": {
+          "name": "오트라떼",
+          "image": "https://picsum.photos/256/256",
+          "price": 2800
+        }
+      },
+      {
+        "count": 3,
+        "datetime": "2025-04-09T20",
+        "menu": {
+          "name": "제주말차라떼",
+          "image": "https://picsum.photos/256/256",
+          "price": 3360
+        }
+      }
+    ]
+  }
+]

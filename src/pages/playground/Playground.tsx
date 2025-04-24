@@ -5,7 +5,7 @@ import MenuElement from "@components/ui/MenuElement";
 import ArticleThumbnail from "@components/ui/ArticleThumbnail";
 import PieGraph from "@components/graph/PieGraph";
 import { useEffect } from "react";
-import { useGetDailySales } from "@/hooks/api/sales";
+import { useGetOneDaySales } from "@/hooks/api/sales";
 const Playground = () => {
   const dummy_data: DailySales[] = [
     // 2025년 3월
@@ -254,7 +254,7 @@ const Playground = () => {
   ];
 
   const { data: dailySalesData, isLoading: isDailySalesDataLoading } =
-    useGetDailySales(new Date("2025-04-14"));
+    useGetOneDaySales(new Date("2025-04-14"));
 
   useEffect(() => {
     console.log(dailySalesData);
