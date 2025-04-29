@@ -1,6 +1,6 @@
 import { HTMLAttributes } from "react";
 
-type BarGraphData = {
+export type BarGraphData = {
   data: number;
   title?: string;
   paragraph?: string;
