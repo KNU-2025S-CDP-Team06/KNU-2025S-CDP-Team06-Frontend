@@ -1,9 +1,9 @@
 import { getRequest } from "./api";
 import { DailySales } from "@/models/dailySales.model";
 
-type getSalesParams = {
-  startDate: Date;
-  endDate: Date;
+export type getSalesParams = {
+  startDate: string;
+  endDate: string;
   startHour?: string;
   endHour?: string;
 };
@@ -11,21 +11,25 @@ type getSalesParams = {
 export const getSales = async (params: getSalesParams) => {
   const response = await getRequest<DailySales[]>(
     "/mocks/salesManyDayData.json", //API URL: /sales/{:id}
-    params
+    {
+      ...params,
+      startDate: new Date(params.startDate).toISOString(),
+      endDate: new Date(params.endDate).toISOString(),
+    }
   );
   return response;
 };
 
 type getDailySalesParams = {
-  date: Date;
+  date: string;
 };
 
 export const getOneDaySales = async (params: getDailySalesParams) => {
   const response = await getRequest<DailySales[]>(
     "/mocks/salesOneDayData.json", //API URL: /sales/{:id}
     {
-      startDate: params.date,
-      endDate: params.date,
+      startDate: new Date(params.date).toISOString(),
+      endDate: new Date(params.date).toISOString(),
     }
   );
   return response[0];

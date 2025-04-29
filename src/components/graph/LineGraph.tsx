@@ -25,9 +25,14 @@ const LineGraph = ({
         {
           id: "data",
           data: data.slice(plot == 1 ? -7 : -31).map((dailyData) => {
+            const date = new Date(dailyData.date);
             return {
               y: dailyData[plotBy],
-              x: `${dailyData.date.toISOString().slice(5, 10)}`,
+              x: `${(date.getMonth() + 1).toString().padStart(2, "0")}-${(
+                date.getDate() + 1
+              )
+                .toString()
+                .padStart(2, "0")}`,
             };
           }),
         },
