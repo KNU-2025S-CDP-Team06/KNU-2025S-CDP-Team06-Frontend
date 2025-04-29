@@ -19,17 +19,22 @@ interface PieGraphData {
 }
 
 const PieGraph = ({ data, maxShownSize = 5 }: PieGraphProps) => {
-  const [plot, setPlot] = useState<0 | 1>(1);
-
   const [graphData, setGraphData] = useState<PieGraphData[]>([]);
 
   const otherString = "기타";
+
+  const [plot, setPlot] = useState<0 | 1>(1);
 
   type sortKey = "totalCount" | "totalPrice";
   const sortByTable: sortKey[][] = [
     ["totalPrice", "totalCount"],
     ["totalCount", "totalPrice"],
   ];
+
+  const toKRPrice = (N: number) => {
+    if (N < 10000) return N.toLocaleString("ko-KR") + "원";
+    return Number((N / 10000).toFixed(1)).toLocaleString("ko-KR") + "만원";
+  };
 
   useEffect(() => {
     const menuMap: {
@@ -60,9 +65,9 @@ const PieGraph = ({ data, maxShownSize = 5 }: PieGraphProps) => {
       const graphData: PieGraphData = {
         id: i + 1,
         value: sortedMenu[i][1][primarySortKey],
-        arcTitle: `${sortedMenu[i][1][primarySortKey].toLocaleString("ko-KR")}${
-          plot ? "" : "원"
-        }`,
+        arcTitle: plot
+          ? sortedMenu[i][1][primarySortKey].toLocaleString("ko-KR")
+          : toKRPrice(sortedMenu[i][1][primarySortKey]),
         arcParagraph: `${(
           (sortedMenu[i][1][primarySortKey] /
             (plot ? totalCount : totalPrice)) *
@@ -87,9 +92,9 @@ const PieGraph = ({ data, maxShownSize = 5 }: PieGraphProps) => {
       const graphData: PieGraphData = {
         id: maxShownSize + 1,
         value: menuMap[otherString][primarySortKey],
-        arcTitle: `${menuMap[otherString][primarySortKey].toLocaleString(
-          "ko-KR"
-        )}${plot ? "" : "원"}`,
+        arcTitle: plot
+          ? menuMap[otherString][primarySortKey].toLocaleString("ko-KR")
+          : toKRPrice(menuMap[otherString][primarySortKey]),
         arcParagraph: `${(
           (menuMap[otherString][primarySortKey] /
             (plot ? totalCount : totalPrice)) *
@@ -128,7 +133,7 @@ const PieGraph = ({ data, maxShownSize = 5 }: PieGraphProps) => {
           innerRadius={0.4}
           activeOuterRadiusOffset={8}
           colors={palette}
-          arcLinkLabelsTextOffset={plot ? 12 : 25}
+          arcLinkLabelsTextOffset={12}
           arcLinkLabelsStraightLength={0}
           arcLinkLabelComponent={({ datum, style }) => {
             return (
