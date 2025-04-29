@@ -1,10 +1,15 @@
-import BarGraph from "@components/graph/BarGraph";
+import BarGraph, { BarGraphData } from "@components/graph/BarGraph";
 import LineGraph from "@components/graph/LineGraph";
 import MenuElement from "@components/ui/MenuElement";
 import ArticleThumbnail from "@components/ui/ArticleThumbnail";
 import PieGraph from "@components/graph/PieGraph";
 import { useGetOneDaySales, useGetSales } from "@/hooks/api/sales";
+import { useGetOneDayPredict } from "@/hooks/api/predict";
+import { useEffect, useState } from "react";
 const Playground = () => {
+  const { data: predictData, isLoading: isPredictDataLoading } =
+    useGetOneDayPredict("2025-04-10");
+
   const { data: onedayData, isLoading: isOnedayDataLoading } =
     useGetOneDaySales("2025-04-14");
 
@@ -13,8 +18,36 @@ const Playground = () => {
     endDate: "2025-04-09",
   });
 
+  const [barGraphData, setBarGraphData] = useState<BarGraphData[]>([]);
+
+  useEffect(() => {
+    if (!isPredictDataLoading && !isManydayDataLoading) {
+      const graphData: BarGraphData[] = [];
+      manydayData!.slice(-4).forEach((data) => {
+        const revenue = Math.floor(data.total_revenue / 10000);
+        graphData.push({
+          data: revenue,
+          title: `${revenue}만원`,
+          paragraph: `${data.date.slice(5)}`,
+        });
+      });
+      graphData.push({
+        data: Math.floor(predictData!.xgboost_forecast / 10000),
+        title: `${Math.floor(predictData!.xgboost_forecast / 10000)}만원`,
+        paragraph: "04-10",
+        ispredict: true,
+      });
+      setBarGraphData(graphData);
+    }
+  }, [isPredictDataLoading, isManydayDataLoading]);
+
   return (
     <div className="flex flex-col gap-3 p-4">
+      {isPredictDataLoading || isManydayDataLoading ? (
+        <>스켈레톤</>
+      ) : (
+        <BarGraph data={barGraphData} />
+      )}
       <BarGraph
         data={[
           { data: 14, title: "14만원", paragraph: "03-23" },
