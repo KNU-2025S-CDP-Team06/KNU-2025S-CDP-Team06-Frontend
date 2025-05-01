@@ -20,11 +20,16 @@ const LineGraph = ({
   const [plot, setPlot] = useState<number>(1);
 
   useEffect(() => {
+    let maxVal = 0;
     if (plot != 0) {
+      const slicedData = data.slice(plot == 1 ? -7 : -31);
+      maxVal = slicedData.reduce<number>((max, curr) => {
+        return Math.max(max, curr[plotBy]);
+      }, 0);
       setGraphData([
         {
           id: "data",
-          data: data.slice(plot == 1 ? -7 : -31).map((dailyData) => {
+          data: slicedData.map((dailyData) => {
             const date = new Date(dailyData.date);
             return {
               y: dailyData[plotBy],
@@ -37,14 +42,47 @@ const LineGraph = ({
           }),
         },
       ]);
+    } else {
+      const hourData: { [key: number]: number } = {};
+      for (let hour = 0; hour < 24; hour++) hourData[hour] = 0;
+      const currentHour = new Date().getHours();
+      data.slice(-2, -1)[0].sales_data.forEach((data) => {
+        const dataHour = new Date(data.datetime).getHours();
+        if (currentHour < dataHour) {
+          if (plotBy == "total_count") hourData[dataHour] += data.count;
+          else hourData[dataHour] += data.count * data.menu.price;
+        }
+      });
+      data.slice(-1)[0].sales_data.forEach((data) => {
+        if (new Date(data.datetime).getHours() <= currentHour) {
+          const dataHour = new Date(data.datetime).getHours();
+          if (plotBy == "total_count") hourData[dataHour] += data.count;
+          else hourData[dataHour] += data.count * data.menu.price;
+        }
+      });
+      maxVal = Math.max(...Object.values(hourData));
+      const graphHourData: number[][] = [];
+      for (let hour = currentHour + 1; hour < 24; hour++)
+        graphHourData.push([hour, hourData[hour]]);
+      for (let hour = 0; hour <= currentHour; hour++)
+        graphHourData.push([hour, hourData[hour]]);
+      setGraphData([
+        {
+          id: "data",
+          data: graphHourData.map((data) => {
+            return {
+              y: data[1],
+              x: `${data[0]}시`,
+            };
+          }),
+        },
+      ]);
     }
-    const maxVal = data.reduce((max, curr) => {
-      return Math.max(curr[plotBy], max);
-    }, 0);
     const maxStep = Math.pow(10, Math.floor(Math.log10(maxVal)));
-    setLeftpad(Math.floor(Math.log10(maxVal)) * 10);
+    setLeftpad(Math.floor(Math.log10(maxVal)) * 11);
     setMax(maxStep * Math.ceil(maxVal / maxStep));
   }, [plot]);
+  const tickValueTable = [3, 1, 5];
 
   return (
     <section className="flex flex-col gap-4 p-4 overflow-visible rounded-2xl bg-neutral-100">
@@ -72,7 +110,7 @@ const LineGraph = ({
           axisBottom={{
             tickValues: graphData[0].data
               .map((d) => d.x)
-              .filter((_, i) => i % (plot == 1 ? 1 : 5) === 0),
+              .filter((_, i) => i % tickValueTable[plot] === 0),
           }}
           defs={[
             linearGradientDef("gradient", [
