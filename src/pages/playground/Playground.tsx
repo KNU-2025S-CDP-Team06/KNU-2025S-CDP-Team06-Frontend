@@ -6,6 +6,9 @@ import PieGraph from "@components/graph/PieGraph";
 import { useGetOneDaySales, useGetSales } from "@/hooks/api/sales";
 import { useGetOneDayPredict } from "@/hooks/api/predict";
 import { useEffect, useState } from "react";
+import BothsideTitle from "@components/ui/BothsideTitle";
+import BothsideText from "@components/ui/BothsideText";
+
 const Playground = () => {
   const { data: predictData, isLoading: isPredictDataLoading } =
     useGetOneDayPredict("2025-04-10");
@@ -43,6 +46,23 @@ const Playground = () => {
 
   return (
     <div className="flex flex-col gap-3 p-4">
+      <BothsideTitle label="오늘의 매출" value={`676,500원`} />
+      <BothsideText
+        label="전날 대비"
+        value={`+40,100 (4.1%)`}
+        valueColor="text-red-500"
+      />
+      <BothsideText
+        label="전주 대비"
+        value={`+33,470 (7.6%)`}
+        valueColor="text-red-500"
+      />
+      <BothsideText
+        label="전월 대비"
+        value={`-27,680 (5.5%)`}
+        valueColor="text-blue-500"
+      />
+
       {isPredictDataLoading || isManydayDataLoading ? (
         <>스켈레톤</>
       ) : (
