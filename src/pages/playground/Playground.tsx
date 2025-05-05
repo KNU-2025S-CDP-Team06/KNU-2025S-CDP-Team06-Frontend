@@ -8,6 +8,8 @@ import { useGetOneDayPredict } from "@/hooks/api/predict";
 import { useEffect, useState } from "react";
 import BothsideTitle from "@components/ui/BothsideTitle";
 import BothsideText from "@components/ui/BothsideText";
+import { useGetStoreData } from "@/hooks/api/storeData";
+import { useGetTotalSales } from "@/hooks/api/sales";
 
 const Playground = () => {
   const { data: predictData, isLoading: isPredictDataLoading } =
@@ -21,7 +23,17 @@ const Playground = () => {
     endDate: "2025-04-09",
   });
 
+  const { data: totalSales, isLoading: isTotalSalesLoading } = useGetTotalSales(
+    {
+      startDate: "2025-03-01",
+      endDate: "2025-04-01",
+    }
+  );
   const [barGraphData, setBarGraphData] = useState<BarGraphData[]>([]);
+
+  const { data: storeData, isLoading: isStoreLoading } = useGetStoreData({
+    id: 1,
+  });
 
   useEffect(() => {
     if (!isPredictDataLoading && !isManydayDataLoading) {
@@ -46,6 +58,18 @@ const Playground = () => {
 
   return (
     <div className="flex flex-col gap-3 p-4">
+      {isStoreLoading ? (
+        <>스켈레톤</>
+      ) : (
+        <BothsideText label={storeData!.name} value={storeData!.address} />
+      )}
+
+      {isTotalSalesLoading ? (
+        <>스켈레톤</>
+      ) : (
+        <BothsideText label="이번달 매출" value={totalSales!.total_revenue} />
+      )}
+
       <BothsideTitle label="오늘의 매출" value={`676,500원`} />
       <BothsideText
         label="전날 대비"
