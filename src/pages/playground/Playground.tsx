@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import BothsideTitle from "@components/ui/BothsideTitle";
 import BothsideText from "@components/ui/BothsideText";
 import { useGetStoreData } from "@/hooks/api/storeData";
-import { useGetTotalSales } from "@/hooks/api/totalSales";
+import { useGetTotalSales } from "@/hooks/api/sales";
 
 const Playground = () => {
   const { data: predictData, isLoading: isPredictDataLoading } =
