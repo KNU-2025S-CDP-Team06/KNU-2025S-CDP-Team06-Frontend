@@ -1,23 +1,33 @@
-import { HTMLAttributes, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Sales } from "@/models/sales.model";
 import MenuElement from "./MenuElement";
 import DropdownMenu from "./DropdownMenu";
 
-interface MenuListProps extends HTMLAttributes<HTMLDivElement> {
+interface MenuListProps {
   title: string;
   data: Sales[];
   prevData: Sales[];
+  maxShownSize?: number;
 }
 
-const MenuList = ({ title, data, prevData }: MenuListProps) => {
+const MenuList = ({ title, data, prevData, maxShownSize }: MenuListProps) => {
   const [sortedMenu, setSortedMenu] = useState<
     {
       name: string;
       image: string;
+      totalPrice: number;
       totalCount: number;
       compareCount: number;
     }[]
   >([]);
+
+  const [sortBy, setSortBy] = useState(0);
+
+  type sortKey = "totalPrice" | "totalCount" | "compareCount";
+
+  const sortTable: sortKey[] = ["totalCount", "totalPrice", "compareCount"];
+
+  const unitTable = ["개", "원", "개"];
 
   useEffect(() => {
     const prevMap: { [prevmenuName: string]: { prevtotalCount: number } } = {};
@@ -62,32 +72,29 @@ const MenuList = ({ title, data, prevData }: MenuListProps) => {
       menuMap[key].compareCount = menuMap[key].totalCount - yesterday;
     });
 
-    const PricesortedMenu = Object.entries(menuMap).sort(
-      (a, b) => b[1].totalPrice - a[1].totalPrice
-    );
+    const sortedMenu = Object.entries(menuMap)
+      .sort((a, b) => b[1][sortTable[sortBy]] - a[1][sortTable[sortBy]])
+      .slice(0, maxShownSize);
 
-    const CountsortedMenu = Object.entries(menuMap).sort(
-      (a, b) => b[1].totalCount - a[1].totalCount
-    );
-
-    const CountComparisonsortedMenu = Object.entries(menuMap).sort(
-      (a, b) => b[1].compareCount - a[1].compareCount
-    );
     setSortedMenu(
-      CountsortedMenu.map(([name, info]) => ({
+      sortedMenu.map(([name, info]) => ({
         name,
         image: data.find((d) => d.menu.name === name)!.menu.image,
+        totalPrice: info.totalPrice,
         totalCount: info.totalCount,
         compareCount: info.compareCount,
       }))
     );
-  }, [data, prevData]);
+  }, [data, prevData, sortBy]);
 
   return (
     <div className="flex flex-col gap-2 px-2">
-      <div className="flex">
+      <div className="relative flex">
         <div className="w-full text-lg font-semibold">{title}</div>
-        <DropdownMenu className="gap-4 py-1"> </DropdownMenu>
+        <DropdownMenu
+          dropdownMenuList={["판매량 순", "매출 순", "판매량 증가 순"]}
+          stateHandler={setSortBy}
+        />
       </div>
       <div className="overflow-hidden bg-white">
         {sortedMenu.map((m, idx) => (
@@ -95,7 +102,9 @@ const MenuList = ({ title, data, prevData }: MenuListProps) => {
             key={m.name}
             image={m.image}
             title={m.name}
-            paragraph={`${m.totalCount}개`}
+            paragraph={`${m[sortTable[sortBy]].toLocaleString("ko-KR")}${
+              unitTable[sortBy]
+            }`}
             className={
               idx !== sortedMenu.length ? "border-t border-neutral-200" : ""
             }
