@@ -1,22 +1,19 @@
 import BarGraph, { BarGraphData } from "@components/graph/BarGraph";
-import LineGraph from "@components/graph/LineGraph";
 import MenuElement from "@components/ui/MenuElement";
 import ArticleThumbnail from "@components/ui/ArticleThumbnail";
-import PieGraph from "@components/graph/PieGraph";
-import { useGetOneDaySales, useGetSales } from "@/hooks/api/sales";
+import { useGetSales } from "@/hooks/api/sales";
 import { useGetOneDayPredict } from "@/hooks/api/predict";
 import { useEffect, useState } from "react";
-import BothsideTitle from "@components/ui/BothsideTitle";
 import BothsideText from "@components/ui/BothsideText";
 import { useGetStoreData } from "@/hooks/api/storeData";
 import { useGetTotalSales } from "@/hooks/api/sales";
-
+import SalesReport from "@components/main/SalesReport";
+import TodayBestMenu from "@components/main/TodayBestMenu";
+import DailyPredict from "@components/main/DailyPredict";
+import MenuList from "@components/ui/MenuList";
 const Playground = () => {
   const { data: predictData, isLoading: isPredictDataLoading } =
     useGetOneDayPredict("2025-04-10");
-
-  const { data: onedayData, isLoading: isOnedayDataLoading } =
-    useGetOneDaySales("2025-04-14");
 
   const { data: manydayData, isLoading: isManydayDataLoading } = useGetSales({
     startDate: "2025-03-01",
@@ -58,40 +55,19 @@ const Playground = () => {
 
   return (
     <div className="flex flex-col gap-3 p-4">
-      {isStoreLoading ? (
-        <>스켈레톤</>
-      ) : (
-        <BothsideText label={storeData!.name} value={storeData!.address} />
-      )}
-
-      {isTotalSalesLoading ? (
-        <>스켈레톤</>
-      ) : (
-        <BothsideText label="이번달 매출" value={totalSales!.total_revenue} />
-      )}
-
-      <BothsideTitle label="오늘의 매출" value={`676,500원`} />
-      <BothsideText
-        label="전날 대비"
-        value={`+40,100 (4.1%)`}
-        valueColor="text-red-500"
-      />
-      <BothsideText
-        label="전주 대비"
-        value={`+33,470 (7.6%)`}
-        valueColor="text-red-500"
-      />
-      <BothsideText
-        label="전월 대비"
-        value={`-27,680 (5.5%)`}
-        valueColor="text-blue-500"
-      />
+      <SalesReport></SalesReport>
+      <div className="h-[1px] bg-neutral-300 w-full" />
+      <TodayBestMenu></TodayBestMenu>
+      <div className="h-[1px] bg-neutral-300 w-full" />
+      <DailyPredict></DailyPredict>
+      <div className="h-[1px] bg-neutral-300 w-full" />
 
       {isPredictDataLoading || isManydayDataLoading ? (
         <>스켈레톤</>
       ) : (
         <BarGraph data={barGraphData} />
       )}
+
       <BarGraph
         data={[
           { data: 14, title: "14만원", paragraph: "03-23" },
@@ -101,14 +77,6 @@ const Playground = () => {
           { data: 74, title: "74만원", paragraph: "03-27", ispredict: true },
         ]}
       />
-
-      {isManydayDataLoading ? <>스켈레톤</> : <LineGraph data={manydayData!} />}
-
-      {isOnedayDataLoading ? (
-        <>스켈레톤</>
-      ) : (
-        <PieGraph data={onedayData!.sales_data} />
-      )}
 
       <ArticleThumbnail title="메뉴별 판매리포트" className="w-full bg-white ">
         <div className="flex-col w-full">
@@ -132,6 +100,16 @@ const Playground = () => {
           />
         </div>
       </ArticleThumbnail>
+      {isStoreLoading ? (
+        <>스켈레톤</>
+      ) : (
+        <BothsideText label={storeData!.name} value={storeData!.address} />
+      )}
+      {isTotalSalesLoading ? (
+        <>스켈레톤</>
+      ) : (
+        <BothsideText label="이번달 매출" value={totalSales!.total_revenue} />
+      )}
     </div>
   );
 };
