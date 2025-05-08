@@ -53,21 +53,44 @@ const DailyPredict = () => {
       )}
 
       <div className="flex flex-col gap-1 p-2">
-        <BothsideText
-          label="내일 예상 매출액"
-          value={predictData!.prophet_forecast.toLocaleString("ko-KR") + "원"}
-          valueColor="text-black"
-        />
-        <BothsideText
-          label="날씨에 따른 매출 변화"
-          value={`+ 12.8%`}
-          valueColor="text-red-500"
-        />
-        <div className="h-[1px] bg-neutral-100 w-full" />
-        <BothsideTitle
-          label="최종 예상 매출액"
-          value={predictData!.xgboost_forecast.toLocaleString("ko-KR") + "원"}
-        />
+        {isPredictDataLoading ? (
+          <>스켈레톤</>
+        ) : (
+          <>
+            <BothsideText
+              label="내일 예상 매출액"
+              value={
+                predictData!.prophet_forecast.toLocaleString("ko-KR") + "원"
+              }
+              valueColor="text-black"
+            />
+            <BothsideText
+              label="날씨에 따른 매출 변화"
+              value={`${predictData!.xgboost_forecast >= 1 ? "+" : "-"} ${(
+                (predictData!.xgboost_forecast - 1) *
+                100
+              ).toFixed(1)}%`}
+              valueColor={
+                predictData!.xgboost_forecast >= 1
+                  ? "text-red-500"
+                  : "text-blue-500"
+              }
+            />
+            <div className="h-[1px] bg-neutral-100 w-full" />
+            <BothsideTitle
+              label="최종 예상 매출액"
+              value={
+                (
+                  Math.floor(
+                    (predictData!.prophet_forecast *
+                      predictData!.xgboost_forecast) /
+                      10
+                  ) * 10
+                ).toLocaleString("ko-KR") + "원"
+              }
+            />
+          </>
+        )}
       </div>
       <div>
         {isMenuLoading ? (
