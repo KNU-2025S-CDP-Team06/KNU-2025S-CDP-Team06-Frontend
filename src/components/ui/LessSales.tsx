@@ -19,7 +19,7 @@ const LessSales = ({
     >
       <div className="flex items-center justify-between gap-2">
         <DecreaseIcon className="w-4 h-4 text-blue-500 "></DecreaseIcon>
-        <div className="text-black">{label}</div>
+        <div className={valueColor}>{label}</div>
       </div>
 
       <span className="text-blue-500 ">{value}</span>

@@ -10,7 +10,6 @@ import { useGetTotalSales } from "@/hooks/api/sales";
 import SalesReport from "@components/main/SalesReport";
 import TodayBestMenu from "@components/main/TodayBestMenu";
 import DailyPredict from "@components/main/DailyPredict";
-import MenuList from "@components/ui/MenuList";
 const Playground = () => {
   const { data: predictData, isLoading: isPredictDataLoading } =
     useGetOneDayPredict("2025-04-10");
