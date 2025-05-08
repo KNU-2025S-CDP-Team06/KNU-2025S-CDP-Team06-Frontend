@@ -1,0 +1,134 @@
+{
+  "title": "내일 메뉴별 수요 예측",
+  "data": [
+    {
+      "count": 84,
+      "datetime": "2025-04-10T00:00:00",
+      "menu": {
+        "name": "아메리카노 (다크)",
+        "image": "https://picsum.photos/seed/menu1/40",
+        "price": 1750
+      }
+    },
+    {
+      "count": 83,
+      "datetime": "2025-04-10T00:00:00",
+      "menu": {
+        "name": "아메리카노 (다크)",
+        "image": "https://picsum.photos/seed/menu1/40",
+        "price": 1750
+      }
+    },
+    {
+      "count": 600,
+      "datetime": "2025-04-10T00:00:00",
+      "menu": {
+        "name": "아인슈페너 (ICE)",
+        "image": "https://picsum.photos/seed/menu2/40",
+        "price": 3500
+      }
+    },
+    {
+      "count": 16,
+      "datetime": "2025-04-10T00:00:00",
+      "menu": {
+        "name": "카페라떼",
+        "image": "https://picsum.photos/seed/menu3/40",
+        "price": 2000000
+      }
+    },
+    {
+      "count": 12,
+      "datetime": "2025-04-10T00:00:00",
+      "menu": {
+        "name": "테",
+        "image": "https://picsum.photos/seed/menu4/40",
+        "price": 2050
+      }
+    },
+    {
+      "count": 9,
+      "datetime": "2025-04-10T00:00:00",
+      "menu": {
+        "name": "스",
+        "image": "https://picsum.photos/seed/menu4/40",
+        "price": 2750
+      }
+    },
+    {
+      "count": 8,
+      "datetime": "2025-04-10T00:00:00",
+      "menu": {
+        "name": "트",
+        "image": "https://picsum.photos/seed/menu4/40",
+        "price": 2750
+      }
+    },
+    {
+      "count": 7,
+      "datetime": "2025-04-10T00:00:00",
+      "menu": {
+        "name": "띵띵띵띵띵",
+        "image": "https://picsum.photos/seed/menu4/40",
+        "price": 2750
+      }
+    },
+
+    {
+      "count": 700,
+      "datetime": "2025-04-10T00:00:00",
+      "menu": {
+        "name": "숏블랙(산미)",
+        "image": "https://picsum.photos/seed/menu5/40",
+        "price": 2100
+      }
+    }
+  ],
+  "prevData": [
+    {
+      "count": 62,
+      "datetime": "2025-04-09T00:00:00",
+      "menu": {
+        "name": "아메리카노 (다크)",
+        "image": "https://picsum.photos/seed/menu1/40",
+        "price": 1750
+      }
+    },
+    {
+      "count": 1,
+      "datetime": "2025-04-09T00:00:00",
+      "menu": {
+        "name": "아인슈페너 (ICE)",
+        "image": "https://picsum.photos/seed/menu2/40",
+        "price": 3500
+      }
+    },
+    {
+      "count": 13,
+      "datetime": "2025-04-09T00:00:00",
+      "menu": {
+        "name": "카페라떼",
+        "image": "https://picsum.photos/seed/menu3/40",
+        "price": 2450
+      }
+    },
+    {
+      "count": 8,
+      "datetime": "2025-04-09T00:00:00",
+      "menu": {
+        "name": "사이즈업 아메리카노",
+        "image": "https://picsum.photos/seed/menu4/40",
+        "price": 2750
+      }
+    },
+    {
+      "count": 700,
+      "datetime": "2025-04-09T00:00:00",
+      "menu": {
+        "name": "숏블랙(산미)",
+        "image": "https://picsum.photos/seed/menu5/40",
+        "price": 2100
+      }
+    }
+  ]
+}
