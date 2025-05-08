@@ -8,7 +8,6 @@ import BothsideText from "@components/ui/BothsideText";
 import BothsideTitle from "@components/ui/BothsideTitle";
 import MoveButton from "@components/ui/MoveButton";
 import BarGraph, { BarGraphData } from "@components/graph/BarGraph";
-import DropdownMenu from "@components/ui/DropdownMenu";
 
 const DailyPredict = () => {
   const { data: predictData, isLoading: isPredictDataLoading } =
@@ -67,24 +66,16 @@ const DailyPredict = () => {
         <div className="h-[1px] bg-neutral-100 w-full" />
         <BothsideTitle label="최종 예상 매출액" value={`749,217원`} />
       </div>
-      <div className="flex flex-col gap-2 px-2">
-        <div className="flex">
-          <div className="w-full text-lg font-semibold">
-            내일 메뉴별 수요 예측
-          </div>
-          <DropdownMenu className="gap-4 py-1"> </DropdownMenu>
-        </div>
-        <div>
-          {isMenuLoading ? (
-            <>스켈레톤</>
-          ) : (
-            <MenuList
-              title={menuList!.title}
-              data={menuList!.data}
-              prevData={menuList!.prevData}
-            />
-          )}
-        </div>
+      <div>
+        {isMenuLoading ? (
+          <>스켈레톤</>
+        ) : (
+          <MenuList
+            title={menuList!.title}
+            data={menuList!.data}
+            prevData={menuList!.prevData}
+          />
+        )}
       </div>
       <MoveButton>매출 리포트 더보기</MoveButton>
     </div>

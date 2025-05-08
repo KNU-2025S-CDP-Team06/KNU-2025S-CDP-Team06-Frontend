@@ -1,6 +1,7 @@
 import { HTMLAttributes, useState, useEffect } from "react";
 import { Sales } from "@/models/sales.model";
 import MenuElement from "./MenuElement";
+import DropdownMenu from "./DropdownMenu";
 
 interface MenuListProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
@@ -8,7 +9,7 @@ interface MenuListProps extends HTMLAttributes<HTMLDivElement> {
   prevData: Sales[];
 }
 
-const MenuList = ({ data, prevData }: MenuListProps) => {
+const MenuList = ({ title, data, prevData }: MenuListProps) => {
   const [sortedMenu, setSortedMenu] = useState<
     {
       name: string;
@@ -83,19 +84,25 @@ const MenuList = ({ data, prevData }: MenuListProps) => {
   }, [data, prevData]);
 
   return (
-    <div className="bg-white overflow-hidden">
-      {sortedMenu.map((m, idx) => (
-        <MenuElement
-          key={m.name}
-          image={m.image}
-          title={m.name}
-          paragraph={`${m.totalCount}개`}
-          className={
-            idx !== sortedMenu.length ? "border-t border-neutral-200" : ""
-          }
-          number={idx + 1}
-        />
-      ))}
+    <div className="flex flex-col gap-2 px-2">
+      <div className="flex">
+        <div className="w-full text-lg font-semibold">{title}</div>
+        <DropdownMenu className="gap-4 py-1"> </DropdownMenu>
+      </div>
+      <div className="overflow-hidden bg-white">
+        {sortedMenu.map((m, idx) => (
+          <MenuElement
+            key={m.name}
+            image={m.image}
+            title={m.name}
+            paragraph={`${m.totalCount}개`}
+            className={
+              idx !== sortedMenu.length ? "border-t border-neutral-200" : ""
+            }
+            number={idx + 1}
+          />
+        ))}
+      </div>
     </div>
   );
 };
