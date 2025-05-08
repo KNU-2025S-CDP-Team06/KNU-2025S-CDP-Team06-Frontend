@@ -55,6 +55,7 @@ const DropdownMenu = ({
               key={index}
               onClick={() => {
                 setSelectedIndex(index);
+                setIsDropdownVisible(false);
                 if (stateHandler != undefined) stateHandler(index);
               }}
               className={
