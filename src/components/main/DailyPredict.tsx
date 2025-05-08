@@ -56,7 +56,7 @@ const DailyPredict = () => {
       <div className="flex flex-col gap-1 p-2">
         <BothsideText
           label="내일 예상 매출액"
-          value="664,200원"
+          value={predictData!.prophet_forecast.toLocaleString("ko-KR") + "원"}
           valueColor="text-black"
         />
         <BothsideText
@@ -65,7 +65,10 @@ const DailyPredict = () => {
           valueColor="text-red-500"
         />
         <div className="h-[1px] bg-neutral-100 w-full" />
-        <BothsideTitle label="최종 예상 매출액" value={`749,217원`} />
+        <BothsideTitle
+          label="최종 예상 매출액"
+          value={predictData!.xgboost_forecast.toLocaleString("ko-KR") + "원"}
+        />
       </div>
       <div className="flex flex-col gap-2 px-2">
         <div className="flex">
