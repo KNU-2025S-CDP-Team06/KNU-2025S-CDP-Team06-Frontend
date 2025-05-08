@@ -11,7 +11,7 @@ const TodayBestMenu = () => {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-center">
-        <Title label="오늘 가장 많이 판매된 메뉴"></Title>
+        <Title>오늘 가장 많이 판매된 메뉴</Title>
       </div>
       {isOnedayDataLoading ? (
         <>스켈레톤</>

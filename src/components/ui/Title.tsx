@@ -1,18 +1,15 @@
 import { HTMLAttributes } from "react";
 
-interface TitleProps extends HTMLAttributes<HTMLDivElement> {
-  label: string;
-}
-
-const Title = ({ ...props }: TitleProps) => {
+const Title = ({ children, ...props }: HTMLAttributes<HTMLDivElement>) => {
   return (
     <div
+      {...props}
       className={
         "flex items-center justify-between text-black text-xl font-semibold" +
         (props.className ?? "")
       }
     >
-      <span>{props.label}</span>
+      <span>{children}</span>
     </div>
   );
 };

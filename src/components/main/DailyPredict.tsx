@@ -45,7 +45,7 @@ const DailyPredict = () => {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-center">
-        <Title label="내일 매출 예측"></Title>
+        <Title>내일 매출 예측</Title>
       </div>
       {isPredictDataLoading || isManydayDataLoading ? (
         <>스켈레톤</>

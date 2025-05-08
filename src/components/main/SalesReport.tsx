@@ -1,4 +1,3 @@
-import { HTMLAttributes } from "react";
 import Title from "@components/ui/Title";
 import { useGetSales } from "@/hooks/api/sales";
 import LineGraph from "@components/graph/LineGraph";
@@ -15,7 +14,7 @@ const SalesReport = () => {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-center">
-        <Title label="실시간 매출 리포트"></Title>
+        <Title>실시간 매출 리포트</Title>
       </div>
       {isManydayDataLoading ? <>스켈레톤</> : <LineGraph data={manydayData!} />}
 
