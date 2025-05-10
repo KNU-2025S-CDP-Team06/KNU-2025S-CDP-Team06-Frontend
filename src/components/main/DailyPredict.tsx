@@ -32,8 +32,16 @@ const DailyPredict = () => {
         });
       });
       graphData.push({
-        data: Math.floor(predictData!.xgboost_forecast / 10000),
-        title: `${Math.floor(predictData!.xgboost_forecast / 10000)}만원`,
+        data: Math.floor(
+          (predictData!.prophet_forecast *
+            (predictData!.xgboost_forecast + 1)) /
+            10000
+        ),
+        title: `${Math.floor(
+          (predictData!.prophet_forecast *
+            (predictData!.xgboost_forecast + 1)) /
+            10000
+        )}만원`,
         paragraph: "04-10",
         ispredict: true,
       });
@@ -66,12 +74,11 @@ const DailyPredict = () => {
             />
             <BothsideText
               label="날씨에 따른 매출 변화"
-              value={`${predictData!.xgboost_forecast >= 1 ? "+" : "-"} ${(
-                (predictData!.xgboost_forecast - 1) *
-                100
+              value={`${predictData!.xgboost_forecast >= 0 ? "+" : "-"} ${(
+                predictData!.xgboost_forecast * 100
               ).toFixed(1)}%`}
               valueColor={
-                predictData!.xgboost_forecast >= 1
+                predictData!.xgboost_forecast >= 0
                   ? "text-red-500"
                   : "text-blue-500"
               }
@@ -83,7 +90,7 @@ const DailyPredict = () => {
                 (
                   Math.floor(
                     (predictData!.prophet_forecast *
-                      predictData!.xgboost_forecast) /
+                      (predictData!.xgboost_forecast + 1)) /
                       10
                   ) * 10
                 ).toLocaleString("ko-KR") + "원"
