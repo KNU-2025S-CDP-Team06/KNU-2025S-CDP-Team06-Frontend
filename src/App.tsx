@@ -7,6 +7,7 @@ import Mypage from "@pages/mypage/MyPage";
 import { useEffect, useState } from "react";
 import Main from "@pages/main/Main";
 import Playground from "@pages/playground/Playground";
+import Report from "@pages/report/Report";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
             <Route path="/" element={<MainRoute />} />
             <Route path="/login" element={<Login />} />
             <Route path="/mypage" element={<Mypage />} />
+            <Route path="/report" element={<Report />} />
             <Route path="/playground" element={<Playground />} />
           </Routes>
         </Layout>
