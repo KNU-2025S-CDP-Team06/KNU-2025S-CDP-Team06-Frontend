@@ -6,14 +6,7 @@ const Report = () => {
       <ArticleThumbnail title="실시간 매출 리포트" className="w-full bg-white ">
         <div className="flex-col w-full"></div>
       </ArticleThumbnail>
-      <ArticleThumbnail
-        title="메뉴별 판매 리포트"
-        className="w-full  bg-white "
-      >
-        <div className="flex-col w-full px-4">
-          <ArticleBestmenu></ArticleBestmenu>
-        </div>
-      </ArticleThumbnail>
+      <ArticleBestmenu></ArticleBestmenu>
 
       <ArticleThumbnail
         title="내일 예상 매출 리포트"
