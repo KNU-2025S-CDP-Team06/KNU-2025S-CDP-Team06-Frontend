@@ -245,7 +245,6 @@ const ArticleMenuElement = ({ ...props }: MenuElementProps) => {
         />
       </div>
 
-      {/* <div className="flex flex-grow">{props.paragraph}</div> */}
       <div className="flex-grow text-pretty">{props.title}</div>
     </div>
   );
