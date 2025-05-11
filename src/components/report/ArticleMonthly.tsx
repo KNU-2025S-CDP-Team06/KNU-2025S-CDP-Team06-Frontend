@@ -36,7 +36,7 @@ const ArticleMonthly = () => {
 
   return (
     <ArticleThumbnail title="월간 매출 리포트">
-      <div className="flex flex-col flex-grow gap-2 text-black">
+      <div className="flex flex-col flex-grow w-full gap-2 text-black">
         <h1 className="text-base font-semibold">{month} 매출 그래프</h1>
 
         {isManydayDataLoading ? (
@@ -84,7 +84,7 @@ const SaleText = ({
   ...props
 }: SaleTextProps) => {
   return (
-    <div className="flex items-center text-base font-medium gap-1">
+    <div className="flex items-center gap-1 text-base font-medium">
       <span className="font-normal ">{label}</span>
       {props.children}
       <span className={`${valueColor}`}>{percentage}</span>
@@ -128,7 +128,7 @@ const ArticleLineGraph = ({
   }, [data, plotBy]);
 
   return (
-    <section className="flex flex-col gap-4  overflow-visible rounded-2xl bg-white">
+    <section className="flex flex-col gap-4 overflow-visible bg-white rounded-2xl">
       <div className="w-full h-20">
         <ResponsiveLine
           data={graphData}
