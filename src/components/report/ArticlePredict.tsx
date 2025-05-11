@@ -35,20 +35,20 @@ const ArticlePredict = () => {
     | "Rain"
     | "Snow";
 
-  const pickWeatherIcon = (code: string) => {
+  const pickWeatherIcon = (code: WeatherCode) => {
     switch (code) {
       case "Clear":
-        return <SunnyIcon className="w-6 h-6 text-yellow-400" />;
+        return <SunnyIcon className="w-8 h-8 text-yellow-400" />;
       case "Rain":
-        return <RainIcon className="w-6 h-6 text-neutral-600" />;
+        return <RainIcon className="w-8 h-8 text-neutral-600" />;
       case "Snow":
-        return <SnowIcon className="w-6 h-6 text-blue-300" />;
+        return <SnowIcon className="w-8 h-8 text-blue-300" />;
       case "Clouds":
       case "Fog":
       case "Haze":
       case "Mist":
       case "Smoke":
-        return <CloudyIcon className="w-6 h-6 text-neutral-400" />;
+        return <CloudyIcon className="w-8 h-8 text-neutral-400" />;
       default:
         return null;
     }
@@ -117,7 +117,7 @@ const ArticlePredict = () => {
           ) : (
             <div className="flex items-center justify-center">
               {pickWeatherIcon(weatherData!.weather as WeatherCode)}
-              <span className="ml-1">
+              <span className="ml-1 text-2xl">
                 {weatherData!.feeling}
                 {"º"}
               </span>
@@ -160,7 +160,7 @@ const SaleText = ({
   ...props
 }: SaleTextProps) => {
   return (
-    <div className="flex items-center text-base font-medium gap-1">
+    <div className="flex items-center gap-1 text-base font-medium">
       <span className="font-normal ">{label}</span>
       {props.children}
       <span className={`${valueColor}`}>{percentage}</span>
@@ -218,14 +218,11 @@ const BarGraph = ({
   const heightTable = data.map((data) => `${height * (data.data / max)}px`);
 
   return (
-    <section className="rounded-2xl  bg-white">
+    <section className="bg-white rounded-2xl">
       <div className="flex items-end justify-center gap-3 py-2 ">
         {data.map((data, index) => {
           return (
-            <div
-              key={index}
-              className="flex-grow flex flex-col gap-0.5 items-center"
-            >
+            <div key={index} className="flex flex-col items-center flex-grow">
               {data.ispredict && (
                 <div className="py-0.5 px-2 mb-1 bg-white border rounded-full border-neutral-200 text-xs font-bold text-blue-500">
                   예상
@@ -235,8 +232,15 @@ const BarGraph = ({
                 style={{ height: heightTable[index] }}
                 className={`w-full rounded-lg ${colorTable[index]}`}
               />
-              <h1 className={`${titleFontSize} font-medium`}>{data.title}</h1>
-              <p className={`${paragraphFontSize} font-normal`}>
+              <h1
+                style={{
+                  lineHeight: "110%",
+                }}
+                className={`${titleFontSize} mt-1 font-medium`}
+              >
+                {data.title}
+              </h1>
+              <p className={`${paragraphFontSize} font-extralight`}>
                 {data.paragraph}
               </p>
             </div>
