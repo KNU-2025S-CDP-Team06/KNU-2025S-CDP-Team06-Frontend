@@ -101,8 +101,8 @@ const ArticlePredict = () => {
   return (
     <ArticleThumbnail title="내일 예상 매출 리포트">
       <div className="flex flex-col flex-grow gap-2 text-black">
-        <div className="flex text-2xl font-normal">
-          <div className="flex flex-col flex-grow ">
+        <section className="flex text-2xl font-normal">
+          <article className="flex flex-col flex-grow ">
             <span className="text-base font-semibold">{timestamp}</span>
             <span className="text-base font-normal">
               {isStoreLoading ? (
@@ -111,19 +111,19 @@ const ArticlePredict = () => {
                 storeData!.address.split(" ").slice(0, 2).join(" ")
               )}
             </span>
-          </div>
+          </article>
           {isweatherDataLoading ? (
             "스켈레톤"
           ) : (
-            <div className="flex items-center justify-center">
+            <article className="flex items-center justify-center">
               {pickWeatherIcon(weatherData!.weather as WeatherCode)}
               <span className="ml-1 text-2xl">
                 {weatherData!.feeling}
                 {"º"}
               </span>
-            </div>
+            </article>
           )}
-        </div>
+        </section>
 
         <SaleText
           label="내일의 예측 매출:"
