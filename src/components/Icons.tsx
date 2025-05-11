@@ -84,3 +84,41 @@ export const DecreaseIcon = ({ ...props }: HTMLAttributes<HTMLSpanElement>) => {
     />
   );
 };
+
+export const SunnyIcon = ({ ...props }: HTMLAttributes<HTMLSpanElement>) => {
+  return (
+    <span
+      {...props}
+      className={"icon-[material-symbols--sunny] " + (props.className ?? "")}
+    />
+  );
+};
+
+export const RainIcon = ({ ...props }: HTMLAttributes<HTMLSpanElement>) => {
+  return (
+    <span
+      {...props}
+      className={
+        "icon-[material-symbols-light--rainy] " + (props.className ?? "")
+      }
+    />
+  );
+};
+
+export const CloudyIcon = ({ ...props }: HTMLAttributes<HTMLSpanElement>) => {
+  return (
+    <span
+      {...props}
+      className={"icon-[bi--cloudy-fill] " + (props.className ?? "")}
+    />
+  );
+};
+
+export const SnowIcon = ({ ...props }: HTMLAttributes<HTMLSpanElement>) => {
+  return (
+    <span
+      {...props}
+      className={"icon-[ion--snow-sharp] " + (props.className ?? "")}
+    />
+  );
+};
