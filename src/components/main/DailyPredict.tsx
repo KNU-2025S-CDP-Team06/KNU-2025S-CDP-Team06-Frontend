@@ -32,8 +32,16 @@ const DailyPredict = () => {
         });
       });
       graphData.push({
-        data: Math.floor(predictData!.xgboost_forecast / 10000),
-        title: `${Math.floor(predictData!.xgboost_forecast / 10000)}만원`,
+        data: Math.floor(
+          (predictData!.prophet_forecast *
+            (predictData!.xgboost_forecast + 1)) /
+            10000
+        ),
+        title: `${Math.floor(
+          (predictData!.prophet_forecast *
+            (predictData!.xgboost_forecast + 1)) /
+            10000
+        )}만원`,
         paragraph: "04-10",
         ispredict: true,
       });
