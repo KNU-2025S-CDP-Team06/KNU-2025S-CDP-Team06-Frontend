@@ -19,24 +19,44 @@ const ArticleMonthly = () => {
       endDate: "2025-04-01",
     }
   );
+
+  const [month, setMonth] = useState<string>("");
+
+  useEffect(() => {
+    const makeMonth = () => {
+      const now = new Date();
+      const mm = String(now.getMonth() + 1);
+      return `${mm}월`;
+    };
+
+    setMonth(makeMonth());
+    const id = setInterval(() => setMonth(makeMonth()), 60_000);
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <ArticleThumbnail title="월간 매출 리포트">
       <div className="flex flex-col flex-grow gap-2 text-black">
-        <h1 className="text-base font-semibold">월 매출 그래프</h1>
+        <h1 className="text-base font-semibold">{month} 매출 그래프</h1>
 
         {isManydayDataLoading ? (
           <>스켈레톤</>
         ) : (
           <ArticleLineGraph data={manydayData!} />
         )}
-        <div className="text-base font-medium">
-          <span className="text-base font-normal">월 매출: </span>
+
+        <SaleText
+          label={`${month}` + "의 매출:"}
+          percentage="(+11%)"
+          valueColor="text-red-500"
+        >
           {isTotalSalesLoading ? (
             <>스켈레톤</>
           ) : (
             totalSales!.total_revenue.toLocaleString("ko-KR") + "원"
           )}
-        </div>
+        </SaleText>
+
         <div className="text-base font-medium">
           <span className="text-base font-normal">판매된 메뉴 개수: </span>
           {isTotalSalesLoading ? (
@@ -52,21 +72,22 @@ const ArticleMonthly = () => {
 
 export default ArticleMonthly;
 
-interface CompareTextProps extends HTMLAttributes<HTMLDivElement> {
+interface SaleTextProps extends HTMLAttributes<HTMLDivElement> {
   label: string;
-  value: string | number;
+  percentage: string;
   valueColor?: string;
 }
-
-const CompareText = ({
+const SaleText = ({
   label,
-  value,
+  percentage,
   valueColor = "text-black",
-}: CompareTextProps) => {
+  ...props
+}: SaleTextProps) => {
   return (
-    <div className="flex flex-col items-center ">
-      <span className="text-sm font-medium">{label}</span>
-      <span className={`${valueColor} text-sm font-medium`}>{value}</span>
+    <div className="flex items-center text-base font-medium gap-1">
+      <span className="font-normal ">{label}</span>
+      {props.children}
+      <span className={`${valueColor}`}>{percentage}</span>
     </div>
   );
 };
@@ -108,7 +129,7 @@ const ArticleLineGraph = ({
 
   return (
     <section className="flex flex-col gap-4  overflow-visible rounded-2xl bg-white">
-      <div className="w-full h-[150px]">
+      <div className="w-full h-20">
         <ResponsiveLine
           data={graphData}
           margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
