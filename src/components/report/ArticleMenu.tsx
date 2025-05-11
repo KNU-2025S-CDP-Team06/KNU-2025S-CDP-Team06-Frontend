@@ -1,12 +1,15 @@
-import { useGetMenuList } from "@/hooks/api/menuList";
 import ArticleThumbnail from "@components/ui/ArticleThumbnail";
 import { useState, useEffect } from "react";
 import { Sales } from "@/models/sales.model";
 import MenuElement from "@components/ui/MenuElement";
 import { HTMLAttributes } from "react";
+import { useGetSales } from "@/hooks/api/sales";
 
-const ArticleBestmenu = () => {
-  const { data: menuList, isLoading: isMenuLoading } = useGetMenuList();
+const ArticleMenu = () => {
+  const { data: menuList, isLoading: isMenuLoading } = useGetSales({
+    startDate: "2025-03-01",
+    endDate: "2025-04-09",
+  });
 
   return (
     <ArticleThumbnail title="메뉴별 판매 리포트">
@@ -16,9 +19,9 @@ const ArticleBestmenu = () => {
           <p>스켈레톤</p>
         ) : (
           <ArticleMenulist
-            title={menuList!.title}
-            data={menuList!.data}
-            prevData={menuList!.prevData}
+            title={"오늘 가장 많이 판매된 메뉴"}
+            data={menuList!.slice(-1)[0].sales_data}
+            prevData={menuList!.slice(-2, -1)[0].sales_data}
             maxShownSize={3}
           />
         )}
@@ -29,9 +32,9 @@ const ArticleBestmenu = () => {
           <p>스켈레톤</p>
         ) : (
           <ArticleIncreaseSale
-            title={menuList!.title}
-            data={menuList!.data}
-            prevData={menuList!.prevData}
+            title={"수요가 증가한 메뉴"}
+            data={menuList!.slice(-1)[0].sales_data}
+            prevData={menuList!.slice(-2, -1)[0].sales_data}
             maxShownSize={2}
           />
         )}
@@ -118,6 +121,10 @@ const ArticleMenulist = ({ data, prevData, maxShownSize }: MenuListProps) => {
     <div className="flex flex-col gap-2 overflow-hidden bg-white">
       {sortedMenu.map((m, idx) => (
         <MenuElement
+          style={{
+            paddingTop: "0",
+            paddingBottom: "0",
+          }}
           className="px-2 py-0 text-base font-normal"
           key={m.name}
           image={m.image}
@@ -250,4 +257,4 @@ const ArticleMenuElement = ({ ...props }: MenuElementProps) => {
   );
 };
 
-export default ArticleBestmenu;
+export default ArticleMenu;
