@@ -15,24 +15,52 @@ const ArticleSales = () => {
   const { data: onedayData, isLoading: isOnedayDataLoading } =
     useGetOneDaySales("2025-03-26");
 
+  const [timestamp, setTimestamp] = useState<string>("");
+
+  useEffect(() => {
+    const makeTimestamp = () => {
+      const now = new Date();
+      const yy = now.getFullYear().toString().slice(2);
+      const mm = String(now.getMonth() + 1).padStart(2, "0");
+      const dd = String(now.getDate()).padStart(2, "0");
+      const hh = String(now.getHours()).padStart(2, "0");
+      const mi = String(now.getMinutes()).padStart(2, "0");
+      return `${yy}.${mm}.${dd} ${hh}:${mi}`;
+    };
+
+    setTimestamp(makeTimestamp());
+
+    const id = setInterval(() => setTimestamp(makeTimestamp()), 60_000);
+
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <ArticleThumbnail title="실시간 매출 리포트">
       <div className="flex flex-col flex-grow gap-2 text-black">
         <h1 className="text-base font-semibold">주간 매출 그래프</h1>
+        <div>
+          {isManydayDataLoading ? (
+            <>스켈레톤</>
+          ) : (
+            <ArticleLineGraph data={manydayData!} />
+          )}
+          <span className="text-xs font-light text-gray-400">
+            {timestamp} 기준
+          </span>
+        </div>
 
-        {isManydayDataLoading ? (
-          <>스켈레톤</>
-        ) : (
-          <ArticleLineGraph data={manydayData!} />
-        )}
-        <div className="text-base font-medium">
-          <span className="text-base font-normal">오늘의 매출: </span>
+        <SaleText
+          label="오늘의 매출:"
+          percentage="(+11%)"
+          valueColor="text-red-500"
+        >
           {isOnedayDataLoading ? (
             <>스켈레톤</>
           ) : (
             onedayData!.total_revenue.toLocaleString("ko-KR") + "원"
           )}
-        </div>
+        </SaleText>
         <div className="flex items-center justify-center gap-16">
           <CompareText
             label="전 주 대비"
@@ -76,6 +104,26 @@ const CompareText = ({
   );
 };
 
+interface SaleTextProps extends HTMLAttributes<HTMLDivElement> {
+  label: string;
+  percentage: string;
+  valueColor?: string;
+}
+const SaleText = ({
+  label,
+  percentage,
+  valueColor = "text-black",
+  ...props
+}: SaleTextProps) => {
+  return (
+    <div className="flex items-center text-base font-medium gap-1">
+      <span className="font-normal ">{label}</span>
+      {props.children}
+      <span className={`${valueColor}`}>{percentage}</span>
+    </div>
+  );
+};
+
 const ArticleLineGraph = ({
   data,
   plotBy = "total_revenue",
@@ -113,7 +161,7 @@ const ArticleLineGraph = ({
 
   return (
     <section className="flex flex-col gap-4  overflow-visible rounded-2xl bg-white">
-      <div className="w-full h-[150px]">
+      <div className="w-full h-20">
         <ResponsiveLine
           data={graphData}
           margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
