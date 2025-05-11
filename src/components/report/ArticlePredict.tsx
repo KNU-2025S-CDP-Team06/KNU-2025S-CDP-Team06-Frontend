@@ -4,6 +4,7 @@ import { useGetWeather } from "@/hooks/api/weather";
 import { useEffect, useState, HTMLAttributes } from "react";
 import { useGetStoreData } from "@/hooks/api/storeData";
 import { useGetOneDayPredict } from "@/hooks/api/predict";
+import { SunnyIcon, RainIcon, SnowIcon, CloudyIcon } from "@components/Icons";
 
 const ArticlePredict = () => {
   const { data: manydayData, isLoading: isManydayDataLoading } = useGetSales({
@@ -24,6 +25,34 @@ const ArticlePredict = () => {
     id: 1,
   });
 
+  type WeatherCode =
+    | "Clear"
+    | "Clouds"
+    | "Fog"
+    | "Haze"
+    | "Mist"
+    | "Smoke"
+    | "Rain"
+    | "Snow";
+
+  const pickWeatherIcon = (code: string) => {
+    switch (code) {
+      case "Clear":
+        return <SunnyIcon className="w-6 h-6 text-yellow-400" />;
+      case "Rain":
+        return <RainIcon className="w-6 h-6 text-neutral-600" />;
+      case "Snow":
+        return <SnowIcon className="w-6 h-6 text-blue-300" />;
+      case "Clouds":
+      case "Fog":
+      case "Haze":
+      case "Mist":
+      case "Smoke":
+        return <CloudyIcon className="w-6 h-6 text-neutral-400" />;
+      default:
+        return null;
+    }
+  };
   useEffect(() => {
     const makeTimestamp = () => {
       const now = new Date();
@@ -83,8 +112,17 @@ const ArticlePredict = () => {
               )}
             </span>
           </div>
-          {isweatherDataLoading ? <>스켈레톤</> : weatherData!.feeling}
-          {"º"}
+          {isweatherDataLoading ? (
+            "스켈레톤"
+          ) : (
+            <div className="flex items-center justify-center">
+              {pickWeatherIcon(weatherData!.weather as WeatherCode)}
+              <span className="ml-1">
+                {weatherData!.feeling}
+                {"º"}
+              </span>
+            </div>
+          )}
         </div>
 
         <SaleText
