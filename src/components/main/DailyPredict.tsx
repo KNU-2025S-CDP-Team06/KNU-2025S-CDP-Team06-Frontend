@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Title from "@components/ui/Title";
 import { useGetSales } from "@/hooks/api/sales";
 import { useGetOneDayPredict } from "@/hooks/api/predict";
-import { useGetMenuList } from "@/hooks/api/menuList";
 import MenuList from "@components/ui/MenuList";
 import BothsideText from "@components/ui/BothsideText";
 import BothsideTitle from "@components/ui/BothsideTitle";
@@ -12,7 +11,11 @@ import BarGraph, { BarGraphData } from "@components/graph/BarGraph";
 const DailyPredict = () => {
   const { data: predictData, isLoading: isPredictDataLoading } =
     useGetOneDayPredict("2025-04-10");
-  const { data: menuList, isLoading: isMenuLoading } = useGetMenuList();
+
+  const { data: menuList, isLoading: isMenuLoading } = useGetSales({
+    startDate: "2025-03-01",
+    endDate: "2025-04-09",
+  });
   const { data: manydayData, isLoading: isManydayDataLoading } = useGetSales({
     startDate: "2025-03-01",
     endDate: "2025-04-09",
@@ -105,9 +108,10 @@ const DailyPredict = () => {
           <>스켈레톤</>
         ) : (
           <MenuList
-            title={menuList!.title}
-            data={menuList!.data}
-            prevData={menuList!.prevData}
+            title="내일 메뉴별 수요 예측"
+            data={menuList!.slice(-1)[0].sales_data}
+            prevData={menuList!.slice(-2, -1)[0].sales_data}
+            maxShownSize={5}
           />
         )}
       </div>
