@@ -103,7 +103,7 @@ const DailyPredict = () => {
           />
         )}
       </div>
-      <MoveButton>매출 리포트 더보기</MoveButton>
+      <MoveButton>매출 예측 리포트 더보기</MoveButton>
     </div>
   );
 };
