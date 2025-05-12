@@ -4,7 +4,6 @@ import { DailySales } from "@/models/dailySales.model";
 import { linearGradientDef } from "@nivo/core";
 import { ResponsiveLine, Serie } from "@nivo/line";
 import { useEffect, useState, HTMLAttributes } from "react";
-import { useGetOneDaySales } from "@/hooks/api/sales";
 import { useGetTotalSales } from "@/hooks/api/sales";
 
 const ArticleMonthly = () => {
@@ -101,7 +100,6 @@ const ArticleLineGraph = ({
 }) => {
   const [graphData, setGraphData] = useState<Serie[]>([{ id: "", data: [] }]);
   const [max, setMax] = useState<number>(0);
-  const [leftpad, setLeftpad] = useState<number>(0);
 
   useEffect(() => {
     const sliced = data.slice(-31);
@@ -124,7 +122,6 @@ const ArticleLineGraph = ({
     ]);
     const step = Math.pow(10, Math.floor(Math.log10(maxVal)));
     setMax(step * Math.ceil(maxVal / step));
-    setLeftpad(Math.floor(Math.log10(maxVal)) * 11);
   }, [data, plotBy]);
 
   return (

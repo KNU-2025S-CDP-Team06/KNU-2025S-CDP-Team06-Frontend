@@ -133,7 +133,6 @@ const ArticleLineGraph = ({
 }) => {
   const [graphData, setGraphData] = useState<Serie[]>([{ id: "", data: [] }]);
   const [max, setMax] = useState<number>(0);
-  const [leftpad, setLeftpad] = useState<number>(0);
 
   useEffect(() => {
     const sliced = data.slice(-7);
@@ -156,7 +155,6 @@ const ArticleLineGraph = ({
     ]);
     const step = Math.pow(10, Math.floor(Math.log10(maxVal)));
     setMax(step * Math.ceil(maxVal / step));
-    setLeftpad(Math.floor(Math.log10(maxVal)) * 11);
   }, [data, plotBy]);
 
   return (
