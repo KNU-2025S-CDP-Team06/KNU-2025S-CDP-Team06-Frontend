@@ -1,6 +1,4 @@
 import BarGraph, { BarGraphData } from "@components/graph/BarGraph";
-import MenuElement from "@components/ui/MenuElement";
-import ArticleThumbnail from "@components/ui/ArticleThumbnail";
 import { useGetSales } from "@/hooks/api/sales";
 import { useGetOneDayPredict } from "@/hooks/api/predict";
 import { useEffect, useState } from "react";
