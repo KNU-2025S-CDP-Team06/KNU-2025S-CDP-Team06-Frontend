@@ -19,7 +19,31 @@ const SalesReport = () => {
       {isManydayDataLoading ? <>스켈레톤</> : <LineGraph data={manydayData!} />}
 
       <div className="flex flex-col gap-0.5 p-2">
-        <BothsideTitle label="오늘의 매출" value={`676,500원`} />
+        <BothsideTitle
+          label="오늘의 매출"
+          value={
+            isManydayDataLoading
+              ? 0
+              : manydayData!
+                  .slice(-1)[0]
+                  .total_revenue.toLocaleString("ko-KR") + "원"
+          }
+        />
+
+        <div className="flex items-center">
+          <span className="flex-none text-sm font-medium text-neutral-500 whitespace-nowrap mr-2">
+            메뉴{" "}
+            {isManydayDataLoading ? (
+              <>스켈레톤</>
+            ) : (
+              manydayData!.slice(-1)[0].total_count
+            )}
+            개 판매
+          </span>
+
+          <div className="flex-grow h-px bg-neutral-500" />
+        </div>
+
         <BothsideText
           label="전날 대비"
           value={`+40,100 (4.1%)`}
@@ -36,7 +60,6 @@ const SalesReport = () => {
           valueColor="text-blue-500"
         />
       </div>
-      <MoveButton>매출 리포트 더보기</MoveButton>
     </div>
   );
 };
