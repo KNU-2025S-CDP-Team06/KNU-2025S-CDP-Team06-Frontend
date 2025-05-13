@@ -3,7 +3,6 @@ import { useGetSales } from "@/hooks/api/sales";
 import LineGraph from "@components/graph/LineGraph";
 import BothsideText from "@components/ui/BothsideText";
 import BothsideTitle from "@components/ui/BothsideTitle";
-import MoveButton from "@components/ui/MoveButton";
 
 const Sales = () => {
   const { data: manydayData, isLoading: isManydayDataLoading } = useGetSales({
