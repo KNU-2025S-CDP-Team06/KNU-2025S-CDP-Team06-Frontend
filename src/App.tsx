@@ -13,6 +13,9 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import Sales from "@pages/report/Sales/Sales";
+import Menu from "@pages/report/Menu/Menu";
+import Predict from "@pages/report/Predict/Predict";
+import Monthly from "@pages/report/Monthly/Monthly";
 
 const App = () => {
   const queryClient = new QueryClient();
@@ -28,6 +31,9 @@ const App = () => {
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/report" element={<Report />} />
             <Route path="/report/sales" element={<Sales />} />
+            <Route path="/report/menu" element={<Menu />} />
+            <Route path="/report/predict" element={<Predict />} />
+            <Route path="/report/monthly" element={<Monthly />} />
             <Route path="/playground" element={<Playground />} />
           </Routes>
         </Layout>
