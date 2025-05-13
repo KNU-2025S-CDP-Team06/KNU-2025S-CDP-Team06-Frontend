@@ -5,80 +5,100 @@ import { linearGradientDef } from "@nivo/core";
 import { ResponsiveLine, Serie } from "@nivo/line";
 import { useEffect, useState, HTMLAttributes } from "react";
 import { useGetOneDaySales } from "@/hooks/api/sales";
+import dayjs from "dayjs";
+import { getThisDay } from "@/utils/day";
+import { getPercentAndColor } from "@/utils/percent";
+import Skeleton from "@components/ui/Skeleton";
 
 const ArticleSales = () => {
+  const today = getThisDay();
+
+  const thisHour = dayjs().get("hour");
+
   const { data: manydayData, isLoading: isManydayDataLoading } = useGetSales({
-    startDate: "2025-03-01",
-    endDate: "2025-04-09",
+    startDate: today.subtract(6, "days").format("YYYY-MM-DD"),
+    endDate: today.format("YYYY-MM-DD"),
   });
 
-  const { data: onedayData, isLoading: isOnedayDataLoading } =
-    useGetOneDaySales("2025-03-26");
+  const { data: dayagoData, isLoading: isDayagoDataLoading } =
+    useGetOneDaySales({
+      date: today.subtract(1, "day").format("YYYY-MM-DD"),
+      startHour: thisHour,
+    });
+
+  const { data: weekagoData, isLoading: isWeekagoDataLoading } =
+    useGetOneDaySales({
+      date: today.subtract(1, "week").format("YYYY-MM-DD"),
+      startHour: thisHour,
+    });
+
+  const { data: monthagoData, isLoading: isMonthagoDataLoading } =
+    useGetOneDaySales({
+      date: today.subtract(1, "month").format("YYYY-MM-DD"),
+      startHour: thisHour,
+    });
+
+  const { data: yearagoData, isLoading: isYearagoDataLoading } =
+    useGetOneDaySales({
+      date: today.subtract(1, "year").format("YYYY-MM-DD"),
+      startHour: thisHour,
+    });
+
+  const isDataLoading =
+    isManydayDataLoading ||
+    isDayagoDataLoading ||
+    isWeekagoDataLoading ||
+    isMonthagoDataLoading ||
+    isYearagoDataLoading;
 
   const [timestamp, setTimestamp] = useState<string>("");
 
   useEffect(() => {
-    const makeTimestamp = () => {
-      const now = new Date();
-      const yy = now.getFullYear().toString().slice(2);
-      const mm = String(now.getMonth() + 1).padStart(2, "0");
-      const dd = String(now.getDate()).padStart(2, "0");
-      const hh = String(now.getHours()).padStart(2, "0");
-      const mi = String(now.getMinutes()).padStart(2, "0");
-      return `${yy}.${mm}.${dd} ${hh}:${mi}`;
-    };
-
-    setTimestamp(makeTimestamp());
-
-    const id = setInterval(() => setTimestamp(makeTimestamp()), 60_000);
-
-    return () => clearInterval(id);
+    const now = dayjs();
+    setTimestamp(now.format("YY.MM.DD HH:mm"));
   }, []);
 
   return (
     <ArticleThumbnail title="실시간 매출 리포트">
-      <div className="flex flex-col flex-grow w-full gap-2 text-black">
-        <h1 className="text-base font-semibold">주간 매출 그래프</h1>
-        <div>
-          {isManydayDataLoading ? (
-            <>스켈레톤</>
-          ) : (
+      {isDataLoading ? (
+        <Skeleton height={220} />
+      ) : (
+        <div className="flex flex-col flex-grow w-full gap-2 text-black">
+          <h1 className="text-base font-semibold">주간 매출 그래프</h1>
+          <div>
             <ArticleLineGraph data={manydayData!} />
-          )}
-          <span className="text-xs font-light text-gray-400">
-            {timestamp} 기준
-          </span>
-        </div>
+            <span className="text-xs font-light text-gray-400">
+              {timestamp} 기준
+            </span>
+          </div>
 
-        <SaleText
-          label="오늘의 매출:"
-          percentage="(+11%)"
-          valueColor="text-red-500"
-        >
-          {isOnedayDataLoading ? (
-            <>스켈레톤</>
-          ) : (
-            onedayData!.total_revenue.toLocaleString("ko-KR") + "원"
-          )}
-        </SaleText>
-        <div className="flex items-center justify-center gap-16">
-          <CompareText
-            label="전 주 대비"
-            value="+12.8%"
-            valueColor="text-red-500"
-          ></CompareText>
-          <CompareText
-            label="전 달 대비"
-            value="+5.7%"
-            valueColor="text-red-500"
-          ></CompareText>
-          <CompareText
-            label="전 년 대비"
-            value="-3.2%"
-            valueColor="text-blue-500"
-          ></CompareText>
+          <SaleText
+            label="오늘의 매출:"
+            fromData={dayagoData!.total_revenue}
+            toData={manydayData!.slice(-1)[0].total_revenue}
+          >
+            {manydayData?.slice(-1)[0].total_revenue.toLocaleString("ko-KR") +
+              "원"}
+          </SaleText>
+          <div className="flex items-center justify-center">
+            <CompareText
+              label="전 주 대비"
+              fromData={weekagoData!.total_revenue}
+              toData={manydayData![0].total_revenue}
+            />
+            <CompareText
+              label="전 달 대비"
+              fromData={monthagoData!.total_revenue}
+              toData={manydayData![0].total_revenue}
+            />
+            <CompareText
+              label="전 년 대비"
+              fromData={yearagoData!.total_revenue}
+              toData={manydayData![0].total_revenue}
+            />
+          </div>
         </div>
-      </div>
+      )}
     </ArticleThumbnail>
   );
 };
@@ -87,39 +107,32 @@ export default ArticleSales;
 
 interface CompareTextProps extends HTMLAttributes<HTMLDivElement> {
   label: string;
-  value: string | number;
-  valueColor?: string;
+  fromData: number;
+  toData: number;
 }
 
-const CompareText = ({
-  label,
-  value,
-  valueColor = "text-black",
-}: CompareTextProps) => {
+const CompareText = ({ label, fromData, toData }: CompareTextProps) => {
+  const [percent, color] = getPercentAndColor(fromData, toData);
   return (
-    <div className="flex flex-col items-center ">
+    <div className="flex flex-col items-center flex-grow ">
       <span className="text-sm font-medium">{label}</span>
-      <span className={`${valueColor} text-sm font-medium`}>{value}</span>
+      <span className={`${color} text-sm font-medium`}>{percent}</span>
     </div>
   );
 };
 
 interface SaleTextProps extends HTMLAttributes<HTMLDivElement> {
   label: string;
-  percentage: string;
-  valueColor?: string;
+  fromData: number;
+  toData: number;
 }
-const SaleText = ({
-  label,
-  percentage,
-  valueColor = "text-black",
-  ...props
-}: SaleTextProps) => {
+const SaleText = ({ label, fromData, toData, ...props }: SaleTextProps) => {
+  const [percent, color] = getPercentAndColor(fromData, toData);
   return (
     <div className="flex items-center gap-1 text-base font-medium">
       <span className="font-normal ">{label}</span>
       {props.children}
-      <span className={`${valueColor}`}>{percentage}</span>
+      <span className={`${color}`}>({percent})</span>
     </div>
   );
 };
@@ -145,10 +158,7 @@ const ArticleLineGraph = ({
           const dt = new Date(d.date);
           return {
             y: d[plotBy],
-            x: `${(dt.getMonth() + 1).toString().padStart(2, "0")}-${dt
-              .getDate()
-              .toString()
-              .padStart(2, "0")}`,
+            x: dt,
           };
         }),
       },
