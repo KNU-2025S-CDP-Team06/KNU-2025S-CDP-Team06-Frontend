@@ -5,18 +5,22 @@ import { useEffect, useState, HTMLAttributes } from "react";
 import { useGetStoreData } from "@/hooks/api/storeData";
 import { useGetOneDayPredict } from "@/hooks/api/predict";
 import { SunnyIcon, RainIcon, SnowIcon, CloudyIcon } from "@components/Icons";
-
+import { getThisDay } from "@/utils/day";
+import Skeleton from "@components/ui/Skeleton";
 const ArticlePredict = () => {
+  const today = getThisDay();
+
   const { data: manydayData, isLoading: isManydayDataLoading } = useGetSales({
-    startDate: "2025-03-01",
-    endDate: "2025-04-09",
+    startDate: today.subtract(3, "days").format("YYYY-MM-DD"),
+    endDate: today.format("YYYY-MM-DD"),
   });
 
-  const { data: weatherData, isLoading: isweatherDataLoading } =
-    useGetWeather("2025-04-10");
+  const { data: weatherData, isLoading: isWeatherDataLoading } = useGetWeather(
+    today.add(1, "day").format("YYYY-MM-DD")
+  );
 
   const { data: predictData, isLoading: isPredictDataLoading } =
-    useGetOneDayPredict("2025-04-10");
+    useGetOneDayPredict(today.add(1, "day").format("YYYY-MM-DD"));
 
   const [timestamp, setTimestamp] = useState<string>("");
   const [barGraphData, setBarGraphData] = useState<BarGraphData[]>([]);
@@ -24,6 +28,12 @@ const ArticlePredict = () => {
   const { data: storeData, isLoading: isStoreLoading } = useGetStoreData({
     id: 1,
   });
+
+  const isDataLoading =
+    isManydayDataLoading ||
+    isWeatherDataLoading ||
+    isPredictDataLoading ||
+    isStoreLoading;
 
   type WeatherCode =
     | "Clear"
@@ -54,19 +64,7 @@ const ArticlePredict = () => {
     }
   };
   useEffect(() => {
-    const makeTimestamp = () => {
-      const now = new Date();
-      const mm = String(now.getMonth() + 1);
-      const dd = String(now.getDate()).padStart(2, "0");
-
-      return `${mm}월 ${dd}일`;
-    };
-
-    setTimestamp(makeTimestamp());
-
-    const id = setInterval(() => setTimestamp(makeTimestamp()), 60_000);
-
-    return () => clearInterval(id);
+    setTimestamp(today.add(1, "day").format("MM월 DD일"));
   }, []);
 
   useEffect(() => {
@@ -100,21 +98,17 @@ const ArticlePredict = () => {
 
   return (
     <ArticleThumbnail title="내일 예상 매출 리포트">
-      <div className="flex flex-col flex-grow gap-2 text-black">
-        <section className="flex text-2xl font-normal">
-          <article className="flex flex-col flex-grow ">
-            <span className="text-base font-semibold">{timestamp}</span>
-            <span className="text-base font-normal">
-              {isStoreLoading ? (
-                <>스켈레톤</>
-              ) : (
-                storeData!.address.split(" ").slice(0, 2).join(" ")
-              )}
-            </span>
-          </article>
-          {isweatherDataLoading ? (
-            "스켈레톤"
-          ) : (
+      {isDataLoading ? (
+        <Skeleton height={217} />
+      ) : (
+        <div className="flex flex-col flex-grow gap-2 text-black">
+          <section className="flex text-2xl font-normal">
+            <article className="flex flex-col flex-grow ">
+              <span className="text-base font-semibold">{timestamp}</span>
+              <span className="text-base font-normal">
+                {storeData!.address.split(" ").slice(0, 2).join(" ")}
+              </span>
+            </article>
             <article className="flex items-center justify-center">
               {pickWeatherIcon(weatherData!.weather as WeatherCode)}
               <span className="ml-1 text-2xl">
@@ -122,26 +116,23 @@ const ArticlePredict = () => {
                 {"º"}
               </span>
             </article>
-          )}
-        </section>
-
-        <SaleText
-          label="내일의 예측 매출:"
-          percentage="(+11.8%)"
-          valueColor="text-red-500"
-        >
-          {isPredictDataLoading ? (
-            <>스켈레톤</>
-          ) : (
-            predictData!.prophet_forecast.toLocaleString("ko-KR") + "원"
-          )}
-        </SaleText>
-        {isPredictDataLoading || isManydayDataLoading ? (
-          <>스켈레톤</>
-        ) : (
-          <BarGraph data={barGraphData} height={60} />
-        )}
-      </div>
+          </section>
+          <SaleText
+            label="내일의 예상 매출:"
+            percentage=""
+            valueColor="text-red-500"
+          >
+            {(
+              Math.floor(
+                (predictData!.prophet_forecast *
+                  (predictData!.xgboost_forecast + 1)) /
+                  10
+              ) * 10
+            ).toLocaleString("ko-KR") + "원"}
+          </SaleText>
+          <BarGraph data={barGraphData} height={65} />
+        </div>
+      )}
     </ArticleThumbnail>
   );
 };
@@ -219,7 +210,7 @@ const BarGraph = ({
 
   return (
     <section className="bg-white rounded-2xl">
-      <div className="flex items-end justify-center gap-3 py-2 ">
+      <div className="flex items-end justify-center gap-3 ">
         {data.map((data, index) => {
           return (
             <div key={index} className="flex flex-col items-center flex-grow">

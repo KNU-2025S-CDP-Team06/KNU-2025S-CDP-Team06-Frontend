@@ -7,9 +7,9 @@ export type getWeatherParams = {
 
 export const getWeather = async (params: getWeatherParams) => {
   const response = await getRequest<Weather>(
-    "/mocks/weatherData.json", //API URL: /predict/{id}
+    "/mocks/weatherData.json", //API URL: `/weather/${id}`
     {
-      date: new Date(params.date).toISOString(),
+      dateTime: new Date(params.date).toISOString().slice(0, 19),
     }
   );
   return response;

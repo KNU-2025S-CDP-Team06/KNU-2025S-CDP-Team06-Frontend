@@ -9,9 +9,15 @@ import Main from "@pages/main/Main";
 import Playground from "@pages/playground/Playground";
 import Report from "@pages/report/Report";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 import Sales from "@pages/report/Sales/Sales";
+
 const App = () => {
   const queryClient = new QueryClient();
+  dayjs.extend(utc);
+  dayjs.extend(timezone);
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>

@@ -1,4 +1,5 @@
 import {
+  getDailySalesParams,
   getOneDaySales,
   getSales,
   getSalesParams,
@@ -7,23 +8,23 @@ import {
 } from "@services/sales";
 import { useQuery } from "@tanstack/react-query";
 
-export const useGetOneDaySales = (date: string) => {
+export const useGetOneDaySales = (params: getDailySalesParams) => {
   return useQuery({
-    queryKey: ["dailySales"],
-    queryFn: () => getOneDaySales({ date: date }),
+    queryKey: ["dailySales", params.date],
+    queryFn: () => getOneDaySales(params),
   });
 };
 
 export const useGetSales = (params: getSalesParams) => {
   return useQuery({
-    queryKey: ["sales"],
+    queryKey: ["sales", params.startDate + params.endDate],
     queryFn: () => getSales(params),
   });
 };
 
 export const useGetTotalSales = (params: getTotalSalesParams) => {
   return useQuery({
-    queryKey: ["totalSales"],
+    queryKey: ["totalSales", params.startDate + params.endDate],
     queryFn: () => getTotalSales(params),
   });
 };

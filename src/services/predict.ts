@@ -7,9 +7,9 @@ export type getOnedayPredictParams = {
 
 export const getOnedayPredict = async (params: getOnedayPredictParams) => {
   const response = await getRequest<Predict>(
-    "/mocks/predictOnedayData.json", //API URL: /predict/{id}
+    "/mocks/predictOnedayData.json", //API URL: `/forecast/${id}`,
     {
-      date: new Date(params.date).toISOString(),
+      dateTime: new Date(params.date).toISOString().slice(0, 19),
     }
   );
   return response;

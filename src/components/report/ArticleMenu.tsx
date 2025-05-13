@@ -5,41 +5,42 @@ import MenuElement from "@components/ui/MenuElement";
 import { HTMLAttributes } from "react";
 import { useGetSales } from "@/hooks/api/sales";
 import useSortMenu from "@/hooks/useSortMenu";
+import { getThisDay } from "@/utils/day";
+import Skeleton from "@components/ui/Skeleton";
 
 const ArticleMenu = () => {
+  const today = getThisDay();
+
   const { data: menuList, isLoading: isMenuLoading } = useGetSales({
-    startDate: "2025-03-01",
-    endDate: "2025-04-09",
+    startDate: today.subtract(1, "days").format("YYYY-MM-DD"),
+    endDate: today.format("YYYY-MM-DD"),
   });
 
   return (
     <ArticleThumbnail title="메뉴별 판매 리포트">
-      <div className="flex flex-col flex-grow gap-2 text-black">
-        <h1 className="text-base font-semibold">오늘 가장 많이 판매된 메뉴</h1>
-        {isMenuLoading ? (
-          <p>스켈레톤</p>
-        ) : (
+      {isMenuLoading ? (
+        <Skeleton height={217} />
+      ) : (
+        <div className="flex flex-col flex-grow gap-2 text-black">
+          <h1 className="text-base font-semibold">
+            오늘 가장 많이 판매된 메뉴
+          </h1>
           <ArticleMenulist
             title={"오늘 가장 많이 판매된 메뉴"}
             data={menuList!.slice(-1)[0].sales_data}
             prevData={menuList!.slice(-2, -1)[0].sales_data}
             maxShownSize={3}
           />
-        )}
-        <div className="h-[1px] bg-neutral-300 w-full" />
-        <h1 className="text-base font-semibold">수요가 증가한 메뉴</h1>
-
-        {isMenuLoading ? (
-          <p>스켈레톤</p>
-        ) : (
+          <div className="h-[1px] bg-neutral-300 w-full" />
+          <h1 className="text-base font-semibold">수요가 증가한 메뉴</h1>
           <ArticleIncreaseSale
             title={"수요가 증가한 메뉴"}
             data={menuList!.slice(-1)[0].sales_data}
             prevData={menuList!.slice(-2, -1)[0].sales_data}
             maxShownSize={2}
           />
-        )}
-      </div>
+        </div>
+      )}
     </ArticleThumbnail>
   );
 };
@@ -100,8 +101,8 @@ const ArticleIncreaseSale = ({
         <ArticleMenuElement
           className="flex-grow text-sm font-medium"
           image={m.image}
-          title={m.name}
-          paragraph={`${m.totalCount}개`}
+          title={`${m.totalCount}개`}
+          paragraph={`(${m.compareCount >= 0 ? "+" : "-"}${m.compareCount}개)`}
         />
       ))}
     </div>
@@ -130,8 +131,12 @@ const ArticleMenuElement = ({ ...props }: MenuElementProps) => {
           className="flex-shrink-0 object-cover w-12 h-12 border rounded-full border-neutral-300 "
         />
       </div>
-
-      <div className="flex-grow text-pretty">{props.title}</div>
+      <div className="flex items-center gap-1">
+        <div className="text-sm font-medium">{props.title}</div>
+        <div className="text-sm font-medium text-red-500">
+          {props.paragraph}
+        </div>
+      </div>
     </div>
   );
 };
