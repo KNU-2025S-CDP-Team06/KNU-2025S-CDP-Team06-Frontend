@@ -11,10 +11,10 @@ const Report = () => {
         <div className="h-0.5 bg-neutral-200 flex-grow" />
       </div>
       <div className="flex flex-col w-full gap-4 px-3">
-        <ArticleSales></ArticleSales>
-        <ArticleMenu></ArticleMenu>
-        <ArticlePredict></ArticlePredict>
-        <ArticleMonthly></ArticleMonthly>
+        <ArticleSales />
+        <ArticleMenu />
+        <ArticlePredict />
+        <ArticleMonthly />
       </div>
     </main>
   );
