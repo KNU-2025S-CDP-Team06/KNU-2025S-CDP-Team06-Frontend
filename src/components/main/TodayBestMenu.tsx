@@ -6,7 +6,7 @@ import { useGetOneDaySales } from "@/hooks/api/sales";
 import LessSales from "@components/ui/LessSales";
 const TodayBestMenu = () => {
   const { data: onedayData, isLoading: isOnedayDataLoading } =
-    useGetOneDaySales("2025-03-26");
+    useGetOneDaySales({ date: "2025-03-26" });
 
   return (
     <div className="flex flex-col gap-4">

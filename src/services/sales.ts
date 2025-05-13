@@ -21,14 +21,17 @@ export const getSales = async (params: getSalesParams) => {
   return response;
 };
 
-type getDailySalesParams = {
+export type getDailySalesParams = {
   date: string;
+  startHour?: number;
+  endHour?: number;
 };
 
 export const getOneDaySales = async (params: getDailySalesParams) => {
   const response = await getRequest<DailySales[]>(
     "/mocks/salesOneDayData.json", //API URL: /sales/{:id}
     {
+      ...params,
       startDate: new Date(params.date).toISOString(),
       endDate: new Date(params.date).toISOString(),
     }
