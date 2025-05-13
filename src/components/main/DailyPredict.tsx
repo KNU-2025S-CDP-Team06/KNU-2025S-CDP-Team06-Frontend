@@ -35,11 +35,12 @@ const DailyPredict = () => {
         });
       });
       graphData.push({
-        data: Math.floor(
-          (predictData!.prophet_forecast *
-            (predictData!.xgboost_forecast + 1)) /
-            10000
-        ),
+        data:
+          Math.floor(
+            (predictData!.prophet_forecast *
+              (predictData!.xgboost_forecast + 1)) /
+              100000
+          ) * 10,
         title: `${Math.floor(
           (predictData!.prophet_forecast *
             (predictData!.xgboost_forecast + 1)) /

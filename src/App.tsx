@@ -12,6 +12,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
+import Sales from "@pages/report/Sales/Sales";
 
 const App = () => {
   const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/report" element={<Report />} />
+            <Route path="/report/sales" element={<Sales />} />
             <Route path="/playground" element={<Playground />} />
           </Routes>
         </Layout>
