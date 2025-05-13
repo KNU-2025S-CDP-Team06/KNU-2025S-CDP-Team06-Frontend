@@ -1,7 +1,7 @@
 const Skeleton = ({ height = 10 }: { height?: number }) => (
   <div
-    style={{ height: `${height / 4}rem` }}
-    className="rounded-md bg-neutral-300 animate-pulse"
+    style={{ height: `${height / 16}rem` }}
+    className="w-full rounded-md bg-neutral-200 animate-pulse"
   ></div>
 );
 export default Skeleton;
