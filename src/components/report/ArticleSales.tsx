@@ -23,25 +23,25 @@ const ArticleSales = () => {
   const { data: dayagoData, isLoading: isDayagoDataLoading } =
     useGetOneDaySales({
       date: today.subtract(1, "day").format("YYYY-MM-DD"),
-      startHour: thisHour,
+      endHour: thisHour,
     });
 
   const { data: weekagoData, isLoading: isWeekagoDataLoading } =
     useGetOneDaySales({
       date: today.subtract(1, "week").format("YYYY-MM-DD"),
-      startHour: thisHour,
+      endHour: thisHour,
     });
 
   const { data: monthagoData, isLoading: isMonthagoDataLoading } =
     useGetOneDaySales({
       date: today.subtract(1, "month").format("YYYY-MM-DD"),
-      startHour: thisHour,
+      endHour: thisHour,
     });
 
   const { data: yearagoData, isLoading: isYearagoDataLoading } =
     useGetOneDaySales({
       date: today.subtract(1, "year").format("YYYY-MM-DD"),
-      startHour: thisHour,
+      endHour: thisHour,
     });
 
   const isDataLoading =

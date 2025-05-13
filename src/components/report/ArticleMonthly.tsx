@@ -5,66 +5,62 @@ import { linearGradientDef } from "@nivo/core";
 import { ResponsiveLine, Serie } from "@nivo/line";
 import { useEffect, useState, HTMLAttributes } from "react";
 import { useGetTotalSales } from "@/hooks/api/sales";
+import { getThisDay, getThisMonth } from "@/utils/day";
+import { getPercentAndColor } from "@/utils/percent";
+import Skeleton from "@components/ui/Skeleton";
 
 const ArticleMonthly = () => {
+  const today = getThisDay();
+  const thisMonth = getThisMonth();
+
   const { data: manydayData, isLoading: isManydayDataLoading } = useGetSales({
-    startDate: "2025-03-01",
-    endDate: "2025-04-09",
+    startDate: today.subtract(1, "month").format("YYYY-MM-DD"),
+    endDate: today.format("YYYY-MM-DD"),
   });
 
   const { data: totalSales, isLoading: isTotalSalesLoading } = useGetTotalSales(
     {
-      startDate: "2025-03-01",
-      endDate: "2025-04-01",
+      startDate: thisMonth.format("YYYY-MM-DD"),
+      endDate: today.format("YYYY-MM-DD"),
     }
   );
 
+  const { data: monthAgoTotalSales, isLoading: isMonthAgoTotalSalesLoading } =
+    useGetTotalSales({
+      startDate: thisMonth.subtract(1, "month").format("YYYY-MM-DD"),
+      endDate: today.subtract(1, "month").format("YYYY-MM-DD"),
+    });
+
   const [month, setMonth] = useState<string>("");
 
-  useEffect(() => {
-    const makeMonth = () => {
-      const now = new Date();
-      const mm = String(now.getMonth() + 1);
-      return `${mm}월`;
-    };
+  const isDataLoading =
+    isManydayDataLoading || isTotalSalesLoading || isMonthAgoTotalSalesLoading;
 
-    setMonth(makeMonth());
-    const id = setInterval(() => setMonth(makeMonth()), 60_000);
-    return () => clearInterval(id);
+  useEffect(() => {
+    setMonth(`${today.get("month") + 1}월`);
   }, []);
 
   return (
     <ArticleThumbnail title="월간 매출 리포트">
-      <div className="flex flex-col flex-grow w-full gap-2 text-black">
-        <h1 className="text-base font-semibold">{month} 매출 그래프</h1>
-
-        {isManydayDataLoading ? (
-          <>스켈레톤</>
-        ) : (
+      {isDataLoading ? (
+        <Skeleton height={176} />
+      ) : (
+        <div className="flex flex-col flex-grow w-full gap-2 text-black">
+          <h1 className="text-base font-semibold">{month} 매출 그래프</h1>
           <ArticleLineGraph data={manydayData!} />
-        )}
-
-        <SaleText
-          label={`${month}` + "의 매출:"}
-          percentage="(+11%)"
-          valueColor="text-red-500"
-        >
-          {isTotalSalesLoading ? (
-            <>스켈레톤</>
-          ) : (
-            totalSales!.total_revenue.toLocaleString("ko-KR") + "원"
-          )}
-        </SaleText>
-
-        <div className="text-base font-medium">
-          <span className="text-base font-normal">판매된 메뉴 개수: </span>
-          {isTotalSalesLoading ? (
-            <>스켈레톤</>
-          ) : (
-            totalSales!.total_count.toLocaleString("ko-KR") + "개"
-          )}
+          <SaleText
+            label={`${month}` + "의 매출:"}
+            fromData={monthAgoTotalSales!.total_revenue}
+            toData={totalSales!.total_revenue}
+          >
+            {totalSales!.total_revenue.toLocaleString("ko-KR") + "원"}
+          </SaleText>
+          <div className="text-base font-medium">
+            <span className="text-base font-normal">판매된 메뉴 개수: </span>
+            {totalSales!.total_count.toLocaleString("ko-KR") + "개"}
+          </div>
         </div>
-      </div>
+      )}
     </ArticleThumbnail>
   );
 };
@@ -73,20 +69,16 @@ export default ArticleMonthly;
 
 interface SaleTextProps extends HTMLAttributes<HTMLDivElement> {
   label: string;
-  percentage: string;
-  valueColor?: string;
+  fromData: number;
+  toData: number;
 }
-const SaleText = ({
-  label,
-  percentage,
-  valueColor = "text-black",
-  ...props
-}: SaleTextProps) => {
+const SaleText = ({ label, fromData, toData, ...props }: SaleTextProps) => {
+  const [percent, color] = getPercentAndColor(fromData, toData);
   return (
     <div className="flex items-center gap-1 text-base font-medium">
       <span className="font-normal ">{label}</span>
       {props.children}
-      <span className={`${valueColor}`}>{percentage}</span>
+      <span className={`${color}`}>({percent})</span>
     </div>
   );
 };
