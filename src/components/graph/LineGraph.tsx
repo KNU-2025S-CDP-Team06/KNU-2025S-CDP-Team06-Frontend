@@ -79,7 +79,9 @@ const LineGraph = ({
       ]);
     }
     const maxStep = Math.pow(10, Math.floor(Math.log10(maxVal)));
-    setLeftpad(Math.floor(Math.log10(maxVal)) * 11);
+    if (plotBy == "total_revenue")
+      setLeftpad(Math.floor(Math.log10(maxVal)) * 11);
+    else setLeftpad(Math.floor(Math.log10(maxVal)) * 11 + 11);
     setMax(maxStep * Math.ceil(maxVal / maxStep));
   }, [plot]);
   const tickValueTable = [3, 1, 5];
@@ -133,7 +135,9 @@ const LineGraph = ({
                 style={{ transform: "translateY(3px)" }}
                 className="px-2 py-1 text-xs font-bold bg-white border rounded-sm shadow-md border-neutral-300"
               >
-                ₩{point.point.data.y.toLocaleString()}
+                {plotBy == "total_revenue"
+                  ? `₩${point.point.data.y.toLocaleString()}`
+                  : `${point.point.data.y.toLocaleString()}개`}
               </div>
             );
           }}
