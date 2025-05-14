@@ -108,7 +108,9 @@ const SalesReport = () => {
             value={`${
               manydayData!.slice(-1)[0].total_revenue -
                 dayagoData!.total_revenue >=
-                0 && "+"
+              0
+                ? "+"
+                : ""
             }${(
               manydayData!.slice(-1)[0].total_revenue -
               dayagoData!.total_revenue
@@ -120,11 +122,13 @@ const SalesReport = () => {
             value={`${
               manydayData!.slice(-1)[0].total_revenue -
                 weekagoData!.total_revenue >=
-                0 && "+"
+              0
+                ? "+"
+                : ""
             }${(
               manydayData!.slice(-1)[0].total_revenue -
               weekagoData!.total_revenue
-            ).toLocaleString("ko-KR")} (${valueColorList[0][0]})`}
+            ).toLocaleString("ko-KR")} (${valueColorList[1][0]})`}
             valueColor={valueColorList[1][1]}
           />
           <BothsideText
@@ -132,11 +136,13 @@ const SalesReport = () => {
             value={`${
               manydayData!.slice(-1)[0].total_revenue -
                 monthagoData!.total_revenue >=
-                0 && "+"
+              0
+                ? "+"
+                : ""
             }${(
               manydayData!.slice(-1)[0].total_revenue -
               monthagoData!.total_revenue
-            ).toLocaleString("ko-KR")} (${valueColorList[0][0]})`}
+            ).toLocaleString("ko-KR")} (${valueColorList[2][0]})`}
             valueColor={valueColorList[2][1]}
           />
         </div>
