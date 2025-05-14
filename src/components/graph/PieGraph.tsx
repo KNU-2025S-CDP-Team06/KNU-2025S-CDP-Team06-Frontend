@@ -1,4 +1,5 @@
 import { Sales } from "@/models/sales.model";
+import { WarnIcon } from "@components/Icons";
 import SmallButton from "@components/ui/SmallButton";
 import { ResponsivePie } from "@nivo/pie";
 import { animated } from "@react-spring/web";
@@ -126,61 +127,76 @@ const PieGraph = ({ data, maxShownSize = 5 }: PieGraphProps) => {
 
   return (
     <div className="flex flex-col items-center gap-4 p-4 overflow-hidden rounded-2xl bg-neutral-100">
-      <div style={{ height: "75vw", maxHeight: "350px" }} className="w-full">
-        <ResponsivePie
-          data={graphData}
-          margin={{ top: 20, right: 50, bottom: 50, left: 50 }}
-          innerRadius={0.4}
-          activeOuterRadiusOffset={8}
-          colors={palette}
-          arcLinkLabelsTextOffset={12}
-          arcLinkLabelsStraightLength={0}
-          arcLinkLabelComponent={({ datum, style }) => {
-            return (
-              <AnimatedG opacity={style.opacity} transform={style.textPosition}>
-                <AnimatedText
-                  textAnchor="middle"
-                  dominantBaseline="central"
-                  style={{
-                    fontSize: "0.9rem",
-                    fontWeight: "bold",
-                    fill: "#323232",
-                  }}
+      {data.length == 0 ? (
+        <div
+          className="flex flex-col items-center justify-center gap-2 text-lg font-semibold text-neutral-500"
+          style={{ height: "calc(75vw + 8.125rem)", maxHeight: "480px" }}
+        >
+          <WarnIcon className="w-16 h-16 bg-neutral-500" />
+          판매 데이터가 존재하지 않습니다
+        </div>
+      ) : (
+        <div style={{ height: "75vw", maxHeight: "350px" }} className="w-full">
+          <ResponsivePie
+            data={graphData}
+            margin={{ top: 20, right: 50, bottom: 50, left: 50 }}
+            innerRadius={0.4}
+            activeOuterRadiusOffset={8}
+            colors={palette}
+            arcLinkLabelsTextOffset={12}
+            arcLinkLabelsStraightLength={0}
+            arcLinkLabelComponent={({ datum, style }) => {
+              return (
+                <AnimatedG
+                  opacity={style.opacity}
+                  transform={style.textPosition}
                 >
-                  {datum.data.arcTitle}
-                </AnimatedText>
-                <AnimatedText
-                  textAnchor="middle"
-                  dominantBaseline="central"
-                  style={{
-                    fontSize: "0.8rem",
-                    transform: "translateY(1rem)",
-                    fill: "#767676",
-                  }}
-                >
-                  {datum.data.arcParagraph}
-                </AnimatedText>
-              </AnimatedG>
-            );
-          }}
-          tooltip={(data) => {
-            const graphDatum = graphData.find(
-              (graphdata) => graphdata.id == data.datum.id
-            )!;
-            return (
-              <div className="flex items-center gap-1 px-2 py-1 bg-white border rounded-sm shadow-md border-neutral-300">
-                <div
-                  style={{ backgroundColor: `${data.datum.color}` }}
-                  className="w-2 h-2 rounded-full"
-                />
-                <h1 className="text-xs font-bold">{graphDatum.legendTitle}</h1>
-              </div>
-            );
-          }}
-          enableArcLabels={false}
-          animate={false}
-        />
-      </div>
+                  <AnimatedText
+                    textAnchor="middle"
+                    dominantBaseline="central"
+                    style={{
+                      fontSize: "0.9rem",
+                      fontWeight: "bold",
+                      fill: "#323232",
+                    }}
+                  >
+                    {datum.data.arcTitle}
+                  </AnimatedText>
+                  <AnimatedText
+                    textAnchor="middle"
+                    dominantBaseline="central"
+                    style={{
+                      fontSize: "0.8rem",
+                      transform: "translateY(1rem)",
+                      fill: "#767676",
+                    }}
+                  >
+                    {datum.data.arcParagraph}
+                  </AnimatedText>
+                </AnimatedG>
+              );
+            }}
+            tooltip={(data) => {
+              const graphDatum = graphData.find(
+                (graphdata) => graphdata.id == data.datum.id
+              )!;
+              return (
+                <div className="flex items-center gap-1 px-2 py-1 bg-white border rounded-sm shadow-md border-neutral-300">
+                  <div
+                    style={{ backgroundColor: `${data.datum.color}` }}
+                    className="w-2 h-2 rounded-full"
+                  />
+                  <h1 className="text-xs font-bold">
+                    {graphDatum.legendTitle}
+                  </h1>
+                </div>
+              );
+            }}
+            enableArcLabels={false}
+            animate={false}
+          />
+        </div>
+      )}
       <div className="flex flex-col w-full gap-0.5 px-4">
         {graphData.map((data, index) => {
           return (

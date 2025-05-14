@@ -4,16 +4,18 @@ import { useGetOneDayPredict } from "@/hooks/api/predict";
 import BothsideText from "@components/ui/BothsideText";
 import BothsideTitle from "@components/ui/BothsideTitle";
 import BarGraph, { BarGraphData } from "@components/graph/BarGraph";
+import { getThisDay } from "@/utils/day";
 
 const Predict = () => {
+  const today = getThisDay();
+
   const { data: predictData, isLoading: isPredictDataLoading } =
-    useGetOneDayPredict("2025-04-10");
+    useGetOneDayPredict(today.add(1, "day").format("YYYY-MM-DD"));
 
   const { data: manydayData, isLoading: isManydayDataLoading } = useGetSales({
-    startDate: "2025-03-01",
-    endDate: "2025-04-09",
+    startDate: today.subtract(3, "days").format("YYYY-MM-DD"),
+    endDate: today.format("YYYY-MM-DD"),
   });
-
   const [barGraphData, setBarGraphData] = useState<BarGraphData[]>([]);
 
   useEffect(() => {

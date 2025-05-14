@@ -23,6 +23,7 @@ const ArticlePredict = () => {
     useGetOneDayPredict(today.add(1, "day").format("YYYY-MM-DD"));
 
   const [timestamp, setTimestamp] = useState<string>("");
+  const [timeaxis, setTimeaxis] = useState<string>("");
   const [barGraphData, setBarGraphData] = useState<BarGraphData[]>([]);
 
   const { data: storeData, isLoading: isStoreLoading } = useGetStoreData({
@@ -68,6 +69,10 @@ const ArticlePredict = () => {
   }, []);
 
   useEffect(() => {
+    setTimeaxis(today.add(1, "day").format("MM-DD"));
+  }, []);
+
+  useEffect(() => {
     if (!isPredictDataLoading && !isManydayDataLoading) {
       const graphData: BarGraphData[] = [];
       manydayData!.slice(-4).forEach((data) => {
@@ -89,7 +94,7 @@ const ArticlePredict = () => {
             (predictData!.xgboost_forecast + 1)) /
             10000
         )}만원`,
-        paragraph: "04-10",
+        paragraph: timeaxis,
         ispredict: true,
       });
       setBarGraphData(graphData);
