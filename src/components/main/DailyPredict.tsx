@@ -2,24 +2,29 @@ import { useEffect, useState } from "react";
 import Title from "@components/ui/Title";
 import { useGetSales } from "@/hooks/api/sales";
 import { useGetOneDayPredict } from "@/hooks/api/predict";
-import MenuList from "@components/ui/MenuList";
+// import MenuList from "@components/ui/MenuList";
 import BothsideText from "@components/ui/BothsideText";
 import BothsideTitle from "@components/ui/BothsideTitle";
 import MoveButton from "@components/ui/MoveButton";
 import BarGraph, { BarGraphData } from "@components/graph/BarGraph";
+import Skeleton from "@components/ui/Skeleton";
+import { getThisDay } from "@/utils/day";
 
 const DailyPredict = () => {
-  const { data: predictData, isLoading: isPredictDataLoading } =
-    useGetOneDayPredict("2025-04-10");
+  const today = getThisDay();
 
-  const { data: menuList, isLoading: isMenuLoading } = useGetSales({
-    startDate: "2025-03-01",
-    endDate: "2025-04-09",
-  });
   const { data: manydayData, isLoading: isManydayDataLoading } = useGetSales({
-    startDate: "2025-03-01",
-    endDate: "2025-04-09",
+    startDate: today.subtract(3, "days").format("YYYY-MM-DD"),
+    endDate: today.format("YYYY-MM-DD"),
   });
+
+  const { data: predictData, isLoading: isPredictDataLoading } =
+    useGetOneDayPredict(today.add(1, "day").format("YYYY-MM-DD"));
+
+  // const { data: menuList, isLoading: isMenuLoading } = useGetSales({
+  //   startDate: "2025-03-01",
+  //   endDate: "2025-04-09",
+  // });
 
   const [barGraphData, setBarGraphData] = useState<BarGraphData[]>([]);
 
@@ -59,51 +64,49 @@ const DailyPredict = () => {
         <Title>내일 매출 예측</Title>
       </div>
       {isPredictDataLoading || isManydayDataLoading ? (
-        <>스켈레톤</>
+        <Skeleton height={220} />
       ) : (
         <BarGraph data={barGraphData} />
       )}
+      {}
 
-      <div className="flex flex-col gap-1 p-2">
-        {isPredictDataLoading ? (
-          <>스켈레톤</>
-        ) : (
-          <>
-            <BothsideText
-              label="내일 예상 매출액"
-              value={
-                predictData!.prophet_forecast.toLocaleString("ko-KR") + "원"
-              }
-              valueColor="text-black"
-            />
-            <BothsideText
-              label="날씨에 따른 매출 변화"
-              value={`${predictData!.xgboost_forecast >= 0 ? "+" : "-"} ${(
-                predictData!.xgboost_forecast * 100
-              ).toFixed(1)}%`}
-              valueColor={
-                predictData!.xgboost_forecast >= 0
-                  ? "text-red-500"
-                  : "text-blue-500"
-              }
-            />
-            <div className="h-[1px] bg-neutral-100 w-full" />
-            <BothsideTitle
-              label="최종 예상 매출액"
-              value={
-                (
-                  Math.floor(
-                    (predictData!.prophet_forecast *
-                      (predictData!.xgboost_forecast + 1)) /
-                      10
-                  ) * 10
-                ).toLocaleString("ko-KR") + "원"
-              }
-            />
-          </>
-        )}
-      </div>
-      <div>
+      {isPredictDataLoading ? (
+        <Skeleton height={97} />
+      ) : (
+        <div className="flex flex-col gap-1 p-2">
+          <BothsideText
+            label="내일 예상 매출액"
+            value={predictData!.prophet_forecast.toLocaleString("ko-KR") + "원"}
+            valueColor="text-black"
+          />
+          <BothsideText
+            label="날씨에 따른 매출 변화"
+            value={`${predictData!.xgboost_forecast >= 0 ? "+" : "-"} ${(
+              predictData!.xgboost_forecast * 100
+            ).toFixed(1)}%`}
+            valueColor={
+              predictData!.xgboost_forecast >= 0
+                ? "text-red-500"
+                : "text-blue-500"
+            }
+          />
+          <div className="h-[1px] bg-neutral-100 w-full" />
+          <BothsideTitle
+            label="최종 예상 매출액"
+            value={
+              (
+                Math.floor(
+                  (predictData!.prophet_forecast *
+                    (predictData!.xgboost_forecast + 1)) /
+                    10
+                ) * 10
+              ).toLocaleString("ko-KR") + "원"
+            }
+          />
+        </div>
+      )}
+
+      {/* <div>
         {isMenuLoading ? (
           <>스켈레톤</>
         ) : (
@@ -114,7 +117,7 @@ const DailyPredict = () => {
             maxShownSize={5}
           />
         )}
-      </div>
+      </div> */}
       <MoveButton>매출 예측 리포트 더보기</MoveButton>
     </div>
   );
