@@ -16,6 +16,9 @@ const ArticleMenu = () => {
     endDate: today.format("YYYY-MM-DD"),
   });
 
+  const hasTodayData =
+    !!menuList?.length && menuList.slice(-1)[0].sales_data.length > 0;
+
   return (
     <ArticleThumbnail title="메뉴별 판매 리포트">
       {isMenuLoading ? (
@@ -25,20 +28,38 @@ const ArticleMenu = () => {
           <h1 className="text-base font-semibold">
             오늘 가장 많이 판매된 메뉴
           </h1>
-          <ArticleMenulist
-            title={"오늘 가장 많이 판매된 메뉴"}
-            data={menuList!.slice(-1)[0].sales_data}
-            prevData={menuList!.slice(-2, -1)[0].sales_data}
-            maxShownSize={3}
-          />
+          {!hasTodayData ? (
+            <div
+              className="flex items-center justify-center gap-2 text-lg font-semibold text-neutral-500 rounded-xl bg-neutral-100"
+              style={{ height: "calc(75vw + 8.125rem)", maxHeight: "88px" }}
+            >
+              판매 데이터가 존재하지 않습니다
+            </div>
+          ) : (
+            <ArticleMenulist
+              title={"오늘 가장 많이 판매된 메뉴"}
+              data={menuList!.slice(-1)[0].sales_data}
+              prevData={menuList!.slice(-2, -1)[0].sales_data}
+              maxShownSize={3}
+            />
+          )}
           <div className="h-[1px] bg-neutral-300 w-full" />
           <h1 className="text-base font-semibold">수요가 증가한 메뉴</h1>
-          <ArticleIncreaseSale
-            title={"수요가 증가한 메뉴"}
-            data={menuList!.slice(-1)[0].sales_data}
-            prevData={menuList!.slice(-2, -1)[0].sales_data}
-            maxShownSize={2}
-          />
+          {hasTodayData ? (
+            <ArticleIncreaseSale
+              title={"수요가 증가한 메뉴"}
+              data={menuList!.slice(-1)[0].sales_data}
+              prevData={menuList!.slice(-2, -1)[0].sales_data}
+              maxShownSize={2}
+            />
+          ) : (
+            <div
+              className="flex flex-col items-center justify-center gap-2 text-lg font-semibold text-neutral-500 rounded-xl bg-neutral-100"
+              style={{ height: "calc(75vw + 8.125rem)", maxHeight: "48px" }}
+            >
+              판매 데이터가 존재하지 않습니다
+            </div>
+          )}
         </div>
       )}
     </ArticleThumbnail>
