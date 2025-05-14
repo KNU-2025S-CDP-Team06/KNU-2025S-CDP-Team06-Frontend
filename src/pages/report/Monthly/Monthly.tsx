@@ -6,20 +6,62 @@ import { useEffect, useState } from "react";
 import { useGetTotalSales } from "@/hooks/api/sales";
 import BothsideTitle from "@components/ui/BothsideTitle";
 import BothsideText from "@components/ui/BothsideText";
-import Title from "@components/ui/Title";
+import { getThisDay, getThisMonth } from "@/utils/day";
+import dayjs from "dayjs";
+
+import LessSales from "@components/ui/LessSales";
+import { useGetOneDaySales } from "@/hooks/api/sales";
+import useSortMenu from "@/hooks/useSortMenu";
 
 const Monthly = () => {
+  const today = getThisDay();
+  const thisMonth = getThisMonth();
+
+  const thisHour = dayjs().get("hour");
+
   const { data: manydayData, isLoading: isManydayDataLoading } = useGetSales({
-    startDate: "2025-03-01",
-    endDate: "2025-04-09",
+    startDate: today.subtract(1, "month").format("YYYY-MM-DD"),
+    endDate: today.format("YYYY-MM-DD"),
   });
+
+  /*const { data: monthagoData, isLoading: isMonthagoDataLoading } = useGetSales({
+    startDate: today.subtract(2, "month").format("YYYY-MM-DD"),
+    endDate: today.subtract(1, "month").format("YYYY-MM-DD"),
+  });*/
 
   const { data: totalSales, isLoading: isTotalSalesLoading } = useGetTotalSales(
     {
-      startDate: "2025-03-01",
-      endDate: "2025-04-01",
+      startDate: thisMonth.format("YYYY-MM-DD"),
+      endDate: today.format("YYYY-MM-DD"),
     }
   );
+
+  const { data: onedayData, isLoading: isOnedayDataLoading } =
+    useGetOneDaySales({ date: today.format("YYYY-MM-DD") });
+
+  const { data: weekagoData, isLoading: isWeekagoDataLoading } =
+    useGetOneDaySales({
+      date: today.subtract(1, "month").format("YYYY-MM-DD"),
+      endHour: thisHour,
+    });
+
+  const isDataLoading = isOnedayDataLoading || isWeekagoDataLoading;
+
+  const [isSortedMenuLoading, setisSortedMenuLoading] = useState(true);
+  const [sortedMenu, sortMenu] = useSortMenu(
+    onedayData?.sales_data ?? [],
+    weekagoData?.sales_data ?? []
+  );
+  useEffect(() => {
+    if (!isDataLoading) {
+      sortMenu((a, b) =>
+        b.compareCount != a.compareCount
+          ? b.compareCount - a.compareCount
+          : b.totalCount - a.totalCount
+      );
+      setisSortedMenuLoading(false);
+    }
+  }, [isDataLoading]);
 
   const [month, setMonth] = useState<string>("");
 
@@ -36,7 +78,7 @@ const Monthly = () => {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center gap-4 px-4 py-3">
+    <div className="flex flex-col gap-4 justify-center px-4 py-3">
       {isManydayDataLoading ? (
         <>스켈레톤</>
       ) : (
@@ -58,9 +100,31 @@ const Monthly = () => {
         />
       </div>
       <div className="h-[1px] bg-neutral-300 w-full" />
-      <Title>요일별 평균 매출</Title>
-      <Title>주중 · 주말별 평균 매출</Title>
-      <Title>인기가 상승 · 하락한 메뉴</Title>
+
+      <div className="flex flex-col gap-4">
+        <span className="flex items-center justify-center text-xl font-semibold ">
+          요일별 평균 매출
+        </span>
+      </div>
+      <div className="h-[1px] bg-neutral-300 w-full" />
+
+      <div className="flex flex-col gap-4">
+        <span className="flex items-center justify-center text-xl font-semibold ">
+          주중 · 주말별 평균 매출
+        </span>
+      </div>
+      <div className="h-[1px] bg-neutral-300 w-full" />
+
+      <div className="flex flex-col gap-4">
+        <span className="flex items-center justify-center text-xl font-semibold ">
+          인기가 상승 · 하락한 메뉴
+        </span>
+        <div className="flex flex-col gap-2 px-2 ">
+          <LessSales label="수제 자몽티" value="- 4개 (2개)" />
+          <LessSales label="찹쌀모찌(1개)" value="- 5개 (1개)" />
+          <LessSales label="찹쌀모찌(1개)" value="- 5개 (1개)" />
+        </div>
+      </div>
     </div>
   );
 };
