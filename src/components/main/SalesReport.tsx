@@ -9,9 +9,11 @@ import dayjs from "dayjs";
 import Skeleton from "@components/ui/Skeleton";
 import { useEffect, useState } from "react";
 import { getPercentAndColor } from "@/utils/percent";
+import { useNavigate } from "react-router-dom";
 
 const SalesReport = () => {
   const today = getThisDay();
+  const navigate = useNavigate();
 
   const thisHour = dayjs().get("hour");
 
@@ -147,7 +149,13 @@ const SalesReport = () => {
           />
         </div>
       )}
-      <MoveButton>매출 리포트 더보기</MoveButton>
+      <MoveButton
+        onClick={() => {
+          navigate("/report/sales");
+        }}
+      >
+        매출 리포트 더보기
+      </MoveButton>
     </div>
   );
 };

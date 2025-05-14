@@ -9,8 +9,11 @@ import { getThisDay } from "@/utils/day";
 import dayjs from "dayjs";
 import useSortMenu from "@/hooks/useSortMenu";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 const TodayBestMenu = () => {
   const today = getThisDay();
+  const navigate = useNavigate();
 
   const thisHour = dayjs().get("hour");
 
@@ -99,7 +102,13 @@ const TodayBestMenu = () => {
           </div>
         </>
       )}
-      <MoveButton>메뉴 판매 순위 더보기</MoveButton>
+      <MoveButton
+        onClick={() => {
+          navigate("/report/menu");
+        }}
+      >
+        메뉴 판매 순위 더보기
+      </MoveButton>
     </div>
   );
 };

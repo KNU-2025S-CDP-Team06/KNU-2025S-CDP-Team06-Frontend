@@ -7,8 +7,10 @@ import { useGetOneDayPredict } from "@/hooks/api/predict";
 import { SunnyIcon, RainIcon, SnowIcon, CloudyIcon } from "@components/Icons";
 import { getThisDay } from "@/utils/day";
 import Skeleton from "@components/ui/Skeleton";
+import { useNavigate } from "react-router-dom";
 const ArticlePredict = () => {
   const today = getThisDay();
+  const navigate = useNavigate();
 
   const { data: manydayData, isLoading: isManydayDataLoading } = useGetSales({
     startDate: today.subtract(3, "days").format("YYYY-MM-DD"),
@@ -102,7 +104,12 @@ const ArticlePredict = () => {
   }, [isPredictDataLoading, isManydayDataLoading]);
 
   return (
-    <ArticleThumbnail title="내일 예상 매출 리포트">
+    <ArticleThumbnail
+      title="내일 예상 매출 리포트"
+      onClick={() => {
+        navigate("/report/predict");
+      }}
+    >
       {isDataLoading ? (
         <Skeleton height={217} />
       ) : (

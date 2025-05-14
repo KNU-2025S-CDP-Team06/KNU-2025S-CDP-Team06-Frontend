@@ -9,9 +9,10 @@ import MoveButton from "@components/ui/MoveButton";
 import BarGraph, { BarGraphData } from "@components/graph/BarGraph";
 import Skeleton from "@components/ui/Skeleton";
 import { getThisDay } from "@/utils/day";
-
+import { useNavigate } from "react-router-dom";
 const DailyPredict = () => {
   const today = getThisDay();
+  const navigate = useNavigate();
 
   const { data: manydayData, isLoading: isManydayDataLoading } = useGetSales({
     startDate: today.subtract(3, "days").format("YYYY-MM-DD"),
@@ -118,7 +119,13 @@ const DailyPredict = () => {
           />
         )}
       </div> */}
-      <MoveButton>매출 예측 리포트 더보기</MoveButton>
+      <MoveButton
+        onClick={() => {
+          navigate("/report/predict");
+        }}
+      >
+        매출 예측 리포트 더보기
+      </MoveButton>
     </div>
   );
 };

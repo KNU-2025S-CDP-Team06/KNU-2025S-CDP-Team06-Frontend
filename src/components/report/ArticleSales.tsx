@@ -9,9 +9,10 @@ import dayjs from "dayjs";
 import { getThisDay } from "@/utils/day";
 import { getPercentAndColor } from "@/utils/percent";
 import Skeleton from "@components/ui/Skeleton";
-
+import { useNavigate } from "react-router-dom";
 const ArticleSales = () => {
   const today = getThisDay();
+  const navigate = useNavigate();
 
   const thisHour = dayjs().get("hour");
 
@@ -59,7 +60,12 @@ const ArticleSales = () => {
   }, []);
 
   return (
-    <ArticleThumbnail title="실시간 매출 리포트">
+    <ArticleThumbnail
+      title="실시간 매출 리포트"
+      onClick={() => {
+        navigate("/report/sales");
+      }}
+    >
       {isDataLoading ? (
         <Skeleton height={220} />
       ) : (

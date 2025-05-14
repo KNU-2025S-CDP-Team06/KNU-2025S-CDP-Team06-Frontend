@@ -8,10 +8,12 @@ import { useGetTotalSales } from "@/hooks/api/sales";
 import { getThisDay, getThisMonth } from "@/utils/day";
 import { getPercentAndColor } from "@/utils/percent";
 import Skeleton from "@components/ui/Skeleton";
+import { useNavigate } from "react-router-dom";
 
 const ArticleMonthly = () => {
   const today = getThisDay();
   const thisMonth = getThisMonth();
+  const navigate = useNavigate();
 
   const { data: manydayData, isLoading: isManydayDataLoading } = useGetSales({
     startDate: today.subtract(1, "month").format("YYYY-MM-DD"),
@@ -41,7 +43,12 @@ const ArticleMonthly = () => {
   }, []);
 
   return (
-    <ArticleThumbnail title="월간 매출 리포트">
+    <ArticleThumbnail
+      title="월간 매출 리포트"
+      onClick={() => {
+        navigate("/report/monthly");
+      }}
+    >
       {isDataLoading ? (
         <Skeleton height={176} />
       ) : (

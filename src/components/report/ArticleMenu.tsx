@@ -7,9 +7,11 @@ import { useGetSales } from "@/hooks/api/sales";
 import useSortMenu from "@/hooks/useSortMenu";
 import { getThisDay } from "@/utils/day";
 import Skeleton from "@components/ui/Skeleton";
+import { useNavigate } from "react-router-dom";
 
 const ArticleMenu = () => {
   const today = getThisDay();
+  const navigate = useNavigate();
 
   const { data: menuList, isLoading: isMenuLoading } = useGetSales({
     startDate: today.subtract(1, "days").format("YYYY-MM-DD"),
@@ -20,7 +22,12 @@ const ArticleMenu = () => {
     !!menuList?.length && menuList.slice(-1)[0].sales_data.length > 0;
 
   return (
-    <ArticleThumbnail title="메뉴별 판매 리포트">
+    <ArticleThumbnail
+      title="메뉴별 판매 리포트"
+      onClick={() => {
+        navigate("/report/menu");
+      }}
+    >
       {isMenuLoading ? (
         <Skeleton height={217} />
       ) : (
