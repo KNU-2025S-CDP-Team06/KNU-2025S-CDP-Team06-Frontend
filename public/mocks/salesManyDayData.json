@@ -228,7 +228,7 @@
     "sales_data": []
   },
   {
-    "date": "2025-04-08",
+    "date": "2025-05-14",
     "total_revenue": 591800,
     "total_count": 197,
     "sales_data": [
@@ -595,7 +595,7 @@
     ]
   },
   {
-    "date": "2025-04-09",
+    "date": "2025-05-15",
     "total_revenue": 625200,
     "total_count": 208,
     "sales_data": [
@@ -1410,17 +1410,5 @@
         }
       }
     ]
-  },
-  {
-    "date": "2025-05-13",
-    "total_revenue": 150000,
-    "total_count": 143,
-    "sales_data": []
-  },
-  {
-    "date": "2025-05-14",
-    "total_revenue": 400000,
-    "total_count": 196,
-    "sales_data": []
   }
 ]
