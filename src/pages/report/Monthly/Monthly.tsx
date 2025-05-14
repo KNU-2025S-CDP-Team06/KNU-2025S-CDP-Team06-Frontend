@@ -52,6 +52,8 @@ const Monthly = () => {
     onedayData?.sales_data ?? [],
     weekagoData?.sales_data ?? []
   );
+
+  void isSortedMenuLoading, sortedMenu;
   useEffect(() => {
     if (!isDataLoading) {
       sortMenu((a, b) =>
