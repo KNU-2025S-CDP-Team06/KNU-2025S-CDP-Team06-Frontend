@@ -4,7 +4,6 @@ import dayjs from "dayjs";
 import Skeleton from "@components/ui/Skeleton";
 import { getThisDay } from "@/utils/day";
 import { useEffect, useState } from "react";
-
 import LineGraph from "@components/graph/LineGraph";
 import BothsideText from "@components/ui/BothsideText";
 import BothsideTitle from "@components/ui/BothsideTitle";
@@ -17,6 +16,11 @@ const Sales = () => {
 
   const { data: manydayData, isLoading: isManydayDataLoading } = useGetSales({
     startDate: today.subtract(6, "days").format("YYYY-MM-DD"),
+    endDate: today.format("YYYY-MM-DD"),
+  });
+
+  const { data: monthData, isLoading: isMonthDataLoading } = useGetSales({
+    startDate: today.subtract(31, "days").format("YYYY-MM-DD"),
     endDate: today.format("YYYY-MM-DD"),
   });
 
@@ -42,15 +46,36 @@ const Sales = () => {
     isManydayDataLoading ||
     isDayagoDataLoading ||
     isWeekagoDataLoading ||
-    isMonthagoDataLoading;
+    isMonthagoDataLoading ||
+    isMonthDataLoading;
 
   const [isValueColorListLoading, setisValueColorListLoading] = useState(true);
 
   const [valueColorList, setValueColorList] = useState<string[][]>([]);
 
+  const [isCountColorListLoading, setisCountColorListLoading] = useState(true);
+
+  const [countColorList, setCountColorList] = useState<string[][]>([]);
+
+  const [isAverageColorListLoading, setisAverageColorListLoading] =
+    useState(true);
+
+  const [averageColorList, setAverageColorList] = useState<string[][]>([]);
+
+  const getAverage = (arr: number[]) =>
+    arr.length === 0 ? 0 : arr.reduce((a, b) => a + b, 0) / arr.length;
+
+  const weekRevenueAvg = Math.round(
+    getAverage(monthData?.slice(-7).map((d) => d.total_revenue) ?? [])
+  );
+
+  const monthRevenueAvg = Math.round(
+    getAverage(monthData?.map((d) => d.total_revenue) ?? [])
+  );
   useEffect(() => {
     if (!isDataLoading) {
       const valueColorList = [];
+
       valueColorList.push(
         getPercentAndColor(
           dayagoData!.total_revenue,
@@ -71,6 +96,48 @@ const Sales = () => {
       );
       setValueColorList(valueColorList);
       setisValueColorListLoading(false);
+
+      const countColorList = [];
+      countColorList.push(
+        getPercentAndColor(
+          dayagoData!.total_count,
+          manydayData!.slice(-1)[0].total_count,
+          "count"
+        )
+      );
+      countColorList.push(
+        getPercentAndColor(
+          weekagoData!.total_count,
+          manydayData!.slice(-1)[0].total_count,
+          "count"
+        )
+      );
+      countColorList.push(
+        getPercentAndColor(
+          monthagoData!.total_count,
+          manydayData!.slice(-1)[0].total_count,
+          "count"
+        )
+      );
+      setCountColorList(countColorList);
+      setisCountColorListLoading(false);
+
+      const averageColorList = [];
+
+      averageColorList.push(
+        getPercentAndColor(
+          weekRevenueAvg,
+          manydayData!.slice(-1)[0].total_revenue
+        )
+      );
+      averageColorList.push(
+        getPercentAndColor(
+          monthRevenueAvg,
+          manydayData!.slice(-1)[0].total_revenue
+        )
+      );
+      setAverageColorList(averageColorList);
+      setisAverageColorListLoading(false);
     }
   }, [isDataLoading]);
 
@@ -108,7 +175,9 @@ const Sales = () => {
             value={`${
               manydayData!.slice(-1)[0].total_revenue -
                 dayagoData!.total_revenue >=
-                0 && "+"
+              0
+                ? "+"
+                : ""
             }${(
               manydayData!.slice(-1)[0].total_revenue -
               dayagoData!.total_revenue
@@ -120,11 +189,13 @@ const Sales = () => {
             value={`${
               manydayData!.slice(-1)[0].total_revenue -
                 weekagoData!.total_revenue >=
-                0 && "+"
+              0
+                ? "+"
+                : ""
             }${(
               manydayData!.slice(-1)[0].total_revenue -
               weekagoData!.total_revenue
-            ).toLocaleString("ko-KR")} (${valueColorList[0][0]})`}
+            ).toLocaleString("ko-KR")} (${valueColorList[1][0]})`}
             valueColor={valueColorList[1][1]}
           />
           <BothsideText
@@ -132,36 +203,47 @@ const Sales = () => {
             value={`${
               manydayData!.slice(-1)[0].total_revenue -
                 monthagoData!.total_revenue >=
-                0 && "+"
+              0
+                ? "+"
+                : ""
             }${(
               manydayData!.slice(-1)[0].total_revenue -
               monthagoData!.total_revenue
-            ).toLocaleString("ko-KR")} (${valueColorList[0][0]})`}
+            ).toLocaleString("ko-KR")} (${valueColorList[2][0]})`}
             valueColor={valueColorList[2][1]}
           />
         </div>
       )}
+      {isDataLoading || isAverageColorListLoading ? (
+        <Skeleton height={132} />
+      ) : (
+        <div className="flex flex-col gap-0.5 p-2">
+          <BothsideTitle label="평균 매출 대비" value="" />
 
-      <div className="flex flex-col gap-0.5 p-2">
-        <BothsideTitle label="평균 매출 대비" value="" />
-
-        <BothsideText
-          label="1주 평균"
-          value={`+40,100 (4.1%)`}
-          valueColor="text-red-500"
-        />
-        <BothsideText
-          label="1달 평균"
-          value={`+33,470 (7.6%)`}
-          valueColor="text-red-500"
-        />
-        <BothsideText
-          label="1년 평균"
-          value={`-27,680 (5.5%)`}
-          valueColor="text-blue-500"
-        />
-      </div>
-
+          <BothsideText
+            label="1주 평균"
+            value={`${
+              manydayData!.slice(-1)[0].total_revenue - weekRevenueAvg >= 0
+                ? "+"
+                : ""
+            }${(
+              manydayData!.slice(-1)[0].total_revenue - weekRevenueAvg
+            ).toLocaleString("ko-KR")} (${averageColorList[0][0]})`}
+            valueColor={averageColorList[0][1]}
+          />
+          <BothsideText
+            label="1달 평균"
+            value={`${
+              manydayData!.slice(-1)[0].total_revenue - monthRevenueAvg >= 0
+                ? "+"
+                : ""
+            }${(
+              manydayData!.slice(-1)[0].total_revenue - monthRevenueAvg
+            ).toLocaleString("ko-KR")} (${averageColorList[1][0]})`}
+            valueColor={averageColorList[1][1]}
+          />
+        </div>
+      )}
       <div className="h-[1px] bg-neutral-300 w-full" />
       <div className="flex items-center justify-center">
         <Title>메뉴 판매량</Title>
@@ -172,7 +254,7 @@ const Sales = () => {
         <LineGraph data={manydayData!} plotBy="total_count" />
       )}
 
-      <div className="flex flex-col gap-0.5 px-2">
+      <div className="flex flex-col gap-0.5 p-2">
         <span className="flex-none text-lg font-medium text-black whitespace-nowrap mr-2">
           메뉴{" "}
           {isManydayDataLoading ? (
@@ -182,21 +264,52 @@ const Sales = () => {
           )}
           개 판매
         </span>
-        <BothsideText
-          label="1주 평균"
-          value={`+40,100 (4.1%)`}
-          valueColor="text-red-500"
-        />
-        <BothsideText
-          label="1달 평균"
-          value={`+33,470 (7.6%)`}
-          valueColor="text-red-500"
-        />
-        <BothsideText
-          label="1년 평균"
-          value={`-27,680 (5.5%)`}
-          valueColor="text-blue-500"
-        />
+        {isDataLoading || isCountColorListLoading ? (
+          <Skeleton height={132} />
+        ) : (
+          <>
+            <BothsideText
+              label="전날 대비"
+              value={`${
+                manydayData!.slice(-1)[0].total_count -
+                  dayagoData!.total_count >=
+                0
+                  ? "+"
+                  : ""
+              }${(
+                manydayData!.slice(-1)[0].total_count - dayagoData!.total_count
+              ).toLocaleString("ko-KR")}개 (${countColorList[0][0]})`}
+              valueColor={countColorList[0][1]}
+            />
+            <BothsideText
+              label="전주 대비"
+              value={`${
+                manydayData!.slice(-1)[0].total_count -
+                  weekagoData!.total_count >=
+                0
+                  ? "+"
+                  : ""
+              }${(
+                manydayData!.slice(-1)[0].total_count - weekagoData!.total_count
+              ).toLocaleString("ko-KR")}개 (${countColorList[1][0]})`}
+              valueColor={countColorList[1][1]}
+            />
+            <BothsideText
+              label="전월 대비"
+              value={`${
+                manydayData!.slice(-1)[0].total_count -
+                  monthagoData!.total_count >=
+                0
+                  ? "+"
+                  : ""
+              }${(
+                manydayData!.slice(-1)[0].total_count -
+                monthagoData!.total_count
+              ).toLocaleString("ko-KR")}개 (${countColorList[2][0]})`}
+              valueColor={countColorList[2][1]}
+            />
+          </>
+        )}
       </div>
     </div>
   );
