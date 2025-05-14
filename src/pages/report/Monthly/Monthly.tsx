@@ -2,7 +2,7 @@ import { useGetSales } from "@/hooks/api/sales";
 import { DailySales } from "@/models/dailySales.model";
 import { linearGradientDef } from "@nivo/core";
 import { ResponsiveLine, Serie } from "@nivo/line";
-import { useEffect, useState, HTMLAttributes } from "react";
+import { useEffect, useState } from "react";
 import { useGetTotalSales } from "@/hooks/api/sales";
 import BothsideTitle from "@components/ui/BothsideTitle";
 import BothsideText from "@components/ui/BothsideText";
@@ -36,7 +36,7 @@ const Monthly = () => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-4 justify-center px-4 py-3">
+    <div className="flex flex-col justify-center gap-4 px-4 py-3">
       {isManydayDataLoading ? (
         <>스켈레톤</>
       ) : (
@@ -66,26 +66,6 @@ const Monthly = () => {
 };
 
 export default Monthly;
-
-interface SaleTextProps extends HTMLAttributes<HTMLDivElement> {
-  label: string;
-  percentage: string;
-  valueColor?: string;
-}
-const SaleText = ({
-  label,
-  percentage,
-  valueColor = "text-black",
-  ...props
-}: SaleTextProps) => {
-  return (
-    <div className="flex items-center gap-1 text-base font-medium">
-      <span className="font-normal ">{label}</span>
-      {props.children}
-      <span className={`${valueColor}`}>{percentage}</span>
-    </div>
-  );
-};
 
 const ArticleLineGraph = ({
   data,

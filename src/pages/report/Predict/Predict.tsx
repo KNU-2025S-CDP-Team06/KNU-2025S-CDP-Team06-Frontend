@@ -4,7 +4,6 @@ import { useGetOneDayPredict } from "@/hooks/api/predict";
 import BothsideText from "@components/ui/BothsideText";
 import BothsideTitle from "@components/ui/BothsideTitle";
 import BarGraph, { BarGraphData } from "@components/graph/BarGraph";
-import Skeleton from "@components/ui/Skeleton";
 import { getThisDay } from "@/utils/day";
 
 const Predict = () => {
