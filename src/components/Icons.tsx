@@ -122,3 +122,14 @@ export const SnowIcon = ({ ...props }: HTMLAttributes<HTMLSpanElement>) => {
     />
   );
 };
+
+export const WarnIcon = ({ ...props }: HTMLAttributes<HTMLSpanElement>) => {
+  return (
+    <span
+      {...props}
+      className={
+        "icon-[material-symbols--warning-rounded] " + (props.className ?? "")
+      }
+    />
+  );
+};
