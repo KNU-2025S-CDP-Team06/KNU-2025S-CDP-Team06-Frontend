@@ -1410,5 +1410,17 @@
         }
       }
     ]
+  },
+  {
+    "date": "2025-05-13",
+    "total_revenue": 150000,
+    "total_count": 143,
+    "sales_data": []
+  },
+  {
+    "date": "2025-05-14",
+    "total_revenue": 400000,
+    "total_count": 196,
+    "sales_data": []
   }
 ]
