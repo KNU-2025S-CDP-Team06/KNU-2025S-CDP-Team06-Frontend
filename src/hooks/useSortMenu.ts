@@ -67,7 +67,7 @@ const useSortMenu = (
     );
 
     setArray(sortArray);
-  }, []);
+  }, [data, prevData]);
 
   const sortArray = (compareFunc: (a: SortedMenu, b: SortedMenu) => number) => {
     setArray((array) => [...array.sort(compareFunc)]);
