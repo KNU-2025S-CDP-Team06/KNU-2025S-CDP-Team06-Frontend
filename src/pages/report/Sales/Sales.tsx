@@ -215,11 +215,10 @@ const Sales = () => {
         </div>
       )}
       {isDataLoading || isAverageColorListLoading ? (
-        <Skeleton height={132} />
+        <Skeleton height={88} />
       ) : (
         <div className="flex flex-col gap-0.5 p-2">
           <BothsideTitle label="평균 매출 대비" value="" />
-
           <BothsideText
             label="1주 평균"
             value={`${
@@ -254,63 +253,53 @@ const Sales = () => {
         <LineGraph data={manydayData!} plotBy="total_count" />
       )}
 
-      <div className="flex flex-col gap-0.5 p-2">
-        <span className="flex-none text-lg font-medium text-black whitespace-nowrap mr-2">
-          메뉴{" "}
-          {isManydayDataLoading ? (
-            <>스켈레톤</>
-          ) : (
-            manydayData!.slice(-1)[0].total_count
-          )}
-          개 판매
-        </span>
-        {isDataLoading || isCountColorListLoading ? (
-          <Skeleton height={132} />
-        ) : (
-          <>
-            <BothsideText
-              label="전날 대비"
-              value={`${
-                manydayData!.slice(-1)[0].total_count -
-                  dayagoData!.total_count >=
-                0
-                  ? "+"
-                  : ""
-              }${(
-                manydayData!.slice(-1)[0].total_count - dayagoData!.total_count
-              ).toLocaleString("ko-KR")}개 (${countColorList[0][0]})`}
-              valueColor={countColorList[0][1]}
-            />
-            <BothsideText
-              label="전주 대비"
-              value={`${
-                manydayData!.slice(-1)[0].total_count -
-                  weekagoData!.total_count >=
-                0
-                  ? "+"
-                  : ""
-              }${(
-                manydayData!.slice(-1)[0].total_count - weekagoData!.total_count
-              ).toLocaleString("ko-KR")}개 (${countColorList[1][0]})`}
-              valueColor={countColorList[1][1]}
-            />
-            <BothsideText
-              label="전월 대비"
-              value={`${
-                manydayData!.slice(-1)[0].total_count -
-                  monthagoData!.total_count >=
-                0
-                  ? "+"
-                  : ""
-              }${(
-                manydayData!.slice(-1)[0].total_count -
-                monthagoData!.total_count
-              ).toLocaleString("ko-KR")}개 (${countColorList[2][0]})`}
-              valueColor={countColorList[2][1]}
-            />
-          </>
-        )}
-      </div>
+      {isDataLoading || isCountColorListLoading ? (
+        <Skeleton height={110} />
+      ) : (
+        <div className="flex flex-col gap-0.5 p-2">
+          <span className="flex-none mr-2 text-lg font-medium text-black whitespace-nowrap">
+            메뉴 {manydayData!.slice(-1)[0].total_count}개 판매
+          </span>
+          <BothsideText
+            label="전날 대비"
+            value={`${
+              manydayData!.slice(-1)[0].total_count - dayagoData!.total_count >=
+              0
+                ? "+"
+                : ""
+            }${(
+              manydayData!.slice(-1)[0].total_count - dayagoData!.total_count
+            ).toLocaleString("ko-KR")}개 (${countColorList[0][0]})`}
+            valueColor={countColorList[0][1]}
+          />
+          <BothsideText
+            label="전주 대비"
+            value={`${
+              manydayData!.slice(-1)[0].total_count -
+                weekagoData!.total_count >=
+              0
+                ? "+"
+                : ""
+            }${(
+              manydayData!.slice(-1)[0].total_count - weekagoData!.total_count
+            ).toLocaleString("ko-KR")}개 (${countColorList[1][0]})`}
+            valueColor={countColorList[1][1]}
+          />
+          <BothsideText
+            label="전월 대비"
+            value={`${
+              manydayData!.slice(-1)[0].total_count -
+                monthagoData!.total_count >=
+              0
+                ? "+"
+                : ""
+            }${(
+              manydayData!.slice(-1)[0].total_count - monthagoData!.total_count
+            ).toLocaleString("ko-KR")}개 (${countColorList[2][0]})`}
+            valueColor={countColorList[2][1]}
+          />
+        </div>
+      )}
     </div>
   );
 };
