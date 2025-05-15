@@ -56,7 +56,7 @@ const BarGraph = ({
           return (
             <div
               key={index}
-              className="flex-grow flex flex-col gap-0.5 items-center"
+              className="flex-grow flex flex-col gap-0.5 items-center w-8"
             >
               {data.ispredict && (
                 <div className="py-0.5 px-2 mb-1 bg-white border rounded-full border-neutral-200 text-xs font-bold text-blue-500">
