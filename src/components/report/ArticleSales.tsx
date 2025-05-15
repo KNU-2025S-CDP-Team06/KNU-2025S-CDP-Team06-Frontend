@@ -118,7 +118,6 @@ interface CompareTextProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const CompareText = ({ label, fromData, toData }: CompareTextProps) => {
-  console.log(fromData, toData);
   const [percent, color] = getPercentAndColor(fromData, toData);
   return (
     <div className="flex flex-col items-center flex-grow ">
