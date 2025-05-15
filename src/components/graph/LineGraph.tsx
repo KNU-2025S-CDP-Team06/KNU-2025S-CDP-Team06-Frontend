@@ -47,15 +47,15 @@ const LineGraph = ({
       for (let hour = 0; hour < 24; hour++) hourData[hour] = 0;
       const currentHour = new Date().getHours();
       data.slice(-2, -1)[0].sales_data.forEach((data) => {
-        const dataHour = new Date(data.datetime).getHours();
+        const dataHour = new Date(data.date_time).getHours();
         if (currentHour < dataHour) {
           if (plotBy == "total_count") hourData[dataHour] += data.count;
           else hourData[dataHour] += data.count * data.menu.price;
         }
       });
       data.slice(-1)[0].sales_data.forEach((data) => {
-        if (new Date(data.datetime).getHours() <= currentHour) {
-          const dataHour = new Date(data.datetime).getHours();
+        if (new Date(data.date_time).getHours() <= currentHour) {
+          const dataHour = new Date(data.date_time).getHours();
           if (plotBy == "total_count") hourData[dataHour] += data.count;
           else hourData[dataHour] += data.count * data.menu.price;
         }
