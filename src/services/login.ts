@@ -1,7 +1,7 @@
 import { postRequest } from "./api";
 
 export type LoginPayload = {
-  md_id: string;
+  mb_id: string;
   password: string;
 };
 

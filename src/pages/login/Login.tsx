@@ -9,7 +9,7 @@ import { WarnIcon } from "@components/Icons";
 
 const Login = () => {
   const [account, setAccount] = useState<LoginPayload>({
-    md_id: "",
+    mb_id: "",
     password: "",
   });
 
@@ -22,7 +22,7 @@ const Login = () => {
   const [warnText, setWarnText] = useState("");
 
   const handleLogin = () => {
-    if (account.md_id == "" || account.password == "") {
+    if (account.mb_id == "" || account.password == "") {
       setWarnText("아이디, 비밀번호를 입력해주세요.");
       setIsWarn(true);
     } else {
@@ -69,7 +69,7 @@ const Login = () => {
           <TextInput
             placeholder="사업자 번호"
             onChange={(e) => {
-              setAccount({ ...account, md_id: e.currentTarget.value });
+              setAccount({ ...account, mb_id: e.currentTarget.value });
             }}
           />
         </div>
