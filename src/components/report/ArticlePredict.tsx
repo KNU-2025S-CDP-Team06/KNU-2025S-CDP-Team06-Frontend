@@ -28,8 +28,10 @@ const ArticlePredict = () => {
   const [timeaxis, setTimeaxis] = useState<string>("");
   const [barGraphData, setBarGraphData] = useState<BarGraphData[]>([]);
 
+  const id = sessionStorage.getItem("token");
+
   const { data: storeData, isLoading: isStoreLoading } = useGetStoreData({
-    id: 1,
+    id: id!,
   });
 
   const isDataLoading =
@@ -82,7 +84,7 @@ const ArticlePredict = () => {
         graphData.push({
           data: revenue,
           title: `${revenue}만원`,
-          paragraph: `${data.date.slice(5)}`,
+          paragraph: `${data.date.slice(5, 10)}`,
         });
       });
       graphData.push({
@@ -101,7 +103,7 @@ const ArticlePredict = () => {
       });
       setBarGraphData(graphData);
     }
-  }, [isPredictDataLoading, isManydayDataLoading]);
+  }, [isPredictDataLoading, isManydayDataLoading, timeaxis]);
 
   return (
     <ArticleThumbnail
@@ -142,7 +144,7 @@ const ArticlePredict = () => {
               ) * 10
             ).toLocaleString("ko-KR") + "원"}
           </SaleText>
-          <BarGraph data={barGraphData} height={65} />
+          <BarGraph data={barGraphData} height={65} titleSize="sm" />
         </div>
       )}
     </ArticleThumbnail>
@@ -225,7 +227,10 @@ const BarGraph = ({
       <div className="flex items-end justify-center gap-3 ">
         {data.map((data, index) => {
           return (
-            <div key={index} className="flex flex-col items-center flex-grow">
+            <div
+              key={index}
+              className="flex flex-col items-center flex-grow w-5"
+            >
               {data.ispredict && (
                 <div className="py-0.5 px-2 mb-1 bg-white border rounded-full border-neutral-200 text-xs font-bold text-blue-500">
                   예상

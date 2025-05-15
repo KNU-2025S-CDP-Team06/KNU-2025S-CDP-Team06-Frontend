@@ -37,7 +37,7 @@ const DailyPredict = () => {
         graphData.push({
           data: revenue,
           title: `${revenue}만원`,
-          paragraph: `${data.date.slice(5)}`,
+          paragraph: `${data.date.slice(5, 10)}`,
         });
       });
       graphData.push({
