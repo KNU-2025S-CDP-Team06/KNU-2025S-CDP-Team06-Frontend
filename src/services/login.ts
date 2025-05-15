@@ -11,7 +11,8 @@ type LoginReturnType = {
 
 export const login = async (data: LoginPayload) => {
   const response = await postRequest<LoginReturnType>(
-    "/mocks/login.json", //API URL: `/login`
+    // "/mocks/login.json", //API URL: `/login`
+    "login",
     data
   );
   return response;

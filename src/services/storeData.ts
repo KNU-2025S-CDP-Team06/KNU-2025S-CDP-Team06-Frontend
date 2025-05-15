@@ -7,7 +7,7 @@ export interface getStoreDataParams {
 
 export const getStoreData = async (params: getStoreDataParams) => {
   const { id } = params;
-  const response = await getRequest<StoreData>(`/mocks/${id}/storeData.json`); //API URL: `/store/${2504001328}`
+  const response = await getRequest<StoreData>(`/store/${id}`);
 
   return response;
 };
