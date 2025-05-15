@@ -72,13 +72,13 @@ const TodayBestMenu = () => {
             </span>
             <MoreSales
               label={sortedMenu[0].name}
-              value={`${sortedMenu[0].compareCount >= 0 && "+"}${
+              value={`${sortedMenu[0].compareCount >= 0 ? "+" : ""}${
                 sortedMenu[0].compareCount
               }개  (${sortedMenu[0].totalCount}개)`}
             ></MoreSales>
             <MoreSales
               label={sortedMenu[1].name}
-              value={`${sortedMenu[1].compareCount >= 0 && "+"}${
+              value={`${sortedMenu[1].compareCount >= 0 ? "+" : ""}${
                 sortedMenu[1].compareCount
               }개 (${sortedMenu[1].totalCount}개)`}
             ></MoreSales>
@@ -89,13 +89,13 @@ const TodayBestMenu = () => {
             </span>
             <LessSales
               label={sortedMenu.slice(-2)[0].name}
-              value={`${sortedMenu.slice(-2)[0].compareCount >= 0 && "+"} ${
+              value={`${sortedMenu.slice(-2)[0].compareCount >= 0 ? "+" : ""} ${
                 sortedMenu.slice(-2)[0].compareCount
               }개 (${sortedMenu.slice(-2)[0].totalCount}개)`}
             ></LessSales>
             <LessSales
               label={sortedMenu.slice(-1)[0].name}
-              value={`${sortedMenu.slice(-1)[0].compareCount >= 0 && "+"} ${
+              value={`${sortedMenu.slice(-1)[0].compareCount >= 0 ? "+" : ""} ${
                 sortedMenu.slice(-1)[0].compareCount
               }개 (${sortedMenu.slice(-1)[0].totalCount}개)`}
             ></LessSales>
