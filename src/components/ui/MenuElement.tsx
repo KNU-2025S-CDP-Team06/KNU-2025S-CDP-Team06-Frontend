@@ -26,8 +26,10 @@ const MenuElement = ({ ...props }: MenuElementProps) => {
         />
       </div>
 
-      <div className="flex-grow">{props.title}</div>
-      <div className="font-medium">{props.paragraph}</div>
+      <div className="flex-grow overflow-hidden text-ellipsis whitespace-nowrap">
+        {props.title}
+      </div>
+      <div className="flex-shrink-0 font-medium">{props.paragraph}</div>
     </div>
   );
 };
