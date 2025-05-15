@@ -8,26 +8,27 @@ import BothsideTitle from "@components/ui/BothsideTitle";
 import BothsideText from "@components/ui/BothsideText";
 import { getThisDay, getThisMonth } from "@/utils/day";
 import dayjs from "dayjs";
-
 import LessSales from "@components/ui/LessSales";
-import { useGetOneDaySales } from "@/hooks/api/sales";
 import useSortMenu from "@/hooks/useSortMenu";
+import { getPercentAndColor } from "@/utils/percent";
+import Skeleton from "@components/ui/Skeleton";
+import BarGraph, { BarGraphData } from "@components/graph/BarGraph";
+import MoreSales from "@components/ui/MoreSales";
 
 const Monthly = () => {
   const today = getThisDay();
   const thisMonth = getThisMonth();
 
-  const thisHour = dayjs().get("hour");
-
   const { data: manydayData, isLoading: isManydayDataLoading } = useGetSales({
-    startDate: today.subtract(1, "month").format("YYYY-MM-DD"),
+    startDate: thisMonth.format("YYYY-MM-DD"),
     endDate: today.format("YYYY-MM-DD"),
   });
 
-  /*const { data: monthagoData, isLoading: isMonthagoDataLoading } = useGetSales({
-    startDate: today.subtract(2, "month").format("YYYY-MM-DD"),
-    endDate: today.subtract(1, "month").format("YYYY-MM-DD"),
-  });*/
+  const { data: monthagoData, isLoading: isMonthagoDataLoading } =
+    useGetTotalSales({
+      startDate: thisMonth.subtract(1, "month").format("YYYY-MM-DD"),
+      endDate: today.subtract(1, "month").format("YYYY-MM-DD"),
+    });
 
   const { data: totalSales, isLoading: isTotalSalesLoading } = useGetTotalSales(
     {
@@ -36,26 +37,28 @@ const Monthly = () => {
     }
   );
 
-  const { data: onedayData, isLoading: isOnedayDataLoading } =
-    useGetOneDaySales({ date: today.format("YYYY-MM-DD") });
-
-  const { data: weekagoData, isLoading: isWeekagoDataLoading } =
-    useGetOneDaySales({
-      date: today.subtract(1, "month").format("YYYY-MM-DD"),
-      endHour: thisHour,
-    });
-
-  const isDataLoading = isOnedayDataLoading || isWeekagoDataLoading;
+  const isDataLoading =
+    isMonthagoDataLoading || isTotalSalesLoading || isManydayDataLoading;
 
   const [isSortedMenuLoading, setisSortedMenuLoading] = useState(true);
   const [sortedMenu, sortMenu] = useSortMenu(
-    onedayData?.sales_data ?? [],
-    weekagoData?.sales_data ?? []
+    totalSales?.sales_data ?? [],
+    monthagoData?.sales_data ?? []
   );
 
-  void isSortedMenuLoading, sortedMenu;
+  const [monthCompareData, setMonthCompareData] = useState<string[]>([]);
+  const [isMonthCompareDataLoading, setIsMonthCompareDataLoading] =
+    useState(true);
+
   useEffect(() => {
     if (!isDataLoading) {
+      setMonthCompareData(
+        getPercentAndColor(
+          monthagoData!.total_revenue,
+          totalSales!.total_revenue
+        )
+      );
+      setIsMonthCompareDataLoading(false);
       sortMenu((a, b) =>
         b.compareCount != a.compareCount
           ? b.compareCount - a.compareCount
@@ -65,48 +68,100 @@ const Monthly = () => {
     }
   }, [isDataLoading]);
 
+  type Week = 0 | 1 | 2 | 3 | 4 | 5 | 6;
+  type WeekData = {
+    [key in Week]?: {
+      total_revenue: number;
+      count: number;
+    };
+  };
+  const WeekTable = [
+    "일요일",
+    "월요일",
+    "화요일",
+    "수요일",
+    "목요일",
+    "금요일",
+    "토요일",
+  ];
+  const [weekData, setWeekData] = useState<WeekData | undefined>();
+  const [isWeekDataLoading, setIsWeekDataLoading] = useState(true);
+
+  useEffect(() => {
+    if (!isDataLoading) {
+      const weekMap: WeekData = {};
+      manydayData!.forEach((data) => {
+        const dataDay = dayjs(data.date).day();
+        if (weekMap[dataDay]) {
+          weekMap[dataDay].count += 1;
+          weekMap[dataDay].total_revenue += data.total_revenue;
+        } else {
+          weekMap[dataDay] = {
+            count: 1,
+            total_revenue: data.total_revenue,
+          };
+        }
+      });
+      setWeekData(weekMap);
+      setIsWeekDataLoading(false);
+    }
+  }, [isDataLoading]);
+
   const [month, setMonth] = useState<string>("");
 
   useEffect(() => {
-    const makeMonth = () => {
-      const now = new Date();
-      const mm = String(now.getMonth() + 1);
-      return `${mm}월`;
-    };
-
-    setMonth(makeMonth());
-    const id = setInterval(() => setMonth(makeMonth()), 60_000);
-    return () => clearInterval(id);
+    setMonth(today.format("M월"));
   }, []);
 
   return (
-    <div className="flex flex-col gap-4 justify-center px-4 py-3">
+    <div className="flex flex-col justify-center gap-4 px-4 py-3">
       {isManydayDataLoading ? (
-        <>스켈레톤</>
+        <Skeleton height={332} />
       ) : (
         <ArticleLineGraph data={manydayData!} />
       )}
-      <div>
-        <BothsideTitle
-          label={`${month}` + " 총 매출"}
-          value={
-            isTotalSalesLoading
-              ? "스켈레톤"
-              : totalSales!.total_revenue.toLocaleString("ko-KR") + "원"
-          }
-        />
-        <BothsideText
-          label="전월 대비"
-          value={"+423,500(4.1%)"}
-          valueColor="text-red-500"
-        />
-      </div>
+      {isDataLoading || isMonthCompareDataLoading ? (
+        <Skeleton height={50} />
+      ) : (
+        <div className="flex flex-col gap-0.5">
+          <BothsideTitle
+            label={`${month}` + " 총 매출"}
+            value={totalSales!.total_revenue.toLocaleString("ko-KR") + "원"}
+          />
+          <BothsideText
+            label="전월 대비"
+            value={`${(
+              totalSales!.total_revenue - monthagoData!.total_revenue
+            ).toLocaleString("ko-KR")} (${monthCompareData[0]})`}
+            valueColor={monthCompareData[1]}
+          />
+        </div>
+      )}
       <div className="h-[1px] bg-neutral-300 w-full" />
 
       <div className="flex flex-col gap-4">
         <span className="flex items-center justify-center text-xl font-semibold ">
           요일별 평균 매출
         </span>
+        {isWeekDataLoading ? (
+          <Skeleton height={184} />
+        ) : (
+          <BarGraph
+            titleSize="xs"
+            color="monotone"
+            data={Object.entries(weekData!)
+              .sort((a, b) => +a - +b)
+              .map<BarGraphData>(([index, val]) => {
+                return {
+                  data: val.total_revenue / val.count,
+                  title: `${Math.floor(
+                    val.total_revenue / val.count / 10000
+                  )}만원`,
+                  paragraph: WeekTable[+index],
+                };
+              })}
+          ></BarGraph>
+        )}
       </div>
       <div className="h-[1px] bg-neutral-300 w-full" />
 
@@ -114,6 +169,33 @@ const Monthly = () => {
         <span className="flex items-center justify-center text-xl font-semibold ">
           주중 · 주말별 평균 매출
         </span>
+        {isWeekDataLoading ? (
+          <Skeleton height={184} />
+        ) : (
+          <BarGraph
+            titleSize="xs"
+            color="monotone"
+            data={Object.entries({
+              주말:
+                (weekData![0]!.total_revenue / weekData![0]!.count +
+                  weekData![6]!.total_revenue / weekData![6]!.count) /
+                2,
+              주중:
+                (weekData![1]!.total_revenue / weekData![1]!.count +
+                  weekData![2]!.total_revenue / weekData![2]!.count +
+                  weekData![3]!.total_revenue / weekData![3]!.count +
+                  weekData![4]!.total_revenue / weekData![4]!.count +
+                  weekData![5]!.total_revenue / weekData![5]!.count) /
+                5,
+            }).map<BarGraphData>(([index, val]) => {
+              return {
+                data: val,
+                title: `${Math.floor(val / 10000)}만원`,
+                paragraph: index,
+              };
+            })}
+          ></BarGraph>
+        )}
       </div>
       <div className="h-[1px] bg-neutral-300 w-full" />
 
@@ -121,11 +203,48 @@ const Monthly = () => {
         <span className="flex items-center justify-center text-xl font-semibold ">
           인기가 상승 · 하락한 메뉴
         </span>
-        <div className="flex flex-col gap-2 px-2 ">
-          <LessSales label="수제 자몽티" value="- 4개 (2개)" />
-          <LessSales label="찹쌀모찌(1개)" value="- 5개 (1개)" />
-          <LessSales label="찹쌀모찌(1개)" value="- 5개 (1개)" />
-        </div>
+        {isSortedMenuLoading ? (
+          <Skeleton height={184} />
+        ) : (
+          <div className="flex flex-col gap-2 px-2 ">
+            <MoreSales
+              label={sortedMenu[0].name}
+              value={`${sortedMenu[0].compareCount >= 0 ? "+" : ""}${
+                sortedMenu[0].compareCount
+              }개  (${sortedMenu[0].totalCount}개)`}
+            ></MoreSales>
+            <MoreSales
+              label={sortedMenu[1].name}
+              value={`${sortedMenu[1].compareCount >= 0 ? "+" : ""}${
+                sortedMenu[1].compareCount
+              }개 (${sortedMenu[1].totalCount}개)`}
+            ></MoreSales>
+            <MoreSales
+              label={sortedMenu[2].name}
+              value={`${sortedMenu[2].compareCount >= 0 ? "+" : ""}${
+                sortedMenu[2].compareCount
+              }개 (${sortedMenu[2].totalCount}개)`}
+            ></MoreSales>
+            <LessSales
+              label={sortedMenu.slice(-3)[0].name}
+              value={`${sortedMenu.slice(-3)[0].compareCount >= 0 ? "+" : ""} ${
+                sortedMenu.slice(-3)[0].compareCount
+              }개 (${sortedMenu.slice(-3)[0].totalCount}개)`}
+            ></LessSales>
+            <LessSales
+              label={sortedMenu.slice(-2)[0].name}
+              value={`${sortedMenu.slice(-2)[0].compareCount >= 0 ? "+" : ""} ${
+                sortedMenu.slice(-2)[0].compareCount
+              }개 (${sortedMenu.slice(-2)[0].totalCount}개)`}
+            ></LessSales>
+            <LessSales
+              label={sortedMenu.slice(-1)[0].name}
+              value={`${sortedMenu.slice(-1)[0].compareCount >= 0 ? "+" : ""} ${
+                sortedMenu.slice(-1)[0].compareCount
+              }개 (${sortedMenu.slice(-1)[0].totalCount}개)`}
+            ></LessSales>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -164,7 +283,7 @@ const ArticleLineGraph = ({
       },
     ]);
     const step = Math.pow(10, Math.floor(Math.log10(maxVal)));
-    setLeftpad(Math.floor(Math.log10(maxVal)) * 11);
+    setLeftpad(Math.floor(Math.log10(maxVal)) * 10);
     setMax(step * Math.ceil(maxVal / step));
   }, [data, plotBy]);
 
