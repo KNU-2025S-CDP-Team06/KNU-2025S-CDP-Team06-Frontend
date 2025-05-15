@@ -9,7 +9,7 @@ const Layout = ({ children }: HTMLAttributes<HTMLDivElement>) => {
   const [isLogined, setIsLogined] = useState(false);
   useEffect(() => {
     setIsLogined(!!sessionStorage.getItem("token"));
-    if (!isLogined) {
+    if (!sessionStorage.getItem("token")) {
       if (pathname != "/" && pathname != "/login") navigate("/");
     }
   }, [pathname]);
