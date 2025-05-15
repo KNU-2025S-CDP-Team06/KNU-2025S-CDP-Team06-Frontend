@@ -35,21 +35,31 @@ const MenuList = ({ title, data, prevData, maxShownSize }: MenuListProps) => {
           stateHandler={setSortBy}
         />
       </div>
+
       <div className="overflow-hidden bg-white">
-        {sortedMenu.slice(0, maxShownSize).map((m, idx) => (
-          <MenuElement
-            key={m.name}
-            image={m.image}
-            title={m.name}
-            paragraph={`${m[sortTable[sortBy]].toLocaleString("ko-KR")}${
-              unitTable[sortBy]
-            }`}
-            className={
-              idx !== sortedMenu.length ? "border-t border-neutral-200" : ""
-            }
-            number={idx + 1}
-          />
-        ))}
+        {sortMenu.length == 0 ? (
+          <div className="flex justify-center flex-grow w-full py-4 border border-neutral-200">
+            판매 데이터가 존재하지 않습니다.
+          </div>
+        ) : (
+          sortedMenu
+            .slice(0, maxShownSize)
+            .map((m, idx) => (
+              <MenuElement
+                key={m.name}
+                image={m.image}
+                title={m.name}
+                paragraph={`${m[sortTable[sortBy]].toLocaleString("ko-KR")}${
+                  unitTable[sortBy]
+                }`}
+                className={
+                  idx !== sortedMenu.length ? "border-t border-neutral-200" : ""
+                }
+                number={idx + 1}
+              />
+            ))
+        )}
+        {}
       </div>
     </div>
   );
