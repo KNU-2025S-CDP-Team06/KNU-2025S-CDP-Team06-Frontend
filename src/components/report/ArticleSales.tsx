@@ -90,17 +90,17 @@ const ArticleSales = () => {
             <CompareText
               label="전 주 대비"
               fromData={weekagoData!.total_revenue}
-              toData={manydayData![0].total_revenue}
+              toData={manydayData!.slice(-1)[0].total_revenue}
             />
             <CompareText
               label="전 달 대비"
               fromData={monthagoData!.total_revenue}
-              toData={manydayData![0].total_revenue}
+              toData={manydayData!.slice(-1)[0].total_revenue}
             />
             <CompareText
               label="전 년 대비"
               fromData={yearagoData!.total_revenue}
-              toData={manydayData![0].total_revenue}
+              toData={manydayData!.slice(-1)[0].total_revenue}
             />
           </div>
         </div>
@@ -118,6 +118,7 @@ interface CompareTextProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const CompareText = ({ label, fromData, toData }: CompareTextProps) => {
+  console.log(fromData, toData);
   const [percent, color] = getPercentAndColor(fromData, toData);
   return (
     <div className="flex flex-col items-center flex-grow ">
