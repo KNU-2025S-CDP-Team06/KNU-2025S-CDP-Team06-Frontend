@@ -130,7 +130,7 @@ const ArticleIncreaseSale = ({
           className="flex-grow text-sm font-medium"
           image={m.image}
           title={`${m.totalCount}개`}
-          paragraph={`(${m.compareCount >= 0 ? "+" : "-"}${m.compareCount}개)`}
+          paragraph={`(${m.compareCount >= 0 ? "+" : ""}${m.compareCount}개)`}
         />
       ))}
     </div>
