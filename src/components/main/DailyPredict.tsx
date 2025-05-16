@@ -52,7 +52,7 @@ const DailyPredict = () => {
             (predictData!.xgboost_forecast + 1)) /
             10000
         )}만원`,
-        paragraph: "04-10",
+        paragraph: today.add(1, "day").format("MM-DD"),
         ispredict: true,
       });
       setBarGraphData(graphData);
