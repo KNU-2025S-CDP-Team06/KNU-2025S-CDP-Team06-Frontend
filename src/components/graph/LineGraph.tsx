@@ -98,10 +98,10 @@ const LineGraph = ({
             max: max,
             stacked: true,
           }}
-          yFormat=" >-,.0r"
+          yFormat=" ,.0f"
           curve="catmullRom"
           axisLeft={{
-            format: ">-,.0r",
+            format: ",.0f",
             tickSize: 5,
             tickPadding: 5,
             legendOffset: -40,

@@ -15,7 +15,7 @@ const Sales = () => {
   const thisHour = dayjs().get("hour");
 
   const { data: manydayData, isLoading: isManydayDataLoading } = useGetSales({
-    startDate: today.subtract(6, "days").format("YYYY-MM-DD"),
+    startDate: today.subtract(1, "month").format("YYYY-MM-DD"),
     endDate: today.format("YYYY-MM-DD"),
   });
 

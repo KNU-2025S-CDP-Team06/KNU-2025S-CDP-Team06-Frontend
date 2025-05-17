@@ -30,6 +30,9 @@ const Predict = () => {
           paragraph: `${data.date.slice(5, 10)}`,
         });
       });
+      graphData[3].data = 0;
+      graphData[3].title = "0만원";
+      graphData[3].predictData = 120;
       graphData.push({
         data:
           Math.floor(
@@ -42,7 +45,7 @@ const Predict = () => {
             (predictData!.xgboost_forecast + 1)) /
             10000
         )}만원`,
-        paragraph: "04-10",
+        paragraph: today.add(1, "day").format("MM-DD"),
         ispredict: true,
       });
       setBarGraphData(graphData);
