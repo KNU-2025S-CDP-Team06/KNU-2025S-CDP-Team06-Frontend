@@ -5,6 +5,7 @@ export type BarGraphData = {
   title?: string;
   paragraph?: string;
   ispredict?: boolean;
+  predictData?: number;
 };
 
 interface BarGrpahProps extends HTMLAttributes<HTMLDivElement> {
@@ -44,10 +45,17 @@ const BarGraph = ({
   const paragraphFontSize = `text-${paragraphSize}`;
 
   const max = data.reduce((max, cur) => {
-    return Math.max(max, cur.data);
+    return Math.max(max, cur.data, cur.predictData ?? 0);
   }, 0);
 
   const heightTable = data.map((data) => `${height * (data.data / max)}px`);
+  const predictHeightTable = data.map((data, index) =>
+    data.predictData
+      ? `calc(-${height * (data.predictData / max) + 36}px + ${
+          heightTable[index]
+        })`
+      : "-36px"
+  );
 
   return (
     <section className="p-4 rounded-2xl bg-neutral-100">
@@ -61,6 +69,17 @@ const BarGraph = ({
               {data.ispredict && (
                 <div className="py-0.5 px-2 mb-1 bg-white border rounded-full border-neutral-200 text-xs font-bold text-blue-500">
                   예상
+                </div>
+              )}
+              {data.predictData && (
+                <div
+                  style={{
+                    transform: `translateY(${predictHeightTable[index]})`,
+                  }}
+                  className="absolute flex flex-col w-16 pb-0.5 text-xs text-center border-b-2 border-blue-600 border-dashed text-neutral-600"
+                >
+                  <b className="text-blue-500">예상 </b>
+                  {data.predictData ?? 0}만원
                 </div>
               )}
               <div
