@@ -1,0 +1,34 @@
+[
+  {
+    "prophet_forecast": 664200,
+    "xgboost_forecast": 0.128
+  },
+  {
+    "prophet_forecast": 664200,
+    "xgboost_forecast": 0.128
+  },
+  {
+    "prophet_forecast": 664200,
+    "xgboost_forecast": 0.128
+  },
+  {
+    "prophet_forecast": 664200,
+    "xgboost_forecast": 0.128
+  },
+  {
+    "prophet_forecast": 970000,
+    "xgboost_forecast": 0.128
+  },
+  {
+    "prophet_forecast": 720000,
+    "xgboost_forecast": 0.128
+  },
+  {
+    "prophet_forecast": 760000,
+    "xgboost_forecast": 0.128
+  },
+  {
+    "prophet_forecast": 664200,
+    "xgboost_forecast": 0.128
+  }
+]
