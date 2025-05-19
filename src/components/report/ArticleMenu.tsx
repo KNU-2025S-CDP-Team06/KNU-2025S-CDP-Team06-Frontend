@@ -154,7 +154,7 @@ const ArticleMenuElement = ({ ...props }: MenuElementProps) => {
     >
       <div className={"flex w-12 h-12 items-center justify-center"}>
         <img
-          src={props.image}
+          src={(import.meta.env.VITE_PROXY_URL ?? "") + props.image}
           alt="메뉴 이미지"
           className="flex-shrink-0 object-cover w-12 h-12 border rounded-full border-neutral-300 "
         />

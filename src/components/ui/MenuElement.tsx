@@ -20,7 +20,7 @@ const MenuElement = ({ ...props }: MenuElementProps) => {
       </div>
       <div className={"flex w-6 h-6 items-center justify-center"}>
         <img
-          src={props.image}
+          src={(import.meta.env.VITE_PROXY_URL ?? "") + props.image}
           alt="메뉴 이미지"
           className="object-cover border rounded-full border-neutral-300 "
         />
