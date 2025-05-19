@@ -36,10 +36,16 @@ const DailyPredict = () => {
   //   endDate: "2025-04-09",
   // });
 
+  const { data: todayPredictData, isLoading: isTodayPredictDataLoading } =
+    useGetOneDayPredict(today.format("YYYY-MM-DD"));
+
+  const isDataLoading =
+    isPredictDataLoading || isManydayDataLoading || isTodayPredictDataLoading;
+
   const [barGraphData, setBarGraphData] = useState<BarGraphData[]>([]);
 
   useEffect(() => {
-    if (!isPredictDataLoading && !isManydayDataLoading) {
+    if (!isDataLoading) {
       const graphData: BarGraphData[] = [];
       manydayData!.slice(-4).forEach((data) => {
         const revenue = Math.floor(data.total_revenue / 10000);
@@ -49,6 +55,11 @@ const DailyPredict = () => {
           paragraph: `${data.date.slice(5, 10)}`,
         });
       });
+      graphData[3].predictData = Math.floor(
+        (todayPredictData!.prophet_forecast *
+          (todayPredictData!.xgboost_forecast + 1)) /
+          10000
+      );
       graphData.push({
         data:
           Math.floor(
@@ -66,25 +77,20 @@ const DailyPredict = () => {
       });
       setBarGraphData(graphData);
     }
-  }, [isPredictDataLoading, isManydayDataLoading]);
+  }, [isDataLoading]);
 
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-center">
         <Title>내일 매출 예측</Title>
       </div>
-      {isPredictDataLoading || isManydayDataLoading ? (
+      {isDataLoading ? (
         <Skeleton height={220} />
       ) : (
         <BarGraph data={barGraphData} />
       )}
       {}
-      {isManydayDataLoading || isManypredictDataLoading ? (
-        <Skeleton height={378} />
-      ) : (
-        <CompareLineGraph sales={manydayData!} predict={manypredictData!} />
-      )}
-      {isPredictDataLoading ? (
+      {isDataLoading ? (
         <Skeleton height={97} />
       ) : (
         <div className="flex flex-col gap-1 p-2">

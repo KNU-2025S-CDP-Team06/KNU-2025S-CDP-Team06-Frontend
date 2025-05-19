@@ -76,9 +76,9 @@ const BarGraph = ({
                   style={{
                     transform: `translateY(${predictHeightTable[index]})`,
                   }}
-                  className="absolute flex flex-col w-16 pb-0.5 text-xs text-center border-b-2 border-blue-600 border-dashed text-neutral-600"
+                  className="absolute flex flex-col w-fit pb-0.5 text-xs font-semibold text-center border-b-2 border-blue-600 border-dashed"
                 >
-                  <b className="text-blue-500">예상 </b>
+                  <b className="font-medium text-blue-500">오늘 예상 매출</b>
                   {data.predictData ?? 0}만원
                 </div>
               )}
