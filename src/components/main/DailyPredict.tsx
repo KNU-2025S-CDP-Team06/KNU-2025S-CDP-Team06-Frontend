@@ -7,17 +7,26 @@ import BothsideText from "@components/ui/BothsideText";
 import BothsideTitle from "@components/ui/BothsideTitle";
 import MoveButton from "@components/ui/MoveButton";
 import BarGraph, { BarGraphData } from "@components/graph/BarGraph";
+import CompareLineGraph from "@components/graph/CompareLineGraph";
 import Skeleton from "@components/ui/Skeleton";
 import { getThisDay } from "@/utils/day";
 import { useNavigate } from "react-router-dom";
+import { useGetPredicts } from "@/hooks/api/predict";
+
 const DailyPredict = () => {
   const today = getThisDay();
   const navigate = useNavigate();
 
   const { data: manydayData, isLoading: isManydayDataLoading } = useGetSales({
-    startDate: today.subtract(3, "days").format("YYYY-MM-DD"),
+    startDate: today.subtract(5, "days").format("YYYY-MM-DD"),
     endDate: today.format("YYYY-MM-DD"),
   });
+
+  const { data: manypredictData, isLoading: isManypredictDataLoading } =
+    useGetPredicts({
+      startDate: today.subtract(5, "days").format("YYYY-MM-DD"),
+      endDate: today.format("YYYY-MM-DD"),
+    });
 
   const { data: predictData, isLoading: isPredictDataLoading } =
     useGetOneDayPredict(today.add(1, "day").format("YYYY-MM-DD"));
@@ -81,7 +90,6 @@ const DailyPredict = () => {
         <BarGraph data={barGraphData} />
       )}
       {}
-
       {isDataLoading ? (
         <Skeleton height={97} />
       ) : (
