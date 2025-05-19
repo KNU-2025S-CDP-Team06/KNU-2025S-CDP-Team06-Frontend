@@ -300,15 +300,14 @@ const ArticleLineGraph = ({
             max: max,
             stacked: true,
           }}
-          yFormat=" >-,.0r"
+          yFormat=" ,.0f"
           curve="catmullRom"
           axisLeft={{
-            tickValues: Array.from({ length: 5 }, (_, i) =>
-              Math.round((max / 4) * i)
-            ),
-            format: ">-,.0r",
-            tickSize: 4,
-            tickPadding: 6,
+            format: ",.0f",
+            tickSize: 5,
+            tickPadding: 5,
+            legendOffset: -40,
+            legendPosition: "middle",
             truncateTickAt: 0,
           }}
           axisBottom={null}
