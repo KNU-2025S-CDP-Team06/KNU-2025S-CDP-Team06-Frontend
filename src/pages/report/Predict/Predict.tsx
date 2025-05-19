@@ -6,6 +6,7 @@ import BothsideTitle from "@components/ui/BothsideTitle";
 import BarGraph, { BarGraphData } from "@components/graph/BarGraph";
 import { getThisDay } from "@/utils/day";
 import Skeleton from "@components/ui/Skeleton";
+import { calcPredictRevenue } from "@/utils/predict";
 
 const Predict = () => {
   const today = getThisDay();
@@ -43,12 +44,7 @@ const Predict = () => {
           10000
       );
       graphData.push({
-        data:
-          Math.floor(
-            (predictData!.prophet_forecast *
-              (predictData!.xgboost_forecast + 1)) /
-              100000
-          ) * 10,
+        data: calcPredictRevenue(predictData!) / 10000,
         title: `${Math.floor(
           (predictData!.prophet_forecast *
             (predictData!.xgboost_forecast + 1)) /
@@ -74,6 +70,13 @@ const Predict = () => {
         <Skeleton height={97} />
       ) : (
         <div className="flex flex-col gap-1 p-2">
+          <BothsideTitle
+            label="오늘 예상 매출액"
+            value={
+              calcPredictRevenue(todayPredictData!, 1).toLocaleString("ko-KR") +
+              "원"
+            }
+          />
           <BothsideText
             label="내일 예상 매출액"
             value={predictData!.prophet_forecast.toLocaleString("ko-KR") + "원"}
@@ -94,13 +97,7 @@ const Predict = () => {
           <BothsideTitle
             label="최종 예상 매출액"
             value={
-              (
-                Math.floor(
-                  (predictData!.prophet_forecast *
-                    (predictData!.xgboost_forecast + 1)) /
-                    10
-                ) * 10
-              ).toLocaleString("ko-KR") + "원"
+              calcPredictRevenue(predictData!, 1).toLocaleString("ko-KR") + "원"
             }
           />
         </div>

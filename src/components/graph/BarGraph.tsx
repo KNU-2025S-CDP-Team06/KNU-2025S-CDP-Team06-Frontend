@@ -51,10 +51,10 @@ const BarGraph = ({
   const heightTable = data.map((data) => `${height * (data.data / max)}px`);
   const predictHeightTable = data.map((data, index) =>
     data.predictData
-      ? `calc(-${height * (data.predictData / max) + 36}px + ${
+      ? `calc(-${height * (data.predictData / max) + 2}px - 1.25rem + ${
           heightTable[index]
         })`
-      : "-36px"
+      : "-24px"
   );
 
   return (
@@ -76,10 +76,9 @@ const BarGraph = ({
                   style={{
                     transform: `translateY(${predictHeightTable[index]})`,
                   }}
-                  className="absolute flex flex-col w-fit pb-0.5 text-xs font-semibold text-center border-b-2 border-blue-600 border-dashed"
+                  className="absolute min-w-16 w-fit text-sm font-bold text-center border-b-2 text-neutral-600 border-neutral-600 border-dashed"
                 >
-                  <b className="font-medium text-blue-500">오늘 예상 매출</b>
-                  {data.predictData ?? 0}만원
+                  {data.predictData}만원
                 </div>
               )}
               <div
