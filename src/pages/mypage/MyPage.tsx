@@ -1,11 +1,16 @@
 import LoginButton from "@components/ui/LoginButton";
 import MoveButton from "@components/ui/MoveButton";
 import { useGetStoreData } from "@/hooks/api/storeData";
+import { useNavigate } from "react-router-dom";
 const Mypage = () => {
-  const id = sessionStorage.getItem("token");
-  const { data: storeData, isLoading: isStoreLoading } = useGetStoreData({
-    id: id!,
-  });
+  const { data: storeData, isLoading: isStoreLoading } = useGetStoreData();
+
+  const navigate = useNavigate();
+
+  const logoutHandler = () => {
+    sessionStorage.removeItem("token");
+    navigate("/");
+  };
 
   return (
     <main className="flex flex-col items-center ">
@@ -32,7 +37,9 @@ const Mypage = () => {
         >
           이메일 문의하기
         </MoveButton>
-        <LoginButton className="w-full">로그아웃</LoginButton>
+        <LoginButton onClick={() => logoutHandler()} className="w-full">
+          로그아웃
+        </LoginButton>
       </section>
     </main>
   );
