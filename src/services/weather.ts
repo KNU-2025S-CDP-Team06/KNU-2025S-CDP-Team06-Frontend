@@ -6,10 +6,9 @@ export type getWeatherParams = {
 };
 
 export const getWeather = async (params: getWeatherParams) => {
-  const id = sessionStorage.getItem("token");
   const response = await getRequest<Weather>(
     // "/mocks/weatherData.json", //API URL: `/weather/${id}`
-    `/weather/${id}`,
+    `/weather`,
     {
       dateTime: new Date(params.date).toISOString().slice(0, 19),
     }

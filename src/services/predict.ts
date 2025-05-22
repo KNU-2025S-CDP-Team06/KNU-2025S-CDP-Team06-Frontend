@@ -2,21 +2,22 @@ import { Predict } from "@/models/predict.model";
 import { getRequest } from "./api";
 
 import { getMockRequest } from "./mocks";
+import { PredictResponse } from "@/models/totalPredict.model";
 
 export type getOnedayPredictParams = {
   date: string;
 };
 
 export const getOnedayPredict = async (params: getOnedayPredictParams) => {
-  const id = sessionStorage.getItem("token");
-  const response = await getRequest<Predict>(
+  const response = await getRequest<PredictResponse>(
     // "/mocks/predictOnedayData.json", //API URL: `/forecast/${id}`,
-    `/forecast/${id}`,
+    `/forecast`,
     {
-      dateTime: new Date(params.date).toISOString().slice(0, 19),
+      startDate: new Date(params.date).toISOString().slice(0, 19),
+      endDate: new Date(params.date).toISOString().slice(0, 19),
     }
   );
-  return response;
+  return response.forecast_data[0];
 };
 
 export type getPredictsParams = {

@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosResponse, InternalAxiosRequestConfig } from "axios";
 
 const baseURL = import.meta.env.VITE_BACKEND_URL ?? "localhost:3000";
 
@@ -12,6 +12,24 @@ const axiosApiInstance = axios.create({
 const successHandler = <T>(response: AxiosResponse<T>) => {
   return response.data;
 };
+
+axiosApiInstance.interceptors.request.use(
+  (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
+    const token = sessionStorage.getItem("token");
+    console.log(token);
+    if (token) config.headers.Authorization = `Bearer ${token}`;
+    return config;
+  }
+);
+
+axiosApiInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response.status === 401)
+      window.location.href = `/login?redirect=${window.location.pathname}`;
+    return Promise.reject(error);
+  }
+);
 
 export const getRequest = async <T>(url: string, params?: any) => {
   return axiosApiInstance.get<T>(url, { params }).then(successHandler);
