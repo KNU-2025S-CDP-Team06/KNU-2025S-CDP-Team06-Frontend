@@ -1,11 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { getStoreData, getStoreDataParams } from "@services/storeData";
+import { getStoreData } from "@services/storeData";
 
-export const useGetStoreData = (params: getStoreDataParams) => {
-  const { id } = params;
-
+export const useGetStoreData = () => {
   return useQuery({
-    queryKey: ["store", id],
-    queryFn: () => getStoreData(params),
+    queryKey: ["store"],
+    queryFn: () => getStoreData(),
   });
 };

@@ -28,11 +28,7 @@ const ArticlePredict = () => {
   const [timeaxis, setTimeaxis] = useState<string>("");
   const [barGraphData, setBarGraphData] = useState<BarGraphData[]>([]);
 
-  const id = sessionStorage.getItem("token");
-
-  const { data: storeData, isLoading: isStoreLoading } = useGetStoreData({
-    id: id!,
-  });
+  const { data: storeData, isLoading: isStoreLoading } = useGetStoreData();
 
   const isDataLoading =
     isManydayDataLoading ||

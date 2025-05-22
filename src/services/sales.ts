@@ -10,10 +10,9 @@ export type getSalesParams = {
 };
 
 export const getSales = async (params: getSalesParams) => {
-  const id = sessionStorage.getItem("token");
   const response = await getRequest<DailySales[]>(
     // "/mocks/salesManyDayData.json", //API URL: `/sales/${id}`
-    `/sales/${id}`,
+    `/sales`,
     {
       ...params,
       startDate: new Date(params.startDate).toISOString().slice(0, 19),
@@ -30,10 +29,9 @@ export type getDailySalesParams = {
 };
 
 export const getOneDaySales = async (params: getDailySalesParams) => {
-  const id = sessionStorage.getItem("token");
   const response = await getRequest<DailySales[]>(
     // "/mocks/salesOneDayData.json", //API URL: `/sales/${id}`
-    `/sales/${id}`,
+    `/sales`,
     {
       ...params,
       startDate: new Date(params.date).toISOString().slice(0, 19),
@@ -51,10 +49,9 @@ export type getTotalSalesParams = {
 };
 
 export const getTotalSales = async (params: getTotalSalesParams) => {
-  const id = sessionStorage.getItem("token");
   const response = await getRequest<TotalSales>(
     // "/mocks/totalSalesData.json", //API URL: `/sales/total/${id}`,
-    `/sales/total/${id}`,
+    `/sales/total`,
     {
       ...params,
       startDate: new Date(params.startDate).toISOString().slice(0, 19),

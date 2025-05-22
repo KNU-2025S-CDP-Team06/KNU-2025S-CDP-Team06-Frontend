@@ -25,9 +25,7 @@ const Playground = () => {
   );
   const [barGraphData, setBarGraphData] = useState<BarGraphData[]>([]);
 
-  const { data: storeData, isLoading: isStoreLoading } = useGetStoreData({
-    id: 1,
-  });
+  const { data: storeData, isLoading: isStoreLoading } = useGetStoreData();
 
   useEffect(() => {
     if (!isPredictDataLoading && !isManydayDataLoading) {
