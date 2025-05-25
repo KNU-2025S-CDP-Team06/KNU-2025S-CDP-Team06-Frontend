@@ -16,7 +16,6 @@ const successHandler = <T>(response: AxiosResponse<T>) => {
 axiosApiInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
     const token = sessionStorage.getItem("token");
-    console.log(token);
     if (token) config.headers.Authorization = `Bearer ${token}`;
     return config;
   }
@@ -25,8 +24,11 @@ axiosApiInstance.interceptors.request.use(
 axiosApiInstance.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response.status === 401)
-      window.location.href = `/login?redirect=${window.location.pathname}`;
+    if (error.response.status === 401) {
+      if (!!sessionStorage.getItem("token"))
+        window.location.href = `/login?redirect=${window.location.pathname}`;
+      sessionStorage.removeItem("token");
+    }
     return Promise.reject(error);
   }
 );
