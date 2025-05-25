@@ -14,8 +14,8 @@ const CompareLineGraph = ({
   predict: Predict[];
 }) => {
   const { graphData, max, leftpad } = useMemo(() => {
-    const slicedSales = sales.slice(-5, -1);
-    const slicedPredicts = predict.slice(-5, -1);
+    const slicedSales = sales.slice(-8, -1);
+    const slicedPredicts = predict.slice(-8, -1);
 
     if (slicedSales.length === 0 || slicedPredicts.length === 0) {
       return { graphData: [], max: 0, leftpad: 0 };
@@ -47,8 +47,8 @@ const CompareLineGraph = ({
       {
         id: "predict",
         color: "#FB923C",
-        data: slicedPredicts.map((p, idx) => ({
-          x: fmt(slicedSales[idx].date),
+        data: slicedPredicts.map((p) => ({
+          x: fmt(p.date_time),
           y: calcPredictRevenue(p),
         })),
       },
@@ -81,8 +81,8 @@ const CompareLineGraph = ({
           }}
           axisBottom={{ tickValues: graphData[0].data.map((d) => d.x) }}
           colors={graphData.map((s) => (s as any).color)}
-          lineWidth={4}
-          pointSize={10}
+          lineWidth={3}
+          pointSize={8}
           pointColor="#ffffff"
           pointBorderWidth={3}
           pointBorderColor={{ from: "serieColor" }}
