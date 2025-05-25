@@ -7,6 +7,8 @@ import BarGraph, { BarGraphData } from "@components/graph/BarGraph";
 import { getThisDay } from "@/utils/day";
 import Skeleton from "@components/ui/Skeleton";
 import { calcPredictRevenue } from "@/utils/predict";
+import CompareLineGraph from "@components/graph/CompareLineGraph";
+import { useGetPredicts } from "@/hooks/api/predict";
 
 const Predict = () => {
   const today = getThisDay();
@@ -15,9 +17,14 @@ const Predict = () => {
     useGetOneDayPredict(today.add(1, "day").format("YYYY-MM-DD"));
 
   const { data: manydayData, isLoading: isManydayDataLoading } = useGetSales({
-    startDate: today.subtract(3, "days").format("YYYY-MM-DD"),
+    startDate: today.subtract(8, "days").format("YYYY-MM-DD"),
     endDate: today.format("YYYY-MM-DD"),
   });
+  const { data: manypredictData, isLoading: isManypredictDataLoading } =
+    useGetPredicts({
+      startDate: today.subtract(8, "days").format("YYYY-MM-DD"),
+      endDate: today.format("YYYY-MM-DD"),
+    });
 
   const { data: todayPredictData, isLoading: isTodayPredictDataLoading } =
     useGetOneDayPredict(today.format("YYYY-MM-DD"));
@@ -95,12 +102,17 @@ const Predict = () => {
           />
           <div className="h-[1px] bg-neutral-100 w-full" />
           <BothsideTitle
-            label="최종 예상 매출액"
+            label="내일 최종 예상 매출액"
             value={
               calcPredictRevenue(predictData!, 1).toLocaleString("ko-KR") + "원"
             }
           />
         </div>
+      )}
+      {isManydayDataLoading || isManypredictDataLoading ? (
+        <Skeleton height={378} />
+      ) : (
+        <CompareLineGraph sales={manydayData!} predict={manypredictData!} />
       )}
     </div>
   );
