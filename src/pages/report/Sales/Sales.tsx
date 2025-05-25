@@ -126,9 +126,6 @@ const Sales = () => {
 
   return (
     <div className="flex flex-col gap-4 px-4 py-3">
-      <div className="flex items-center justify-center">
-        <Title>실시간 매출 리포트</Title>
-      </div>
       {isManydayDataLoading ? (
         <Skeleton height={378} />
       ) : (
