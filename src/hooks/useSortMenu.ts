@@ -65,6 +65,7 @@ const useSortMenu = (
         compareCount: info.compareCount,
       })
     );
+    sortArray.sort((a, b) => b.totalCount - a.totalCount);
 
     setArray(sortArray);
   }, [data, prevData]);
