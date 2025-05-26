@@ -8,6 +8,7 @@ import useSortMenu from "@/hooks/useSortMenu";
 import { getThisDay } from "@/utils/day";
 import Skeleton from "@components/ui/Skeleton";
 import { useNavigate } from "react-router-dom";
+import MokiLogo from "@components/MokiLogo";
 
 const ArticleMenu = () => {
   const today = getThisDay();
@@ -138,12 +139,12 @@ const ArticleIncreaseSale = ({
 };
 
 interface MenuElementProps extends HTMLAttributes<HTMLDivElement> {
-  image: string;
+  image?: string;
   paragraph: string;
   title: string;
 }
 
-const ArticleMenuElement = ({ ...props }: MenuElementProps) => {
+const ArticleMenuElement = ({ image, ...props }: MenuElementProps) => {
   return (
     <div
       {...props}
@@ -153,11 +154,15 @@ const ArticleMenuElement = ({ ...props }: MenuElementProps) => {
       }
     >
       <div className={"flex w-12 h-12 items-center justify-center"}>
-        <img
-          src={(import.meta.env.VITE_PROXY_URL ?? "") + props.image}
-          alt="메뉴 이미지"
-          className="flex-shrink-0 object-cover w-12 h-12 border rounded-full border-neutral-300 "
-        />
+        {image ? (
+          <img
+            src={(import.meta.env.VITE_PROXY_URL ?? "") + image}
+            alt="메뉴 이미지"
+            className="flex-shrink-0 object-cover w-12 h-12 border rounded-full border-neutral-300 "
+          />
+        ) : (
+          <MokiLogo className="w-12 h-12  p-0.5 border rounded-full border-neutral-300" />
+        )}
       </div>
       <div className="flex items-center gap-1">
         <div className="text-sm font-medium">{props.title}</div>
