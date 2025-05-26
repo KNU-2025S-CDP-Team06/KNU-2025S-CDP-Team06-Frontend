@@ -48,8 +48,6 @@ const BarGraph = ({
     return Math.max(max, cur.data, cur.predictData ?? 0);
   }, 0);
 
-  console.log(max);
-
   const heightTable = data.map((data) => `${height * (data.data / max)}px`);
   const predictHeightTable = data.map((data) =>
     data.predictData
