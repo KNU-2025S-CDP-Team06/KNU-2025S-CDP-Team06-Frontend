@@ -87,7 +87,16 @@ const CompareLineGraph = ({
           pointBorderWidth={3}
           pointBorderColor={{ from: "serieColor" }}
           tooltip={(point) => (
-            <div className="px-2 py-1 text-xs font-bold bg-white border rounded-sm shadow-md border-neutral-300">
+            <div className="px-2 py-1 text-xs font-medium bg-white border rounded-sm shadow-md border-neutral-300">
+              <div className="flex items-center gap-1 font-bold">
+                <div
+                  style={{
+                    backgroundColor: point.point.borderColor,
+                  }}
+                  className="w-2 h-2 rounded-sm "
+                />
+                {point.point.serieId == "sales" ? "실제 매출" : "예상 매출"}
+              </div>
               ₩{point.point.data.y.toLocaleString()}
             </div>
           )}
@@ -97,7 +106,7 @@ const CompareLineGraph = ({
           animate={false}
         />
       )}
-      <div className="flex  justify-center items-center gap-8">
+      <div className="flex items-center justify-center gap-8">
         <div className="flex items-center gap-2">
           <div
             className="w-2 h-2 rounded-sm"
