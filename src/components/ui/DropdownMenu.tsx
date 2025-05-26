@@ -40,7 +40,7 @@ const DropdownMenu = ({
         }}
       />
       <div
-        className="absolute top-0 right-0 p-4 bg-white rounded-2xl"
+        className="absolute top-0 right-0 p-4 bg-white rounded-lg"
         style={{
           boxShadow: "0 0 16px #00000020",
           transition: "0.2s ease-in-out",

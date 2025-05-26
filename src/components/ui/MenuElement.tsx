@@ -1,12 +1,13 @@
 import { HTMLAttributes } from "react";
+import MokiLogo from "@components/MokiLogo";
+
 interface MenuElementProps extends HTMLAttributes<HTMLDivElement> {
   number: number;
-  image: string;
+  image?: string;
   title: string;
   paragraph: string;
 }
-
-const MenuElement = ({ ...props }: MenuElementProps) => {
+const MenuElement = ({ image, ...props }: MenuElementProps) => {
   return (
     <div
       {...props}
@@ -19,11 +20,15 @@ const MenuElement = ({ ...props }: MenuElementProps) => {
         {props.number}
       </div>
       <div className={"flex w-6 h-6 items-center justify-center"}>
-        <img
-          src={(import.meta.env.VITE_PROXY_URL ?? "") + props.image}
-          alt="메뉴 이미지"
-          className="object-cover border rounded-full border-neutral-300 "
-        />
+        {image ? (
+          <img
+            src={(import.meta.env.VITE_PROXY_URL ?? "") + image}
+            alt="메뉴 이미지"
+            className="  w-6 h-6 object-cover border rounded-full border-neutral-300"
+          />
+        ) : (
+          <MokiLogo className="w-6 h-6 p-0.5 border rounded-full border-neutral-300" />
+        )}
       </div>
 
       <div className="flex-grow overflow-hidden text-ellipsis whitespace-nowrap">

@@ -2,6 +2,7 @@ import LoginButton from "@components/ui/LoginButton";
 import MoveButton from "@components/ui/MoveButton";
 import { useGetStoreData } from "@/hooks/api/storeData";
 import { useNavigate } from "react-router-dom";
+import Skeleton from "@components/ui/Skeleton";
 const Mypage = () => {
   const { data: storeData, isLoading: isStoreLoading } = useGetStoreData();
 
@@ -16,10 +17,16 @@ const Mypage = () => {
     <main className="flex flex-col items-center ">
       <section className="flex flex-col w-full gap-4 px-4 py-3">
         <div className="text-xl font-semibold text-pretty">
-          {isStoreLoading ? <>스켈레톤</> : storeData!.name}
-          <p className="text-base font-normal text-neutral-400">
-            {isStoreLoading ? <>스켈레톤</> : storeData!.address}
-          </p>
+          {isStoreLoading ? (
+            <Skeleton height={52} />
+          ) : (
+            <div className="text-pretty">
+              <div className="text-xl font-semibold">{storeData!.name}</div>
+              <div className="text-base font-normal text-neutral-400">
+                {storeData!.address}
+              </div>
+            </div>
+          )}
         </div>
         <MoveButton
           className="w-full"

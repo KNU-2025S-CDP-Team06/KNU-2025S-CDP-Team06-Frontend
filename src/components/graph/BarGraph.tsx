@@ -48,12 +48,12 @@ const BarGraph = ({
     return Math.max(max, cur.data, cur.predictData ?? 0);
   }, 0);
 
+  console.log(max);
+
   const heightTable = data.map((data) => `${height * (data.data / max)}px`);
-  const predictHeightTable = data.map((data, index) =>
+  const predictHeightTable = data.map((data) =>
     data.predictData
-      ? `calc(-${height * (data.predictData / max) + 2}px - 1.25rem + ${
-          heightTable[index]
-        })`
+      ? `calc(${height - height * (data.predictData / max)}px + 0.125rem)`
       : "-24px"
   );
 
@@ -64,7 +64,7 @@ const BarGraph = ({
           return (
             <div
               key={index}
-              className="flex-grow flex flex-col gap-0.5 items-center w-8"
+              className="relative flex-grow flex flex-col gap-0.5 items-center w-8"
             >
               {data.ispredict && (
                 <div className="py-0.5 px-2 mb-1 bg-white border rounded-full border-neutral-200 text-xs font-bold text-blue-500">
@@ -76,15 +76,20 @@ const BarGraph = ({
                   style={{
                     transform: `translateY(${predictHeightTable[index]})`,
                   }}
-                  className="absolute min-w-16 w-fit text-sm font-bold text-center border-b-2 text-neutral-600 border-neutral-600 border-dashed"
+                  className="text-sm font-bold text-center border-b-2 border-dashed min-w-16 w-fit text-neutral-600 border-neutral-600"
                 >
                   {data.predictData}만원
                 </div>
               )}
               <div
-                style={{ height: heightTable[index] }}
-                className={`w-full rounded-lg ${colorTable[index]}`}
-              />
+                style={{ height: `${height}px` }}
+                className="flex items-end w-full"
+              >
+                <div
+                  style={{ height: heightTable[index] }}
+                  className={`w-full rounded-lg ${colorTable[index]}`}
+                />
+              </div>
               <h1 className={`${titleFontSize} font-medium`}>{data.title}</h1>
               <p className={`${paragraphFontSize} font-normal`}>
                 {data.paragraph}

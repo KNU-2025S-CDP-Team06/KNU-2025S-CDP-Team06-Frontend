@@ -103,7 +103,7 @@ const ArticlePredict = () => {
 
   return (
     <ArticleThumbnail
-      title="내일 예상 매출 리포트"
+      title="매출 예측 리포트"
       onClick={() => {
         navigate("/report/predict");
       }}

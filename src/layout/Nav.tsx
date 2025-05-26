@@ -29,7 +29,9 @@ const Nav = () => {
             }
           >
             <HomeIcon className="w-6 h-6" />
-            <span className="text-[10px] font-bold">메인화면</span>
+            <span className="text-[10px] font-bold whitespace-nowrap">
+              메인화면
+            </span>
           </div>
           <div
             onClick={() => {
@@ -41,7 +43,9 @@ const Nav = () => {
             }
           >
             <ReportIcon className="w-6 h-6" />
-            <span className="text-[10px] font-bold">리포트</span>
+            <span className="text-[10px] font-bold whitespace-nowrap">
+              리포트
+            </span>
           </div>
           <div
             onClick={() => {
@@ -53,7 +57,9 @@ const Nav = () => {
             }
           >
             <MyPageIcon className="w-6 h-6" />
-            <span className="text-[10px] font-bold">마이페이지</span>
+            <span className="text-[10px] font-bold whitespace-nowrap">
+              마이페이지
+            </span>
           </div>
         </nav>
       </>

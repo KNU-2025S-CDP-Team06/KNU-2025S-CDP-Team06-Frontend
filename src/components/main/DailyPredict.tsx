@@ -111,7 +111,7 @@ const DailyPredict = () => {
           />
           <div className="h-[1px] bg-neutral-100 w-full" />
           <BothsideTitle
-            label="최종 예상 매출액"
+            label="내일 최종 예상 매출액"
             value={
               (
                 Math.floor(
