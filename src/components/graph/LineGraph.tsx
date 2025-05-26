@@ -134,9 +134,14 @@ const LineGraph = ({
                 style={{ transform: "translateY(3px)" }}
                 className="px-2 py-1 text-xs font-bold bg-white border rounded-sm shadow-md border-neutral-300"
               >
-                {plotBy == "total_revenue"
-                  ? `₩${point.point.data.y.toLocaleString()}`
-                  : `${point.point.data.y.toLocaleString()}개`}
+                <h1 className="text-xs font-bold">
+                  {point.point.data.x.toString()}:
+                </h1>
+                <p className="font-medium">
+                  {plotBy == "total_revenue"
+                    ? `₩${point.point.data.y.toLocaleString()}`
+                    : `${point.point.data.y.toLocaleString()}개`}
+                </p>
               </div>
             );
           }}
