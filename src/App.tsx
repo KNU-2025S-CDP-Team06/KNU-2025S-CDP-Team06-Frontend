@@ -6,7 +6,6 @@ import Login from "@pages/login/Login";
 import Mypage from "@pages/mypage/MyPage";
 import { useEffect, useState } from "react";
 import Main from "@pages/main/Main";
-import Playground from "@pages/playground/Playground";
 import Report from "@pages/report/Report";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import dayjs from "dayjs";
@@ -34,7 +33,6 @@ const App = () => {
             <Route path="/report/menu" element={<Menu />} />
             <Route path="/report/predict" element={<Predict />} />
             <Route path="/report/monthly" element={<Monthly />} />
-            <Route path="/playground" element={<Playground />} />
           </Routes>
         </Layout>
       </BrowserRouter>
