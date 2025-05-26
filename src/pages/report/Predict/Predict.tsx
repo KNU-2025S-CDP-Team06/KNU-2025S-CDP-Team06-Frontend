@@ -109,11 +109,18 @@ const Predict = () => {
           />
         </div>
       )}
-      {isManydayDataLoading || isManypredictDataLoading ? (
-        <Skeleton height={378} />
-      ) : (
-        <CompareLineGraph sales={manydayData!} predict={manypredictData!} />
-      )}
+      <div className="h-[1px] bg-neutral-300 w-full" />
+
+      <div className="flex flex-col gap-4">
+        <span className="flex items-center justify-center text-xl font-semibold ">
+          예상 매출 비교 그래프
+        </span>
+        {isManydayDataLoading || isManypredictDataLoading ? (
+          <Skeleton height={378} />
+        ) : (
+          <CompareLineGraph sales={manydayData!} predict={manypredictData!} />
+        )}
+      </div>
     </div>
   );
 };
