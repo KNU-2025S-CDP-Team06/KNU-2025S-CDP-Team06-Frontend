@@ -20,8 +20,6 @@ export const getOnedayPredict = async (params: getOnedayPredictParams) => {
 export type getPredictsParams = {
   startDate: string;
   endDate: string;
-  startHour?: number;
-  endHour?: number;
 };
 
 export const getPredicts = async (params: getPredictsParams) => {
@@ -36,4 +34,13 @@ export const getPredicts = async (params: getPredictsParams) => {
     }
   );
   return response.forecast_data;
+};
+
+export const getPredictsTotal = async (params: getPredictsParams) => {
+  const response = await getRequest<PredictResponse>(`/forecast`, {
+    ...params,
+    startDate: new Date(params.startDate).toISOString().slice(0, 19),
+    endDate: new Date(params.endDate).toISOString().slice(0, 19),
+  });
+  return response.total_prophet_forecast;
 };

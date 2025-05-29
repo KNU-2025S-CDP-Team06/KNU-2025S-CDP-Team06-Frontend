@@ -18,3 +18,10 @@ export const useGetPredicts = (params: getPredictsParams) => {
     queryFn: () => getPredicts(params),
   });
 };
+
+export const useGetPredictsTotal = (params: getPredictsParams) => {
+  return useQuery({
+    queryKey: ["predictsTotal", params.startDate + params.endDate],
+    queryFn: () => getPredicts(params),
+  });
+};
