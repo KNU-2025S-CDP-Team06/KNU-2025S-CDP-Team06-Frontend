@@ -15,7 +15,8 @@ type UseSortMenuReturnType = [
 ];
 const useSortMenu = (
   data: Sales[],
-  prevData: Sales[] = []
+  prevData: Sales[] = [],
+  defaultSortFunc?: (a: SortedMenu, b: SortedMenu) => number
 ): UseSortMenuReturnType => {
   const [array, setArray] = useState<SortedMenu[]>([]);
 
@@ -65,6 +66,8 @@ const useSortMenu = (
         compareCount: info.compareCount,
       })
     );
+
+    if (defaultSortFunc) sortArray.sort(defaultSortFunc);
 
     setArray(sortArray);
   }, [data, prevData]);

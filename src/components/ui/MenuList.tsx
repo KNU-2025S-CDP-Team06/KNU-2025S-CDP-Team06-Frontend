@@ -12,7 +12,11 @@ interface MenuListProps {
 }
 
 const MenuList = ({ title, data, prevData, maxShownSize }: MenuListProps) => {
-  const [sortedMenu, sortMenu] = useSortMenu(data, prevData);
+  const [sortedMenu, sortMenu] = useSortMenu(
+    data,
+    prevData,
+    (a, b) => b.totalCount - a.totalCount
+  );
 
   const [sortBy, setSortBy] = useState(0);
 
