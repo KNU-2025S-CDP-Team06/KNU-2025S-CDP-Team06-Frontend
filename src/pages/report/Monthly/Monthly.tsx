@@ -90,17 +90,23 @@ const Monthly = () => {
   useEffect(() => {
     if (!isDataLoading) {
       const weekMap: WeekData = {};
+      [...Array(7).keys()].forEach((weekDay) => {
+        const day = weekDay as 0 | 1 | 2 | 3 | 4 | 5 | 6;
+        weekMap[day] = {
+          total_revenue: 0,
+          count: 0,
+        };
+      });
       manydayData!.forEach((data) => {
         const dataDay = dayjs(data.date).day();
         if (weekMap[dataDay]) {
           weekMap[dataDay].count += 1;
           weekMap[dataDay].total_revenue += data.total_revenue;
-        } else {
-          weekMap[dataDay] = {
-            count: 1,
-            total_revenue: data.total_revenue,
-          };
         }
+      });
+      [...Array(7).keys()].forEach((weekDay) => {
+        const day = weekDay as 0 | 1 | 2 | 3 | 4 | 5 | 6;
+        if (weekMap[day]!.count == 0) weekMap[day]!.count = 1;
       });
       setWeekData(weekMap);
       setIsWeekDataLoading(false);
