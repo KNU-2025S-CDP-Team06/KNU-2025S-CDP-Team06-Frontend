@@ -41,8 +41,8 @@ const Predict = () => {
       .endOf("week")
       .add(offset, "week")
       .format("YYYY-MM-DD");
-
-    return useGetTotalSales({ startDate, endDate });
+    const { data, isLoading } = useGetTotalSales({ startDate, endDate });
+    return { data, isLoading };
   });
 
   const { data: thisWeekpredictData, isLoading: isThisWeekPredictDataLoading } =
@@ -69,7 +69,8 @@ const Predict = () => {
     isTodayPredictDataLoading ||
     isThisWeekDataLoading ||
     isThisWeekPredictDataLoading ||
-    isNextWeekPredictDataLoading;
+    isNextWeekPredictDataLoading ||
+    prevWeekData.some((value) => value.isLoading);
 
   const [totalbarGraphData, setTotalbarGraphData] = useState<BarGraphData[]>(
     []
