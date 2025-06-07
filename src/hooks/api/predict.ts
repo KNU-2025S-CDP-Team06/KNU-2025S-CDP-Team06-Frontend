@@ -2,6 +2,7 @@ import {
   getOnedayPredict,
   getPredicts,
   getPredictsParams,
+  getPredictsTotal,
 } from "@services/predict";
 import { useQuery } from "@tanstack/react-query";
 
@@ -22,6 +23,6 @@ export const useGetPredicts = (params: getPredictsParams) => {
 export const useGetPredictsTotal = (params: getPredictsParams) => {
   return useQuery({
     queryKey: ["predictsTotal", params.startDate + params.endDate],
-    queryFn: () => getPredicts(params),
+    queryFn: () => getPredictsTotal(params),
   });
 };

@@ -1,18 +1,15 @@
 import { useEffect, useState } from "react";
 import Title from "@components/ui/Title";
-import { useGetSales } from "@/hooks/api/sales";
-import { useGetOneDayPredict } from "@/hooks/api/predict";
-// import MenuList from "@components/ui/MenuList";
+import { useGetSales, useGetTotalSales } from "@/hooks/api/sales";
+import { useGetOneDayPredict, useGetPredictsTotal } from "@/hooks/api/predict";
 import BothsideText from "@components/ui/BothsideText";
 import BothsideTitle from "@components/ui/BothsideTitle";
 import MoveButton from "@components/ui/MoveButton";
 import BarGraph, { BarGraphData } from "@components/graph/BarGraph";
-// import CompareLineGraph from "@components/graph/CompareLineGraph";
 import Skeleton from "@components/ui/Skeleton";
 import { getThisDay } from "@/utils/day";
 import { useNavigate } from "react-router-dom";
 import { calcPredictRevenue } from "@/utils/predict";
-// import { useGetPredicts } from "@/hooks/api/predict";
 
 const DailyPredict = () => {
   const today = getThisDay();
@@ -23,27 +20,64 @@ const DailyPredict = () => {
     endDate: today.format("YYYY-MM-DD"),
   });
 
-  // const { data: manypredictData, isLoading: isManypredictDataLoading } =
-  //   useGetPredicts({
-  //     startDate: today.subtract(5, "days").format("YYYY-MM-DD"),
-  //     endDate: today.format("YYYY-MM-DD"),
-  //   });
-
   const { data: predictData, isLoading: isPredictDataLoading } =
     useGetOneDayPredict(today.add(1, "day").format("YYYY-MM-DD"));
-
-  // const { data: menuList, isLoading: isMenuLoading } = useGetSales({
-  //   startDate: "2025-03-01",
-  //   endDate: "2025-04-09",
-  // });
 
   const { data: todayPredictData, isLoading: isTodayPredictDataLoading } =
     useGetOneDayPredict(today.format("YYYY-MM-DD"));
 
-  const isDataLoading =
-    isPredictDataLoading || isManydayDataLoading || isTodayPredictDataLoading;
-
   const [barGraphData, setBarGraphData] = useState<BarGraphData[]>([]);
+
+  // const weeks = [
+  //   { label: "3주 전", offset: -3 },
+  //   { label: "2주 전", offset: -2 },
+  //   { label: "1주 전", offset: -1 },
+  //   { label: "이번 주", offset: 0 },
+  //   { label: "다음 주", offset: 1 },
+  // ];
+
+  const prevWeekData = [-3, -2, -1].map((offset) => {
+    const startDate = today
+      .startOf("week")
+      .add(offset, "week")
+      .format("YYYY-MM-DD");
+    const endDate = today
+      .endOf("week")
+      .add(offset, "week")
+      .format("YYYY-MM-DD");
+
+    return useGetTotalSales({ startDate, endDate });
+  });
+
+  const { data: thisWeekpredictData, isLoading: isThisWeekPredictDataLoading } =
+    useGetPredictsTotal({
+      startDate: today.startOf("week").format("YYYY-MM-DD"),
+      endDate: today.endOf("week").format("YYYY-MM-DD"),
+    });
+
+  const { data: thisWeekData, isLoading: isThisWeekDataLoading } =
+    useGetTotalSales({
+      startDate: today.startOf("week").format("YYYY-MM-DD"),
+      endDate: today.endOf("week").format("YYYY-MM-DD"),
+    });
+
+  const { data: nextWeekpredictData, isLoading: isNextWeekPredictDataLoading } =
+    useGetPredictsTotal({
+      startDate: today.startOf("week").add(1, "week").format("YYYY-MM-DD"),
+      endDate: today.endOf("week").add(1, "week").format("YYYY-MM-DD"),
+    });
+
+  const isDataLoading =
+    isPredictDataLoading ||
+    isManydayDataLoading ||
+    isTodayPredictDataLoading ||
+    isThisWeekDataLoading ||
+    isThisWeekPredictDataLoading ||
+    isNextWeekPredictDataLoading;
+
+  const [totalbarGraphData, setTotalbarGraphData] = useState<BarGraphData[]>(
+    []
+  );
 
   useEffect(() => {
     if (!isDataLoading) {
@@ -68,6 +102,37 @@ const DailyPredict = () => {
         ispredict: true,
       });
       setBarGraphData(graphData);
+
+      const weekParagraphTable = [
+        "3주전",
+        "2주전",
+        "1주전",
+        "이번주",
+        "다음주",
+      ];
+      const weekGraphData: BarGraphData[] = [];
+      prevWeekData.forEach((query, index) => {
+        const { data } = query;
+        const revenue = Math.floor(data!.total_revenue / 10000);
+        weekGraphData.push({
+          data: revenue,
+          title: `${revenue}만원`,
+          paragraph: weekParagraphTable[index],
+        });
+      });
+      weekGraphData.push({
+        data: Math.floor(thisWeekData!.total_revenue / 10000),
+        title: `${Math.floor(thisWeekData!.total_revenue / 10000)}만원`,
+        paragraph: weekParagraphTable[3],
+        predictData: Math.floor(thisWeekpredictData! / 10000),
+      });
+      weekGraphData.push({
+        data: Math.floor(nextWeekpredictData! / 10000),
+        title: `${Math.floor(nextWeekpredictData! / 10000)}만원`,
+        paragraph: weekParagraphTable[4],
+        ispredict: true,
+      });
+      setTotalbarGraphData(weekGraphData);
     }
   }, [isDataLoading]);
 
@@ -81,7 +146,6 @@ const DailyPredict = () => {
       ) : (
         <BarGraph data={barGraphData} />
       )}
-      {}
       {isDataLoading ? (
         <Skeleton height={97} />
       ) : (
@@ -124,19 +188,32 @@ const DailyPredict = () => {
           />
         </div>
       )}
-
-      {/* <div>
-        {isMenuLoading ? (
-          <>스켈레톤</>
-        ) : (
-          <MenuList
-            title="내일 메뉴별 수요 예측"
-            data={menuList!.slice(-1)[0].sales_data}
-            prevData={menuList!.slice(-2, -1)[0].sales_data}
-            maxShownSize={5}
+      <div className="flex items-center justify-center">
+        <Title>주 · 월간 매출 예측</Title>
+      </div>
+      {isDataLoading ? (
+        <Skeleton height={220} />
+      ) : (
+        <BarGraph data={totalbarGraphData} />
+      )}
+      {isDataLoading ? (
+        <Skeleton height={76} />
+      ) : (
+        <div className="flex flex-col gap-1 p-2">
+          <BothsideTitle
+            label="이번주 예상 매출액"
+            value={thisWeekpredictData!.toLocaleString("ko-KR") + "원"}
           />
-        )}
-      </div> */}
+          <BothsideTitle
+            label="다음주 예상 매출액"
+            value={
+              calcPredictRevenue(todayPredictData!, 1).toLocaleString("ko-KR") +
+              "원"
+            }
+          />
+        </div>
+      )}
+
       <MoveButton
         onClick={() => {
           navigate("/report/predict");
