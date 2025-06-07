@@ -189,7 +189,7 @@ const DailyPredict = () => {
         </div>
       )}
       <div className="flex items-center justify-center">
-        <Title>주 · 월간 매출 예측</Title>
+        <Title>주간 매출 예측</Title>
       </div>
       {isDataLoading ? (
         <Skeleton height={220} />
